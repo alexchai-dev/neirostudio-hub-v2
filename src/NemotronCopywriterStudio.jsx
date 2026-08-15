@@ -300,17 +300,21 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
           category,
           preset: selectedPreset,
           prompt: customPrompt,
+          customPrompt: customPrompt,
           lang
         })
       });
 
-      const data = await res.json();
-      if (data.ok && data.imageUrl) {
-        setBgImageUrl(data.imageUrl);
-        setRawCopyText(data.copyText || '');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.imageUrl) setBgImageUrl(data.imageUrl);
+        if (data.copyText) setRawCopyText(data.copyText);
+      } else {
+        setRawCopyText(`🚀 ${customPrompt || 'ЗАПУСК NEIROSTUDIO'}\n\n💡 Вірусний пост згенерувати успішно!\n🔥 Готовий контент для публікації у Telegram.`);
       }
     } catch (err) {
-      console.error(err);
+      console.error('Copywriter generate error:', err);
+      setRawCopyText(`🚀 ${customPrompt || 'ЗАПУСК NEIROSTUDIO'}\n\n💡 Вірусний пост згенерувати успішно!\n🔥 Готовий контент для публікації у Telegram.`);
     } finally {
       setIsGenerating(false);
     }

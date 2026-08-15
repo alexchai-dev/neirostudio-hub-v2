@@ -559,7 +559,7 @@ export default function App() {
         </div>
 
         {/* CATEGORY FILTER TABS */}
-        <div className="flex items-center justify-center gap-2 overflow-x-auto no-scrollbar mb-8 pb-1">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-8 px-2">
           {[
             { id: 'all', label: t.catAll },
             { id: 'popular', label: t.catPopular },

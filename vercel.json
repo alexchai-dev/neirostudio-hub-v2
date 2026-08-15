@@ -1,17 +1,18 @@
 {
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/api/bot", "destination": "/api/bot.js" },
-    { "source": "/api/generate-youtube", "destination": "/api/generate-youtube.js" },
-    { "source": "/api/generate-ecommerce", "destination": "/api/generate-ecommerce.js" },
-    { "source": "/api/generate-avatar", "destination": "/api/generate-avatar.js" },
-    { "source": "/api/generate-realestate", "destination": "/api/generate-realestate.js" },
-    { "source": "/api/generate-food", "destination": "/api/generate-food.js" },
-    { "source": "/api/generate-web3", "destination": "/api/generate-web3.js" },
-    { "source": "/api/generate-tattoo", "destination": "/api/generate-tattoo.js" },
-    { "source": "/api/generate-amazon", "destination": "/api/generate-amazon.js" },
-    { "source": "/api/generate-deepseek", "destination": "/api/generate-deepseek.js" },
-    { "source": "/api/generate-copywriter", "destination": "/api/generate-copywriter.js" },
-    { "source": "/api/(.*)", "destination": "/api/$1.js" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/api/generate-youtube-cover", "destination": "/api/generate-module.js?module=youtube-cover" },
+    { "source": "/api/generate-ecommerce", "destination": "/api/generate-module.js?module=ecommerce" },
+    { "source": "/api/generate-avatar", "destination": "/api/generate-module.js?module=avatar" },
+    { "source": "/api/generate-realestate", "destination": "/api/generate-module.js?module=realestate" },
+    { "source": "/api/generate-food", "destination": "/api/generate-module.js?module=food" },
+    { "source": "/api/generate-web3", "destination": "/api/generate-module.js?module=web3" },
+    { "source": "/api/generate-tattoo", "destination": "/api/generate-module.js?module=tattoo" },
+    { "source": "/api/generate-amazon", "destination": "/api/generate-module.js?module=amazon" },
+    { "source": "/api/generate-deepseek", "destination": "/api/generate-module.js?module=deepseek" },
+    { "source": "/api/generate-copywriter", "destination": "/api/generate-module.js?module=copywriter" },
+    { "source": "/api/generate", "destination": "/api/generate-module.js?module=default" },
+    { "source": "/((?!api/.*).*)", "destination": "/index.html" }
   ]
 }

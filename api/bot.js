@@ -23,41 +23,41 @@ export default async function handler(req, res) {
         `📢 <b>Бонус за подписку:</b> Подпишитесь на наш канал и получите ещё <b>+3 ⚡ и снятие вотермарки</b>!\n\n` +
         `Нажмите кнопку ниже, чтобы сгенерировать идеальную 16:9 обложку 👇`;
 
-      let targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_youtube';
+      let targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_youtube';
       if (startParam === 'hub_ecommerce') {
-        targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_ecommerce';
+        targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_ecommerce';
       } else if (startParam === 'hub_avatar') {
-        targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_avatar';
+        targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_avatar';
       } else if (startParam === 'hub_realestate') {
-        targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_realestate';
+        targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_realestate';
       } else if (startParam === 'hub_food') {
-        targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_food';
+        targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_food';
       } else if (startParam === 'hub_web3') {
-        targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_web3';
+        targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_web3';
       } else if (startParam === 'hub_tattoo') {
-        targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_tattoo';
+        targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_tattoo';
       } else if (startParam === 'hub_amazon') {
-        targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_amazon';
+        targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_amazon';
       } else if (startParam === 'hub_deepseek') {
-        targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_deepseek';
+        targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_deepseek';
       } else if (startParam === 'hub_copywriter' || startParam === 'hub_voice') {
-        targetAppUrl = 'https://neirostudio-twa.vercel.app?start=hub_copywriter';
+        targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_copywriter';
       } else if (startParam && startParam !== 'hub_youtube') {
-        targetAppUrl = `https://neirostudio-twa.vercel.app?start=${startParam}`;
+        targetAppUrl = `https://neirostudio-hub-v2.vercel.app?start=${startParam}`;
       }
 
       const keyboard = {
         inline_keyboard: [
           [
             {
-              text: '🚀 Открыть NVIDIA Nemotron SMM Copywriter',
+              text: '🚀 Открыть NeiroStudio AI Hub',
               web_app: { url: targetAppUrl }
             }
           ],
           [
             {
               text: '⭐ Пополнить Звезды (Telegram Stars)',
-              web_app: { url: 'https://neirostudio-twa.vercel.app?tab=stars' }
+              web_app: { url: 'https://neirostudio-hub-v2.vercel.app?tab=stars' }
             }
           ]
         ]
