@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <!-- Background Dark Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b091a" />
+      <stop offset="50%" stop-color="#130f2d" />
+      <stop offset="100%" stop-color="#070510" />
+    </linearGradient>
+
+    <!-- Holographic Neon Border Gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="50%" stop-color="#d946ef" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+
+    <!-- Glowing Sparkle Fill Gradient -->
+    <linearGradient id="sparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#67e8f9" />
+      <stop offset="50%" stop-color="#f0abfc" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded box -->
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bgGrad)" stroke="url(#borderGrad)" stroke-width="4" />
+
+  <!-- Center Holographic Sparkle Icon -->
+  <g filter="url(#neonGlow)">
+    <!-- Main Big 4-point AI Star -->
+    <path d="M64 24 C64 44, 44 64, 24 64 C44 64, 64 84, 64 104 C64 84, 84 64, 104 64 C84 64, 64 44, 64 24 Z" fill="url(#sparkleGrad)" />
+    
+    <!-- Top-Right Small Sparkle -->
+    <path d="M96 28 C96 34, 90 40, 84 40 C90 40, 96 46, 96 52 C96 46, 102 40, 108 40 C102 40, 96 34, 96 28 Z" fill="#67e8f9" opacity="0.9" />
+
+    <!-- Bottom-Left Small Sparkle -->
+    <path d="M32 76 C32 82, 26 88, 20 88 C26 88, 32 94, 32 100 C32 94, 38 88, 44 88 C38 88, 32 82, 32 76 Z" fill="#f0abfc" opacity="0.9" />
+  </g>
+</svg>

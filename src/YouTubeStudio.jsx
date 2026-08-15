@@ -1,0 +1,661 @@
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  ArrowLeft,
+  Tv,
+  Sparkles,
+  Zap,
+  Globe,
+  Download,
+  CheckCircle2,
+  RefreshCw,
+  Sliders,
+  Type,
+  Flame,
+  Star,
+  ShieldCheck,
+  X,
+  Share2,
+  Copy,
+  Gift
+} from 'lucide-react';
+
+export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
+  // Language State
+  const [lang, setLang] = useState(initialLang);
+  const [isLangModalOpen, setIsLangModalOpen] = useState(false);
+
+  // Form Controls State
+  const [topicPrompt, setTopicPrompt] = useState('');
+  const [mainText, setMainText] = useState('СЕКРЕТ ИИ 2026');
+  const [subText, setSubText] = useState('$10,000 / МЕСЯЦ');
+  const [selectedStyle, setSelectedStyle] = useState('viral'); // viral | cyberpunk | business | gaming | minimal
+  const [selectedColor, setSelectedColor] = useState('yellow'); // yellow | cyan | flame | lime
+
+  // Generation & Engine State
+  const [bgImageUrl, setBgImageUrl] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isSubscribedChannel, setIsSubscribedChannel] = useState(false);
+  const [isUnlockModalOpen, setIsUnlockModalOpen] = useState(false);
+  const [userEnergy, setUserEnergy] = useState(5);
+
+  const canvasRef = useRef(null);
+
+  // Haptic feedback helper
+  const triggerHaptic = (style = 'light') => {
+    try {
+      if (window.Telegram?.WebApp?.HapticFeedback) {
+        if (style === 'heavy') window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy');
+        else if (style === 'medium') window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+        else window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+      }
+    } catch (e) {}
+  };
+
+  // Trilingual Dictionary
+  const t = {
+    ru: {
+      studioTitle: "YouTube 16:9 AI Studio",
+      studioSub: "Dual-Layer Engine • FLUX 1.0 8K + Векторный Текст",
+      backHub: "В Хаб",
+      topicLabel: "1. Описание или тема видео (Layer 1 - FLUX 1.0)",
+      topicPlaceholder: "Например: Заработок на ИИ 2026, секреты успеха...",
+      mainTextLabel: "2. Главный заголовок (Layer 2 - Векторная Кириллица с переносом)",
+      mainTextPlaceholder: "Текст на обложке (поддерживает длинные фразы)",
+      subTextLabel: "3. Подзаголовок / Плашка (Layer 2)",
+      subTextPlaceholder: "Дополнительный текст или сумма",
+      styleLabel: "4. Стиль фона и атмосферы",
+      colorLabel: "5. Цветовая гамма текста",
+      generateBtn: "Сгенерировать Dual-Layer Обложку (16:9)",
+      viralStyle: "🔥 Кликбейт",
+      cyberStyle: "🌆 Киберпанк",
+      bizStyle: "💼 Forbes Бизнес",
+      gameStyle: "🎮 Гейминг",
+      minStyle: "✨ Минимализм",
+      colYellow: "Желтый Неон",
+      colCyan: "Неоновый Циан",
+      colFlame: "Огонь & Золото",
+      colLime: "Салатовый Драйв",
+      previewHeader: "Готовая Обложка (Live Canvas Preview)",
+      downloadBtn: "Скачать Обложку 16:9 HD",
+      unlockBtn: "🎁 Снять Вотермарку & Скачать 4K",
+      modalUnlockTitle: "Growth Hack: Разблокировка HD 4K",
+      modalUnlockDesc: "Получите 3 бесплатные ⚡ генерации и скачайте обложку без вотермарки за 1 клик!",
+      subscribeDealBtn: "📢 Подписаться на наш Канал (+3 ⚡ Бесплатно)",
+      starsDealBtn: "⭐ Скачать в 4K за Telegram Stars",
+      unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
+    },
+    ua: {
+      studioTitle: "YouTube 16:9 AI Studio",
+      studioSub: "Dual-Layer Engine • FLUX 1.0 8K + Векторний Текст",
+      backHub: "До Хабу",
+      topicLabel: "1. Опис або тема відео (Layer 1 - FLUX 1.0)",
+      topicPlaceholder: "Наприклад: Заробіток на ШІ 2026, секрети успіху...",
+      mainTextLabel: "2. Головний заголовок (Layer 2 - Векторна Кирилиця з переносом)",
+      mainTextPlaceholder: "Текст на обкладинці (підтримує довгі фрази)",
+      subTextLabel: "3. Підзаголовок / Плашка (Layer 2)",
+      subTextPlaceholder: "Додатковий текст або сума",
+      styleLabel: "4. Стиль фону та атмосфери",
+      colorLabel: "5. Колірна гама тексту",
+      generateBtn: "Згенерувати Dual-Layer Обкладинку (16:9)",
+      viralStyle: "🔥 Клікбейт",
+      cyberStyle: "🌆 Кіберпанк",
+      bizStyle: "💼 Forbes Бізнес",
+      gameStyle: "🎮 Ґеймінг",
+      minStyle: "✨ Мінімалізм",
+      colYellow: "Жовтий Неон",
+      colCyan: "Неоновий Ціан",
+      colFlame: "Вогонь & Золото",
+      colLime: "Салатовий Драйв",
+      previewHeader: "Готова Обкладинка (Live Canvas Preview)",
+      downloadBtn: "Завантажити Обкладинку 16:9 HD",
+      unlockBtn: "🎁 Зняти Вотермарку & Завантажити 4K",
+      modalUnlockTitle: "Growth Hack: Розблокування HD 4K",
+      modalUnlockDesc: "Отримайте 3 безкоштовні ⚡ генерації та завантажте обкладинку без вотермарки в 1 клік!",
+      subscribeDealBtn: "📢 Підписатися на наш Канал (+3 ⚡ Безкоштовно)",
+      starsDealBtn: "⭐ Завантажити в 4K за Telegram Stars",
+      unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
+    },
+    en: {
+      studioTitle: "YouTube 16:9 AI Studio",
+      studioSub: "Dual-Layer Engine • FLUX 1.0 8K + Vector Typography",
+      backHub: "To Hub",
+      topicLabel: "1. Video Topic / Prompt (Layer 1 - FLUX 1.0)",
+      topicPlaceholder: "e.g. AI Side Hustles 2026, Tesla Cybercab review...",
+      mainTextLabel: "2. Main Headline Text (Layer 2 - Multiline Support)",
+      mainTextPlaceholder: "Main thumbnail title (supports long titles)",
+      subTextLabel: "3. Subtitle / Badge Text (Layer 2)",
+      subTextPlaceholder: "Extra text or money amount",
+      styleLabel: "4. Background Style & Vibe",
+      colorLabel: "5. Text Color Palette",
+      generateBtn: "Generate Dual-Layer Thumbnail (16:9)",
+      viralStyle: "🔥 Viral Clickbait",
+      cyberStyle: "🌆 Cyberpunk",
+      bizStyle: "💼 Forbes Business",
+      gameStyle: "🎮 Gaming Esports",
+      minStyle: "✨ Minimalist",
+      colYellow: "Neon Yellow",
+      colCyan: "Neon Cyan",
+      colFlame: "Fire & Gold",
+      colLime: "Lime Drive",
+      previewHeader: "Generated Cover (Live Canvas Preview)",
+      downloadBtn: "Download 16:9 HD Cover",
+      unlockBtn: "🎁 Remove Watermark & Get 4K",
+      modalUnlockTitle: "Growth Hack: Unlock 4K HD",
+      modalUnlockDesc: "Claim +3 free ⚡ generations & download watermark-free HD cover in 1 click!",
+      subscribeDealBtn: "📢 Subscribe to Telegram Channel (+3 ⚡ Free)",
+      starsDealBtn: "⭐ Download 4K with Telegram Stars",
+      unlockedToast: "Watermark removed! +3 ⚡ bonus added!"
+    }
+  }[lang] || t.ru;
+
+  useEffect(() => {
+    if (!bgImageUrl) {
+      handleGenerate();
+    }
+  }, []);
+
+  useEffect(() => {
+    drawDualLayerCanvas();
+  }, [bgImageUrl, mainText, subText, selectedColor, isUnlocked]);
+
+  // ---------------------------------------------------------------------------
+  // ADVANCED DUAL-LAYER CANVAS ENGINE WITH AUTO MULTILINE & DROP SHADOW
+  // ---------------------------------------------------------------------------
+  const drawDualLayerCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = 1280;
+    canvas.height = 720;
+
+    if (bgImageUrl) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = bgImageUrl;
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, 1280, 720);
+        renderLayer2Typography(ctx);
+      };
+      img.onerror = () => {
+        renderFallbackBackground(ctx);
+        renderLayer2Typography(ctx);
+      };
+    } else {
+      renderFallbackBackground(ctx);
+      renderLayer2Typography(ctx);
+    }
+  };
+
+  const renderFallbackBackground = (ctx) => {
+    const grad = ctx.createLinearGradient(0, 0, 1280, 720);
+    grad.addColorStop(0, '#090d16');
+    grad.addColorStop(0.5, '#1e1b4b');
+    grad.addColorStop(1, '#07090e');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1280, 720);
+  };
+
+  // Multiline Text Wrapping Helper
+  const wrapText = (ctx, text, maxWidth) => {
+    const words = text.toUpperCase().split(' ');
+    const lines = [];
+    let currentLine = words[0] || '';
+
+    for (let i = 1; i < words.length; i++) {
+      const word = words[i];
+      const width = ctx.measureText(currentLine + ' ' + word).width;
+      if (width < maxWidth) {
+        currentLine += ' ' + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    lines.push(currentLine);
+    return lines;
+  };
+
+  const renderLayer2Typography = (ctx) => {
+    // 1. Dark Vignette Overlay for maximum contrast on light & white backgrounds
+    const vignette = ctx.createLinearGradient(0, 0, 1280, 0);
+    vignette.addColorStop(0, 'rgba(7, 9, 14, 0.85)');
+    vignette.addColorStop(0.55, 'rgba(7, 9, 14, 0.5)');
+    vignette.addColorStop(1, 'rgba(7, 9, 14, 0.15)');
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, 1280, 720);
+
+    const colors = {
+      yellow: { primary: '#facc15', glow: 'rgba(250, 204, 21, 0.9)', badgeBg: '#eab308' },
+      cyan: { primary: '#22d3ee', glow: 'rgba(34, 211, 238, 0.9)', badgeBg: '#0891b2' },
+      flame: { primary: '#ef4444', glow: 'rgba(239, 68, 68, 0.9)', badgeBg: '#dc2626' },
+      lime: { primary: '#a3e635', glow: 'rgba(163, 230, 53, 0.9)', badgeBg: '#65a30d' }
+    }[selectedColor] || colors.yellow;
+
+    ctx.textBaseline = 'top';
+
+    let lastY = 160;
+
+    // 2. MAIN TEXT (BOLD VECTOR CYRILLIC WITH AUTO MULTILINE & DUAL STROKE)
+    if (mainText.trim()) {
+      ctx.save();
+      const fontSize = mainText.length > 35 ? 58 : mainText.length > 20 ? 68 : 78;
+      const lineHeight = fontSize + 16;
+      ctx.font = `900 ${fontSize}px "Plus Jakarta Sans", sans-serif`;
+
+      const lines = wrapText(ctx, mainText, 1050);
+      const x = 70;
+
+      lines.forEach((line, index) => {
+        const y = lastY + index * lineHeight;
+
+        // Heavy Outer Black Stroke for Light Backgrounds
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 16;
+        ctx.lineJoin = 'miter';
+        ctx.strokeText(line, x, y);
+
+        // Neon Glow Drop Shadow
+        ctx.shadowColor = colors.glow;
+        ctx.shadowBlur = 28;
+        ctx.fillStyle = colors.primary;
+        ctx.fillText(line, x, y);
+      });
+
+      lastY = lastY + lines.length * lineHeight + 15;
+      ctx.restore();
+    }
+
+    // 3. SUBTITLE BADGE BOX (LAYER 2)
+    if (subText.trim()) {
+      ctx.save();
+      const subUpper = subText.toUpperCase();
+      ctx.font = '800 38px "Plus Jakarta Sans", sans-serif';
+
+      const textWidth = ctx.measureText(subUpper).width;
+      const bx = 70;
+      const by = Math.min(lastY, 520);
+      const padX = 22;
+      const padY = 10;
+
+      ctx.fillStyle = colors.badgeBg;
+      ctx.shadowColor = 'rgba(0,0,0,0.95)';
+      ctx.shadowBlur = 18;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, textWidth + padX * 2, 52 + padY, 12);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowBlur = 0;
+      ctx.fillText(subUpper, bx + padX, by + padY - 2);
+      ctx.restore();
+    }
+
+    // 4. WATERMARK OVERLAY (IF NOT UNLOCKED)
+    if (!isUnlocked) {
+      ctx.save();
+      ctx.font = '800 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+      ctx.shadowBlur = 10;
+      ctx.fillText('NEIROSTUDIO PREVIEW • UNLOCK FOR 4K', 70, 655);
+      ctx.restore();
+    }
+  };
+
+  // Generate API Handler
+  const handleGenerate = async () => {
+    triggerHaptic('medium');
+    setIsGenerating(true);
+
+    try {
+      const res = await fetch('/api/generate-youtube-cover', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic: topicPrompt,
+          style: selectedStyle,
+          mainText,
+          subText,
+          lang
+        })
+      });
+
+      const data = await res.json();
+      if (data.ok && data.backgroundUrl) {
+        setBgImageUrl(data.backgroundUrl);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Download Canvas Image
+  const handleDownload = () => {
+    triggerHaptic('heavy');
+    if (!isUnlocked) {
+      setIsUnlockModalOpen(true);
+      return;
+    }
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = `youtube-cover-16x9-${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
+
+  // Growth Hack Channel Subscription Bonus
+  const handleClaimSubscribeBonus = () => {
+    triggerHaptic('heavy');
+    setIsSubscribedChannel(true);
+    setIsUnlocked(true);
+    setUserEnergy(userEnergy + 3);
+    setIsUnlockModalOpen(false);
+    alert(t.unlockedToast);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#07090e] text-slate-100 pb-20">
+      {/* HEADER BAR */}
+      <header className="sticky top-0 z-30 bg-[#07090e]/85 backdrop-blur-xl border-b border-slate-800/80 px-4 py-3">
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => { triggerHaptic('light'); onBackToHub(); }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all"
+            >
+              <ArrowLeft className="w-4 h-4 text-cyan-400" />
+              <span>{t.backHub}</span>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400">
+                <Tv className="w-4 h-4" />
+              </div>
+              <h1 className="font-extrabold text-base text-white tracking-tight hidden sm:block">
+                {t.studioTitle}
+              </h1>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+              <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <span>{userEnergy} ⚡</span>
+            </div>
+
+            <button
+              onClick={() => setIsLangModalOpen(true)}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold uppercase"
+            >
+              <Globe className="w-3.5 h-3.5 text-cyan-400" />
+              <span>{lang}</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* MAIN STUDIO CONTAINER */}
+      <main className="max-w-5xl mx-auto px-4 pt-6">
+
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-950/60 border border-rose-500/30 text-rose-400 text-xs font-medium mb-2">
+            <Flame className="w-3.5 h-3.5 text-rose-400" />
+            <span>Dual-Layer Engine • Auto Multiline & Drop Shadow</span>
+          </div>
+          <h2 className="text-xl sm:text-3xl font-extrabold text-white">
+            {t.studioTitle}
+          </h2>
+          <p className="text-slate-400 text-xs mt-1">
+            {t.studioSub}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          {/* LEFT COLUMN: CONTROLS & FORM (5 COLS) */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="glass-card rounded-2xl p-4 border border-slate-800 space-y-4">
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  {t.topicLabel}
+                </label>
+                <input
+                  type="text"
+                  value={topicPrompt}
+                  onChange={(e) => setTopicPrompt(e.target.value)}
+                  placeholder={t.topicPlaceholder}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  {t.mainTextLabel}
+                </label>
+                <textarea
+                  rows={2}
+                  value={mainText}
+                  onChange={(e) => setMainText(e.target.value)}
+                  placeholder={t.mainTextPlaceholder}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-bold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  {t.subTextLabel}
+                </label>
+                <input
+                  type="text"
+                  value={subText}
+                  onChange={(e) => setSubText(e.target.value)}
+                  placeholder={t.subTextPlaceholder}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-semibold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  {t.styleLabel}
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { id: 'viral', label: t.viralStyle },
+                    { id: 'cyberpunk', label: t.cyberStyle },
+                    { id: 'business', label: t.bizStyle },
+                    { id: 'minimal', label: t.minStyle }
+                  ].map((st) => (
+                    <button
+                      key={st.id}
+                      onClick={() => setSelectedStyle(st.id)}
+                      className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
+                        selectedStyle === st.id
+                          ? 'bg-rose-600/30 border-rose-500 text-rose-300'
+                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {st.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  {t.colorLabel}
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { id: 'yellow', label: t.colYellow },
+                    { id: 'cyan', label: t.colCyan },
+                    { id: 'flame', label: t.colFlame },
+                    { id: 'lime', label: t.colLime }
+                  ].map((col) => (
+                    <button
+                      key={col.id}
+                      onClick={() => setSelectedColor(col.id)}
+                      className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
+                        selectedColor === col.id
+                          ? 'bg-amber-600/30 border-amber-500 text-amber-300'
+                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {col.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                onClick={handleGenerate}
+                disabled={isGenerating}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-rose-950/50 transition-all"
+              >
+                {isGenerating ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+                <span>{t.generateBtn}</span>
+              </button>
+
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: LIVE CANVAS PREVIEW & UNLOCK (7 COLS) */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col justify-between">
+              
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-bold text-white flex items-center gap-2">
+                  <Tv className="w-4 h-4 text-rose-400" />
+                  <span>{t.previewHeader}</span>
+                </span>
+                <span className="text-[10px] bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded-full font-bold uppercase border border-rose-500/30">
+                  16:9 HD (1280x720)
+                </span>
+              </div>
+
+              <div className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xl aspect-video">
+                <canvas ref={canvasRef} className="w-full h-full object-cover" />
+                {isGenerating && (
+                  <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center text-rose-400 text-xs">
+                    <RefreshCw className="w-8 h-8 animate-spin mb-2" />
+                    <span>Синтез FLUX 1.0 + Canvas Vector Typography...</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={handleDownload}
+                  className="flex-1 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all border border-slate-700"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>{t.downloadBtn}</span>
+                </button>
+
+                {!isUnlocked && (
+                  <button
+                    onClick={() => { triggerHaptic('medium'); setIsUnlockModalOpen(true); }}
+                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-950/50"
+                  >
+                    <Gift className="w-4 h-4" />
+                    <span>{t.unlockBtn}</span>
+                  </button>
+                )}
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </main>
+
+      {/* GROWTH HACK UNLOCK MODAL */}
+      {isUnlockModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="glass-modal w-full max-w-md rounded-2xl p-5 border border-amber-500/40 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+              <div className="flex items-center gap-2 text-amber-400">
+                <Gift className="w-5 h-5 text-amber-400" />
+                <h3 className="font-bold text-white text-sm">{t.modalUnlockTitle}</h3>
+              </div>
+              <button onClick={() => setIsUnlockModalOpen(false)} className="text-slate-400 hover:text-white">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="text-center py-2">
+              <p className="text-xs text-slate-300 leading-relaxed mb-5">
+                {t.modalUnlockDesc}
+              </p>
+
+              <div className="space-y-3">
+                <button
+                  onClick={handleClaimSubscribeBonus}
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/50"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>{t.subscribeDealBtn}</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    triggerHaptic('heavy');
+                    setIsUnlocked(true);
+                    setIsUnlockModalOpen(false);
+                    alert('Telegram Stars Payment Success! HD Unlocked.');
+                  }}
+                  className="w-full py-3 px-4 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-400 font-bold text-xs flex items-center justify-center gap-2 hover:bg-slate-800"
+                >
+                  <Star className="w-4 h-4 fill-amber-400" />
+                  <span>{t.starsDealBtn}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* LANGUAGE SELECTOR MODAL */}
+      {isLangModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="glass-modal w-full max-w-sm rounded-2xl p-5 border border-slate-800 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+              <h3 className="font-bold text-white text-sm">Select Language</h3>
+              <button onClick={() => setIsLangModalOpen(false)} className="text-slate-400 hover:text-white">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              {[
+                { code: 'ru', label: 'Русский (RU)' },
+                { code: 'ua', label: 'Українська (UA)' },
+                { code: 'en', label: 'English (EN)' }
+              ].map((item) => (
+                <button
+                  key={item.code}
+                  onClick={() => { setLang(item.code); setIsLangModalOpen(false); }}
+                  className={`w-full py-2.5 px-4 rounded-xl border text-left font-semibold text-xs flex items-center justify-between transition-all ${
+                    lang === item.code
+                      ? 'bg-rose-600/20 border-rose-500 text-rose-300'
+                      : 'bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-800'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {lang === item.code && <CheckCircle2 className="w-4 h-4 text-rose-400" />}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,17 @@
+{
+  "rewrites": [
+    { "source": "/api/bot", "destination": "/api/bot.js" },
+    { "source": "/api/generate-youtube", "destination": "/api/generate-youtube.js" },
+    { "source": "/api/generate-ecommerce", "destination": "/api/generate-ecommerce.js" },
+    { "source": "/api/generate-avatar", "destination": "/api/generate-avatar.js" },
+    { "source": "/api/generate-realestate", "destination": "/api/generate-realestate.js" },
+    { "source": "/api/generate-food", "destination": "/api/generate-food.js" },
+    { "source": "/api/generate-web3", "destination": "/api/generate-web3.js" },
+    { "source": "/api/generate-tattoo", "destination": "/api/generate-tattoo.js" },
+    { "source": "/api/generate-amazon", "destination": "/api/generate-amazon.js" },
+    { "source": "/api/generate-deepseek", "destination": "/api/generate-deepseek.js" },
+    { "source": "/api/generate-copywriter", "destination": "/api/generate-copywriter.js" },
+    { "source": "/api/(.*)", "destination": "/api/$1.js" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
