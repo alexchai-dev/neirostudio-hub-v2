@@ -86,6 +86,7 @@ export default function App() {
 
   const [isLangModalOpen, setIsLangModalOpen] = useState(false);
   const [isStarsModalOpen, setIsStarsModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
 
   const handleSelectLang = (newLang) => {
@@ -649,8 +650,17 @@ export default function App() {
           })}
         </div>
 
-        <footer className="mt-16 text-center text-slate-500 text-xs py-6 border-t border-slate-800/80">
+        <footer className="mt-16 text-center text-slate-500 text-xs py-6 border-t border-slate-800/80 flex flex-col items-center gap-2">
           <p>{t.footerText}</p>
+          <div className="flex items-center justify-center gap-3 text-slate-400 text-[11px] pt-1">
+            <button onClick={() => setIsPrivacyModalOpen(true)} className="hover:text-cyan-400 underline transition-colors">
+              Privacy Policy & Terms
+            </button>
+            <span>•</span>
+            <a href="https://github.com/alexchai-dev/neirostudio-hub-v2" target="_blank" rel="noreferrer" className="hover:text-cyan-400 underline transition-colors">
+              GitHub Source
+            </a>
+          </div>
         </footer>
       </main>
 
@@ -684,6 +694,35 @@ export default function App() {
                   {lang === item.code && <CheckCircle2 className="w-4 h-4 text-cyan-400" />}
                 </button>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PRIVACY POLICY & TERMS MODAL */}
+      {isPrivacyModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="glass-modal w-full max-w-md max-h-[80vh] overflow-y-auto rounded-2xl p-5 border border-slate-800 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-4 sticky top-0 bg-slate-950/90 backdrop-blur-md z-10">
+              <h3 className="font-bold text-white text-sm">Privacy Policy & Terms of Service</h3>
+              <button onClick={() => setIsPrivacyModalOpen(false)} className="text-slate-400 hover:text-white">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="text-xs text-slate-300 space-y-3 leading-relaxed">
+              <h4 className="font-bold text-cyan-400 text-xs">1. Data Privacy & Telegram WebApp Rules</h4>
+              <p>NeiroStudio AI Hub operates in full compliance with Telegram WebApp Guidelines. We do not harvest, store, or sell user personal data, chat logs, or financial credentials.</p>
+              
+              <h4 className="font-bold text-cyan-400 text-xs">2. AI Content Generation</h4>
+              <p>Generative image models (FLUX 1.0) and LLMs (NVIDIA NIM Nemotron-70B, DeepSeek-R1) synthesize content on-demand based on user inputs. Users retain ownership of created promotional materials, covers, and copy text.</p>
+
+              <h4 className="font-bold text-cyan-400 text-xs">3. Energy & Telegram Stars Payments</h4>
+              <p>Initial free energies (5 ⚡) are granted upon registration. Additional energies purchased via Telegram Stars (⭐) are non-refundable digital utility tokens spent directly on neural inference workloads.</p>
+
+              <div className="pt-3 border-t border-slate-800 text-center text-slate-500 text-[10px]">
+                NeiroStudio AI Hub © 2026. All rights reserved.
+              </div>
             </div>
           </div>
         </div>
