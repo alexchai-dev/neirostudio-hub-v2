@@ -166,24 +166,39 @@ export default async function handler(req, res) {
     // Default Image Generation via FLUX 1.0
     let basePrompt = customPrompt || prompt || 'Futuristic luxury presentation cover';
     if (moduleType === 'youtube-cover' || moduleType === 'youtube') {
+      const engineMode = req.body.engineMode || req.body.engine || 'full3d';
+      const titleText = req.body.mainText || headline || topic || 'AI REVOLUTION 2026';
       const userTopic = (customPrompt || prompt || topic || 'Заработок на ИИ 2026').toLowerCase();
-      const userStyle = style || 'viral';
+      const userStyle = style || 'cyberpunk';
 
-      let backgroundScene = 'ultra bright luxury tech presentation studio backdrop, glowing cyan and gold neon softbox lighting, 3D holographic data screens, high contrast vibrant 8k render, no human faces';
+      if (engineMode === 'full3d') {
+        let styleDetails = 'futuristic high tech cyberpunk city night backdrop, glowing cyan and orange neon lights, 3D cyborg warrior character standing in center with glowing eyes';
+        if (userStyle === 'viral') {
+          styleDetails = 'explosive viral MrBeast style studio backdrop, glowing gold coins and 3D cash banknotes, 3D character standing in center holding gold trophy';
+        } else if (userStyle === 'business') {
+          styleDetails = 'luxury Forbes executive penthouse office with glass windows over glowing night city, 3D executive in luxury suit standing in center';
+        } else if (userStyle === 'gaming') {
+          styleDetails = 'epic esports gaming setup, glowing RGB neon lights, 3D gaming warrior in center';
+        }
 
-      if (userStyle === 'cyberpunk') {
-        backgroundScene = 'glowing cyan and magenta cyberpunk neon city skyline studio, 3D futuristic AI neural core sphere, high-tech glass dashboards, 8k render';
-      } else if (userStyle === 'business') {
-        backgroundScene = 'luxury Forbes executive penthouse office overlooking illuminated night city skyline, gold ambient lighting, glass desk, 8k photography';
-      } else if (userStyle === 'gaming') {
-        backgroundScene = 'epic esports gaming setup studio, glowing RGB neon lights, high contrast 8k render';
-      } else if (userTopic.includes('крипт') || userTopic.includes('биткоин') || userTopic.includes('crypto')) {
-        backgroundScene = '3D glowing gold Bitcoin coins stacking, holographic trading charts, luxury studio lighting, 8k render';
-      } else if (userTopic.includes('деньг') || userTopic.includes('доход') || userTopic.includes('money') || userTopic.includes('1000')) {
-        backgroundScene = 'floating 3D hundred dollar cash banknotes, glowing gold coins, financial growth chart, 8k render';
+        basePrompt = `Ultra high impact 16:9 YouTube thumbnail masterpiece wallpaper, large glowing 3D neon signboard frame with bold Cyrillic text "${titleText}", ${styleDetails}, side neon badges "YOUTUBE EXCLUSIVE", bottom high tech dashboards, cinematic softbox lighting, 8k resolution, octane render, trending on YouTube, hyper realistic 3D render`;
+      } else {
+        let backgroundScene = 'ultra bright luxury tech presentation studio backdrop, glowing cyan and gold neon softbox lighting, 3D holographic data screens, high contrast vibrant 8k render, no human faces';
+
+        if (userStyle === 'cyberpunk') {
+          backgroundScene = 'glowing cyan and magenta cyberpunk neon city skyline studio, 3D futuristic AI neural core sphere, high-tech glass dashboards, 8k render';
+        } else if (userStyle === 'business') {
+          backgroundScene = 'luxury Forbes executive penthouse office overlooking illuminated night city skyline, gold ambient lighting, glass desk, 8k photography';
+        } else if (userStyle === 'gaming') {
+          backgroundScene = 'epic esports gaming setup studio, glowing RGB neon lights, high contrast 8k render';
+        } else if (userTopic.includes('крипт') || userTopic.includes('биткоин') || userTopic.includes('crypto')) {
+          backgroundScene = '3D glowing gold Bitcoin coins stacking, holographic trading charts, luxury studio lighting, 8k render';
+        } else if (userTopic.includes('деньг') || userTopic.includes('доход') || userTopic.includes('money') || userTopic.includes('1000')) {
+          backgroundScene = 'floating 3D hundred dollar cash banknotes, glowing gold coins, financial growth chart, 8k render';
+        }
+
+        basePrompt = `Professional 16:9 YouTube thumbnail background wallpaper, ${backgroundScene}, photorealistic, octane render, 8k resolution, trending on YouTube, studio quality, crisp clean lighting, masterpiece`;
       }
-
-      basePrompt = `Professional 16:9 YouTube thumbnail background wallpaper, ${backgroundScene}, photorealistic, octane render, 8k resolution, trending on YouTube, studio quality, crisp clean lighting, masterpiece`;
     } else if (moduleType === 'tattoo') {
       basePrompt = `Pure white background stencil tattoo design of ${customPrompt || prompt || 'dragon'}, sharp clean black vector line art, pure white background #ffffff, no gradients, transfer ready`;
     } else if (moduleType === 'amazon') {

@@ -34,6 +34,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
   // Generation & Engine State
   const [bgImageUrl, setBgImageUrl] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [engineMode, setEngineMode] = useState('full3d'); // 'full3d' | 'canvas'
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [isSubscribedChannel, setIsSubscribedChannel] = useState(false);
   const [isUnlockModalOpen, setIsUnlockModalOpen] = useState(false);
@@ -160,7 +161,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
 
   useEffect(() => {
     drawDualLayerCanvas();
-  }, [bgImageUrl, mainText, subText, selectedColor, isUnlocked]);
+  }, [bgImageUrl, mainText, subText, selectedColor, isUnlocked, engineMode]);
 
   // ---------------------------------------------------------------------------
   // ADVANCED DUAL-LAYER CANVAS ENGINE WITH AUTO MULTILINE & DROP SHADOW
@@ -183,15 +184,34 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
         ctx.filter = 'brightness(1.15) contrast(1.12) saturate(1.25)';
         ctx.drawImage(img, 0, 0, 1280, 720);
         ctx.restore();
-        renderLayer2Typography(ctx);
+
+        if (engineMode === 'canvas') {
+          renderLayer2Typography(ctx);
+        } else {
+          renderWatermarkOnly(ctx);
+        }
       };
       img.onerror = () => {
         renderFallbackBackground(ctx);
-        renderLayer2Typography(ctx);
+        if (engineMode === 'canvas') renderLayer2Typography(ctx);
+        else renderWatermarkOnly(ctx);
       };
     } else {
       renderFallbackBackground(ctx);
-      renderLayer2Typography(ctx);
+      if (engineMode === 'canvas') renderLayer2Typography(ctx);
+      else renderWatermarkOnly(ctx);
+    }
+  };
+
+  const renderWatermarkOnly = (ctx) => {
+    if (!isUnlocked) {
+      ctx.save();
+      ctx.font = '800 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
+      ctx.shadowBlur = 10;
+      ctx.fillText('NEIROSTUDIO PREVIEW • UNLOCK FOR 4K', 70, 655);
+      ctx.restore();
     }
   };
 
@@ -363,6 +383,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
           style: selectedStyle,
           mainText,
           subText,
+          engineMode,
           lang
         })
       });
@@ -487,6 +508,45 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
           {/* LEFT COLUMN: CONTROLS & FORM (5 COLS) */}
           <div className="lg:col-span-5 space-y-4">
             <div className="glass-card rounded-2xl p-4 border border-slate-800 space-y-4">
+
+              {/* DUAL ENGINE MODE SELECTOR */}
+              <div className="bg-slate-900/90 border border-rose-500/30 rounded-2xl p-2.5">
+                <label className="block text-xs font-bold text-white mb-2 flex items-center justify-between">
+                  <span>Режим Генерації ШІ</span>
+                  <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-semibold border border-amber-500/30">ТОП 2026</span>
+                </label>
+                <div className="grid grid-cols-2 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800">
+                  <button
+                    type="button"
+                    onClick={() => { triggerHaptic('light'); setEngineMode('full3d'); }}
+                    className={`py-2 px-2.5 rounded-lg font-extrabold text-[11px] flex items-center justify-center gap-1.5 transition-all ${
+                      engineMode === 'full3d'
+                        ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-lg shadow-rose-500/30 ring-1 ring-rose-400'
+                        : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    }`}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
+                    <span>🚀 3D Full AI Masterpiece</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { triggerHaptic('light'); setEngineMode('canvas'); }}
+                    className={`py-2 px-2.5 rounded-lg font-extrabold text-[11px] flex items-center justify-center gap-1.5 transition-all ${
+                      engineMode === 'canvas'
+                        ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/30 ring-1 ring-cyan-400'
+                        : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    }`}
+                  >
+                    <Type className="w-3.5 h-3.5 text-cyan-300" />
+                    <span>🎨 Кастомний Текст</span>
+                  </button>
+                </div>
+                <p className="text-[10px] text-slate-400 mt-1.5 px-1 leading-tight">
+                  {engineMode === 'full3d'
+                    ? '✨ Створює єдиний 8K 3D-арт (персонаж + 3D неонова вивіска + бейджі в 1 клік)'
+                    : '✏️ Генерує 3D-фон та накладає кастомний векторний текст через Canvas'}
+                </p>
+              </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">
