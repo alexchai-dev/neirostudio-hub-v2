@@ -216,13 +216,16 @@ export default async function handler(req, res) {
     }
 
     // High-Speed Commercial Generation via Fal.ai FLUX.1 [schnell] ($0.003/gen)
-    const FAL_KEY = process.env.FAL_KEY || process.env.FAL_AI_KEY;
-    if (FAL_KEY) {
+    const rawFalKey = process.env.FAL_KEY || process.env.FAL_AI_KEY;
+    let falErrorDetails = null;
+
+    if (rawFalKey) {
+      const cleanFalKey = rawFalKey.trim();
       try {
         const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
           method: "POST",
           headers: {
-            "Authorization": `Key ${FAL_KEY}`,
+            "Authorization": cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`,
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
@@ -246,8 +249,13 @@ export default async function handler(req, res) {
               timestamp: new Date().toISOString()
             });
           }
+        } else {
+          const errBody = await falRes.text();
+          falErrorDetails = `Fal HTTP ${falRes.status}: ${errBody.slice(0, 200)}`;
+          console.log('Fal.ai API error response:', falErrorDetails);
         }
       } catch (err) {
+        falErrorDetails = `Fal Fetch Exception: ${err.message}`;
         console.log('Fal.ai FLUX Schnell API fallback triggered:', err.message);
       }
     }
@@ -261,6 +269,7 @@ export default async function handler(req, res) {
       success: true,
       imageUrl,
       seed: randomSeed,
+      falErrorDetails,
       timestamp: new Date().toISOString()
     });
 
