@@ -166,10 +166,9 @@ export default async function handler(req, res) {
     // Default Image Generation via FLUX 1.0
     let basePrompt = customPrompt || prompt || 'Futuristic luxury presentation cover';
     if (moduleType === 'youtube-cover' || moduleType === 'youtube') {
-      const titleText = req.body.mainText || headline || 'СЕКРЕТ ИИ 2026';
       const userPrompt = customPrompt || prompt || topic || 'Заработок на ИИ';
       
-      basePrompt = `Epic 3D viral YouTube thumbnail wallpaper, glowing neon yellow framed billboard banner with Cyrillic text "${titleText}", glowing futuristic 3D cyberpunk AI robot pointing finger at the title, high-tech stock trading charts on dark glass screens, 3D gold 2026 badge, ultra bright softbox studio lighting, colorful cyan and gold ambient glow, octane render, 8k resolution, MrBeast style thumbnail masterpiece`;
+      basePrompt = `Ultra bright futuristic 3D cyberpunk AI robot standing in luxury high tech studio background, glowing cyan neon laser lights, golden hour studio lighting, 3D financial charts, high contrast vibrant 8k render, octane render, trending on YouTube, masterpiece, ${userPrompt}`;
     } else if (moduleType === 'tattoo') {
       basePrompt = `Pure white background stencil tattoo design of ${customPrompt || prompt || 'dragon'}, sharp clean black vector line art, pure white background #ffffff, no gradients, transfer ready`;
     } else if (moduleType === 'amazon') {
@@ -188,7 +187,7 @@ export default async function handler(req, res) {
 
     const encodedPrompt = encodeURIComponent(basePrompt);
     const randomSeed = Math.floor(Math.random() * 999999);
-    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1280&height=720&seed=${randomSeed}&nologo=true`;
+    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1280&height=720&seed=${randomSeed}&nologo=true&model=flux&enhance=true`;
 
     return res.status(200).json({
       ok: true,
