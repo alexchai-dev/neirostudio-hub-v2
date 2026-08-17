@@ -242,44 +242,71 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
 
     let lastY = 95;
 
-    // 2. MAIN TEXT (ULTRA BOLD MRBEAST STYLE TYPOGRAPHY WITH DUAL STROKE & GRADIENT)
+    // 2. MAIN TEXT WITH GLOWING NEON 3D FRAME BILLBOARD (EXACTLY LIKE IMAGE 2)
     if (mainText.trim()) {
       ctx.save();
-      const fontSize = mainText.length > 35 ? 66 : mainText.length > 20 ? 80 : 92;
+      const fontSize = mainText.length > 35 ? 58 : mainText.length > 20 ? 72 : 86;
       const lineHeight = fontSize + 18;
       ctx.font = `900 ${fontSize}px "Plus Jakarta Sans", "Arial Black", sans-serif`;
 
-      const lines = wrapText(ctx, mainText, 1080);
-      const x = 65;
+      const lines = wrapText(ctx, mainText, 920);
+
+      // Measure max line width for frame box
+      let maxW = 0;
+      lines.forEach(l => {
+        const w = ctx.measureText(l).width;
+        if (w > maxW) maxW = w;
+      });
+
+      const framePaddingX = 35;
+      const framePaddingY = 22;
+      const fx = 55;
+      const fy = 65;
+      const fw = Math.max(maxW + framePaddingX * 2, 420);
+      const fh = lines.length * lineHeight + framePaddingY * 2 - 10;
+
+      // Draw Outer Glowing Neon Frame Box
+      ctx.shadowColor = colors.glow;
+      ctx.shadowBlur = 40;
+      ctx.strokeStyle = colors.primary;
+      ctx.lineWidth = 7;
+      ctx.fillStyle = 'rgba(7, 11, 22, 0.72)';
+      ctx.beginPath();
+      ctx.roundRect(fx, fy, fw, fh, 22);
+      ctx.fill();
+      ctx.stroke();
+
+      // Double Inner Gold/Neon Border
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.roundRect(fx + 7, fy + 7, fw - 14, fh - 14, 16);
+      ctx.stroke();
+
+      // Draw Main Text inside the Frame
+      const textX = fx + framePaddingX;
+      const textY = fy + framePaddingY;
 
       lines.forEach((line, index) => {
-        const y = lastY + index * lineHeight;
+        const y = textY + index * lineHeight;
 
-        // Heavy Outer Black 3D Shadow Line
         ctx.strokeStyle = '#000000';
-        ctx.lineWidth = 26;
+        ctx.lineWidth = 18;
         ctx.lineJoin = 'round';
-        ctx.lineCap = 'round';
-        ctx.strokeText(line, x, y);
+        ctx.strokeText(line, textX, y);
 
-        // Second Inner Stroke for Sharp Edges
-        ctx.strokeStyle = '#050811';
-        ctx.lineWidth = 14;
-        ctx.strokeText(line, x, y);
-
-        // Vibrant Neon Gradient Fill
-        const textGrad = ctx.createLinearGradient(x, y, x, y + fontSize);
+        const textGrad = ctx.createLinearGradient(textX, y, textX, y + fontSize);
         textGrad.addColorStop(0, '#ffffff');
-        textGrad.addColorStop(0.3, colors.primary);
+        textGrad.addColorStop(0.35, colors.primary);
         textGrad.addColorStop(1, colors.secondary);
 
         ctx.shadowColor = colors.glow;
-        ctx.shadowBlur = 35;
+        ctx.shadowBlur = 25;
         ctx.fillStyle = textGrad;
-        ctx.fillText(line, x, y);
+        ctx.fillText(line, textX, y);
       });
 
-      lastY = lastY + lines.length * lineHeight + 18;
+      lastY = fy + fh + 20;
       ctx.restore();
     }
 

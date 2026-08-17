@@ -166,13 +166,10 @@ export default async function handler(req, res) {
     // Default Image Generation via FLUX 1.0
     let basePrompt = customPrompt || prompt || 'Futuristic luxury presentation cover';
     if (moduleType === 'youtube-cover' || moduleType === 'youtube') {
-      const userPrompt = customPrompt || prompt || topic || 'Заработок на ИИ 2026';
-      let styleVibe = 'ultra high impact viral 16:9 YouTube thumbnail background, 3D render, glowing gold coins, holographic charts, luxury tech studio, cinematic softbox studio lighting, 8k resolution, trending on YouTube, MrBeast style high contrast masterpiece, vibrant neon gold and cyan glow';
-      if (style === 'cyberpunk') styleVibe = 'ultra bright glowing 3D cyberpunk tech studio, futuristic AI robot, vibrant magenta cyan and gold neon lights, 8k resolution, crisp studio lighting';
-      if (style === 'business') styleVibe = 'ultra bright luxury Forbes executive penthouse office background, 3D gold charts, gold and navy ambient softbox lighting, 8k photography, crisp clear light';
-      if (style === 'gaming') styleVibe = 'epic 3D esports gaming studio setup, glowing RGB neon lights, high contrast colorful 8k, bright room';
-      if (style === 'minimal') styleVibe = 'bright elegant 3D minimalist studio backdrop, vibrant gradient softbox lighting, 8k, ultra clean bright';
-      basePrompt = `High impact viral YouTube thumbnail artwork, ${userPrompt}, ${styleVibe}, masterwork, cinematic depth of field, trending on YouTube, highly detailed 8k artwork`;
+      const titleText = req.body.mainText || headline || 'СЕКРЕТ ИИ 2026';
+      const userPrompt = customPrompt || prompt || topic || 'Заработок на ИИ';
+      
+      basePrompt = `Epic 3D viral YouTube thumbnail wallpaper, glowing neon yellow framed billboard banner with Cyrillic text "${titleText}", glowing futuristic 3D cyberpunk AI robot pointing finger at the title, high-tech stock trading charts on dark glass screens, 3D gold 2026 badge, ultra bright softbox studio lighting, colorful cyan and gold ambient glow, octane render, 8k resolution, MrBeast style thumbnail masterpiece`;
     } else if (moduleType === 'tattoo') {
       basePrompt = `Pure white background stencil tattoo design of ${customPrompt || prompt || 'dragon'}, sharp clean black vector line art, pure white background #ffffff, no gradients, transfer ready`;
     } else if (moduleType === 'amazon') {
