@@ -167,12 +167,12 @@ export default async function handler(req, res) {
     let basePrompt = customPrompt || prompt || 'Futuristic luxury presentation cover';
     if (moduleType === 'youtube-cover' || moduleType === 'youtube') {
       const userPrompt = customPrompt || prompt || topic || 'Заработок на ИИ 2026';
-      let styleVibe = 'bright vibrant high-contrast viral YouTube thumbnail background, ultra bright softbox studio lights, colorful cyan gold neon glow, golden hour studio reflections, 8k render, no dark shadows, hyper realistic studio backdrop';
-      if (style === 'cyberpunk') styleVibe = 'bright glowing cyberpunk studio, vibrant magenta cyan and gold neon lights, 8k resolution, crisp bright lighting, no dark shadows';
-      if (style === 'business') styleVibe = 'ultra bright luxury Forbes executive penthouse studio, gold and bright navy ambient softbox lighting, 8k photography, crisp clear light';
-      if (style === 'gaming') styleVibe = 'bright esports gaming studio, vibrant RGB studio lighting, high contrast colorful 8k, bright room';
-      if (style === 'minimal') styleVibe = 'bright elegant minimalist studio backdrop, vibrant gradient softbox lighting, 8k, ultra clean bright';
-      basePrompt = `${userPrompt}, ${styleVibe}, masterwork, cinematic depth of field, trending on YouTube, highly detailed bright artwork`;
+      let styleVibe = 'ultra high impact viral 16:9 YouTube thumbnail background, 3D render, glowing gold coins, holographic charts, luxury tech studio, cinematic softbox studio lighting, 8k resolution, trending on YouTube, MrBeast style high contrast masterpiece, vibrant neon gold and cyan glow';
+      if (style === 'cyberpunk') styleVibe = 'ultra bright glowing 3D cyberpunk tech studio, futuristic AI robot, vibrant magenta cyan and gold neon lights, 8k resolution, crisp studio lighting';
+      if (style === 'business') styleVibe = 'ultra bright luxury Forbes executive penthouse office background, 3D gold charts, gold and navy ambient softbox lighting, 8k photography, crisp clear light';
+      if (style === 'gaming') styleVibe = 'epic 3D esports gaming studio setup, glowing RGB neon lights, high contrast colorful 8k, bright room';
+      if (style === 'minimal') styleVibe = 'bright elegant 3D minimalist studio backdrop, vibrant gradient softbox lighting, 8k, ultra clean bright';
+      basePrompt = `High impact viral YouTube thumbnail artwork, ${userPrompt}, ${styleVibe}, masterwork, cinematic depth of field, trending on YouTube, highly detailed 8k artwork`;
     } else if (moduleType === 'tattoo') {
       basePrompt = `Pure white background stencil tattoo design of ${customPrompt || prompt || 'dragon'}, sharp clean black vector line art, pure white background #ffffff, no gradients, transfer ready`;
     } else if (moduleType === 'amazon') {

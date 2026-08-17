@@ -232,43 +232,54 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     ctx.fillRect(0, 0, 1280, 720);
 
     const colors = {
-      yellow: { primary: '#facc15', glow: 'rgba(250, 204, 21, 0.9)', badgeBg: '#eab308' },
-      cyan: { primary: '#22d3ee', glow: 'rgba(34, 211, 238, 0.9)', badgeBg: '#0891b2' },
-      flame: { primary: '#ef4444', glow: 'rgba(239, 68, 68, 0.9)', badgeBg: '#dc2626' },
-      lime: { primary: '#a3e635', glow: 'rgba(163, 230, 53, 0.9)', badgeBg: '#65a30d' }
+      yellow: { primary: '#ffee58', secondary: '#ffd600', glow: 'rgba(255, 214, 0, 0.95)', badgeBg: '#f59e0b' },
+      cyan: { primary: '#00e5ff', secondary: '#00b0ff', glow: 'rgba(0, 229, 255, 0.95)', badgeBg: '#0284c7' },
+      flame: { primary: '#ff5252', secondary: '#ff1744', glow: 'rgba(255, 23, 68, 0.95)', badgeBg: '#dc2626' },
+      lime: { primary: '#b2ff59', secondary: '#76ff03', glow: 'rgba(118, 255, 3, 0.95)', badgeBg: '#65a30d' }
     }[selectedColor] || colors.yellow;
 
     ctx.textBaseline = 'top';
 
-    let lastY = 160;
+    let lastY = 95;
 
-    // 2. MAIN TEXT (BOLD VECTOR CYRILLIC WITH AUTO MULTILINE & DUAL STROKE)
+    // 2. MAIN TEXT (ULTRA BOLD MRBEAST STYLE TYPOGRAPHY WITH DUAL STROKE & GRADIENT)
     if (mainText.trim()) {
       ctx.save();
-      const fontSize = mainText.length > 35 ? 58 : mainText.length > 20 ? 68 : 78;
-      const lineHeight = fontSize + 16;
-      ctx.font = `900 ${fontSize}px "Plus Jakarta Sans", sans-serif`;
+      const fontSize = mainText.length > 35 ? 66 : mainText.length > 20 ? 80 : 92;
+      const lineHeight = fontSize + 18;
+      ctx.font = `900 ${fontSize}px "Plus Jakarta Sans", "Arial Black", sans-serif`;
 
-      const lines = wrapText(ctx, mainText, 1050);
-      const x = 70;
+      const lines = wrapText(ctx, mainText, 1080);
+      const x = 65;
 
       lines.forEach((line, index) => {
         const y = lastY + index * lineHeight;
 
-        // Heavy Outer Black Stroke for Light Backgrounds
+        // Heavy Outer Black 3D Shadow Line
         ctx.strokeStyle = '#000000';
-        ctx.lineWidth = 16;
-        ctx.lineJoin = 'miter';
+        ctx.lineWidth = 26;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
         ctx.strokeText(line, x, y);
 
-        // Neon Glow Drop Shadow
+        // Second Inner Stroke for Sharp Edges
+        ctx.strokeStyle = '#050811';
+        ctx.lineWidth = 14;
+        ctx.strokeText(line, x, y);
+
+        // Vibrant Neon Gradient Fill
+        const textGrad = ctx.createLinearGradient(x, y, x, y + fontSize);
+        textGrad.addColorStop(0, '#ffffff');
+        textGrad.addColorStop(0.3, colors.primary);
+        textGrad.addColorStop(1, colors.secondary);
+
         ctx.shadowColor = colors.glow;
-        ctx.shadowBlur = 28;
-        ctx.fillStyle = colors.primary;
+        ctx.shadowBlur = 35;
+        ctx.fillStyle = textGrad;
         ctx.fillText(line, x, y);
       });
 
-      lastY = lastY + lines.length * lineHeight + 15;
+      lastY = lastY + lines.length * lineHeight + 18;
       ctx.restore();
     }
 
