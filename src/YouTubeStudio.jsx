@@ -382,28 +382,57 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     }
   };
 
-  // Download Canvas Image
+  // Download Canvas Image (Mobile Telegram WebApp Compatible)
   const handleDownload = () => {
     triggerHaptic('heavy');
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     try {
-      const dataUrl = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.download = `youtube-cover-16x9-${Date.now()}.png`;
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          const dataUrl = canvas.toDataURL('image/png');
+          const win = window.open(dataUrl, '_blank');
+          if (!win && window.Telegram?.WebApp) {
+            window.Telegram.WebApp.openLink(dataUrl);
+          }
+          return;
+        }
+
+        const blobUrl = URL.createObjectURL(blob);
+        const fileName = `youtube-cover-16x9-${Date.now()}.png`;
+
+        // 1. Telegram WebApp Native Download if supported
+        if (window.Telegram?.WebApp?.downloadFile) {
+          window.Telegram.WebApp.downloadFile({
+            url: blobUrl,
+            filename: fileName
+          });
+          return;
+        }
+
+        // 2. Standard HTML5 Download anchor
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+
+        setTimeout(() => {
+          if (document.body.contains(link)) {
+            document.body.removeChild(link);
+          }
+          URL.revokeObjectURL(blobUrl);
+        }, 2000);
+      }, 'image/png', 1.0);
     } catch (e) {
       console.error(e);
-      const canvas = canvasRef.current;
-      if (canvas) {
-        const imageWin = window.open('', '_blank');
-        if (imageWin) {
-          imageWin.document.write(`<img src="${canvas.toDataURL('image/png')}" style="max-width:100%"/>`);
-        }
+      const dataUrl = canvas.toDataURL('image/png');
+      if (window.Telegram?.WebApp) {
+        window.Telegram.WebApp.openLink(dataUrl);
+      } else {
+        window.open(dataUrl, '_blank');
       }
     }
   };

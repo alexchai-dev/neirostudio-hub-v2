@@ -326,25 +326,46 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
     }
   };
 
-  // Download Handler
+  // Download Handler (Telegram Mobile WebApp Compatible)
   const handleDownload = () => {
     triggerHaptic('heavy');
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     try {
-      const dataUrl = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.download = `ecom-product-8k-${Date.now()}.png`;
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          const dataUrl = canvas.toDataURL('image/png');
+          if (window.Telegram?.WebApp) window.Telegram.WebApp.openLink(dataUrl);
+          else window.open(dataUrl, '_blank');
+          return;
+        }
+
+        const blobUrl = URL.createObjectURL(blob);
+        const fileName = `ecom-product-8k-${Date.now()}.png`;
+
+        if (window.Telegram?.WebApp?.downloadFile) {
+          window.Telegram.WebApp.downloadFile({ url: blobUrl, filename: fileName });
+          return;
+        }
+
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+
+        setTimeout(() => {
+          if (document.body.contains(link)) document.body.removeChild(link);
+          URL.revokeObjectURL(blobUrl);
+        }, 2000);
+      }, 'image/png', 1.0);
     } catch (e) {
       console.error(e);
-      if (canvasRef.current) {
-        window.open(canvasRef.current.toDataURL('image/png'), '_blank');
-      }
+      const dataUrl = canvas.toDataURL('image/png');
+      if (window.Telegram?.WebApp) window.Telegram.WebApp.openLink(dataUrl);
+      else window.open(dataUrl, '_blank');
     }
   };
 
