@@ -215,6 +215,43 @@ export default async function handler(req, res) {
       basePrompt = `3D Pixar cyberpunk mascot for Web3 crypto project ${customPrompt || prompt || 'PEPE'}, glowing neon gold coin, 8k render`;
     }
 
+    // High-Speed Commercial Generation via Fal.ai FLUX.1 [schnell] ($0.003/gen)
+    const FAL_KEY = process.env.FAL_KEY || process.env.FAL_AI_KEY;
+    if (FAL_KEY) {
+      try {
+        const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
+          method: "POST",
+          headers: {
+            "Authorization": `Key ${FAL_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            prompt: basePrompt,
+            image_size: "landscape_16_9",
+            num_inference_steps: 4,
+            enable_safety_checker: false
+          })
+        });
+
+        if (falRes.ok) {
+          const falData = await falRes.json();
+          const falUrl = falData.images?.[0]?.url;
+          if (falUrl) {
+            return res.status(200).json({
+              ok: true,
+              success: true,
+              imageUrl: falUrl,
+              backgroundUrl: falUrl,
+              engine: "fal-ai-flux-schnell",
+              timestamp: new Date().toISOString()
+            });
+          }
+        }
+      } catch (err) {
+        console.log('Fal.ai FLUX Schnell API fallback triggered:', err.message);
+      }
+    }
+
     const encodedPrompt = encodeURIComponent(basePrompt);
     const randomSeed = Math.floor(Math.random() * 999999);
     const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1280&height=720&seed=${randomSeed}&nologo=true&model=flux&enhance=true`;
