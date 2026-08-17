@@ -166,9 +166,25 @@ export default async function handler(req, res) {
     // Default Image Generation via FLUX 1.0
     let basePrompt = customPrompt || prompt || 'Futuristic luxury presentation cover';
     if (moduleType === 'youtube-cover' || moduleType === 'youtube') {
-      const userPrompt = customPrompt || prompt || topic || 'Заработок на ИИ';
+      const userTopic = (customPrompt || prompt || topic || 'Заработок на ИИ 2026').toLowerCase();
       
-      basePrompt = `Ultra bright futuristic 3D cyberpunk AI robot standing in luxury high tech studio background, glowing cyan neon laser lights, golden hour studio lighting, 3D financial charts, high contrast vibrant 8k render, octane render, trending on YouTube, masterpiece, ${userPrompt}`;
+      let topicVibe = 'futuristic glowing 3D AI neural network sphere with glowing neon nodes';
+      if (userTopic.includes('крипт') || userTopic.includes('биткоин') || userTopic.includes('crypto') || userTopic.includes('btc')) {
+        topicVibe = '3D glowing gold Bitcoin coins stacking, holographic trading stock charts';
+      } else if (userTopic.includes('деньг') || userTopic.includes('заработок') || userTopic.includes('доход') || userTopic.includes('money') || userTopic.includes('1000') || userTopic.includes('месяц')) {
+        topicVibe = 'floating 3D hundred dollar cash banknotes, glowing gold coins, financial growth chart';
+      } else if (userTopic.includes('авто') || userTopic.includes('машин') || userTopic.includes('car')) {
+        topicVibe = 'luxury supercar in modern studio spotlight';
+      } else if (userTopic.includes('бизнес') || userTopic.includes('стартап') || userTopic.includes('business')) {
+        topicVibe = 'luxury high-rise penthouse executive office overlooking illuminated night city skyline, glass desk with Macbook';
+      }
+
+      let stylePreset = 'vibrant high contrast studio softbox lighting, explosive cyan and gold neon ambient glow';
+      if (style === 'cyberpunk') stylePreset = 'glowing cyan magenta cyberpunk neon city lights, futuristic high-tech studio';
+      if (style === 'business') stylePreset = 'luxury Forbes executive penthouse, warm gold studio lights, architectural lighting';
+      if (style === 'minimal') stylePreset = 'clean elegant studio gradient backdrop, soft studio lighting, minimal 8k';
+
+      basePrompt = `Ultra high impact 16:9 YouTube thumbnail background artwork, ${topicVibe}, ${stylePreset}, main 3D subject positioned on the right side, wide clean empty space on left side for typography, 8k render, octane render, trending on YouTube, MrBeast style high contrast masterpiece`;
     } else if (moduleType === 'tattoo') {
       basePrompt = `Pure white background stencil tattoo design of ${customPrompt || prompt || 'dragon'}, sharp clean black vector line art, pure white background #ffffff, no gradients, transfer ready`;
     } else if (moduleType === 'amazon') {
