@@ -218,6 +218,7 @@ export default async function handler(req, res) {
     // High-Speed Commercial Generation via Fal.ai FLUX.1 [schnell] ($0.003/gen)
     const rawFalKey = process.env.FAL_KEY || process.env.FAL_AI_KEY;
     let falErrorDetails = null;
+    console.log('Fal.ai key present check:', Boolean(rawFalKey));
 
     if (rawFalKey) {
       const cleanFalKey = rawFalKey.trim();
