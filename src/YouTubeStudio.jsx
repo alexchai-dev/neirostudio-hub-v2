@@ -40,6 +40,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
   const [userEnergy, setUserEnergy] = useState(5);
 
   const canvasRef = useRef(null);
+  const previewRef = useRef(null);
 
   // Haptic feedback helper
   const triggerHaptic = (style = 'light') => {
@@ -324,8 +325,14 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       });
 
       const data = await res.json();
-      if (data.ok && data.backgroundUrl) {
-        setBgImageUrl(data.backgroundUrl);
+      const bgUrl = data.backgroundUrl || data.imageUrl;
+      if (data.ok && bgUrl) {
+        setBgImageUrl(bgUrl);
+        setTimeout(() => {
+          if (previewRef.current) {
+            previewRef.current.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
       }
     } catch (err) {
       console.error(err);
@@ -527,7 +534,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
           </div>
 
           {/* RIGHT COLUMN: LIVE CANVAS PREVIEW & UNLOCK (7 COLS) */}
-          <div className="lg:col-span-7 space-y-4">
+          <div ref={previewRef} className="lg:col-span-7 space-y-4">
             <div className="glass-card rounded-2xl p-4 border border-slate-800 flex flex-col justify-between">
               
               <div className="flex items-center justify-between mb-3">
