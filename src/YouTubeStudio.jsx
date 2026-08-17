@@ -526,7 +526,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                     }`}
                   >
                     <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
-                    <span>🚀 3D Full AI Masterpiece</span>
+                    <span>🚀 3D Full AI ⭐ VIP</span>
                   </button>
                   <button
                     type="button"
