@@ -33,7 +33,8 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
 
   // Generation & Engine State
   const [bgImageUrl, setBgImageUrl] = useState('');
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isSubscribedChannel, setIsSubscribedChannel] = useState(false);
   const [isUnlockModalOpen, setIsUnlockModalOpen] = useState(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
   const [savedImageSrc, setSavedImageSrc] = useState('');
