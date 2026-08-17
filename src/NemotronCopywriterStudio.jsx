@@ -287,6 +287,11 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
     }
   };
 
+  const cleanMarkdownStars = (str) => {
+    if (!str) return '';
+    return str.replace(/\*\*/g, '').replace(/\*/g, '');
+  };
+
   // Generate Handler
   const handleGenerate = async () => {
     triggerHaptic('medium');
@@ -308,7 +313,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       if (res.ok) {
         const data = await res.json();
         if (data.imageUrl) setBgImageUrl(data.imageUrl);
-        if (data.copyText) setRawCopyText(data.copyText);
+        if (data.copyText) setRawCopyText(cleanMarkdownStars(data.copyText));
       } else {
         setRawCopyText(`🚀 ${customPrompt || 'ЗАПУСК NEIROSTUDIO'}\n\n💡 Вірусний пост згенерувати успішно!\n🔥 Готовий контент для публікації у Telegram.`);
       }
@@ -329,7 +334,8 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
     }
 
     if (rawCopyText) {
-      navigator.clipboard.writeText(rawCopyText);
+      const cleaned = cleanMarkdownStars(rawCopyText);
+      navigator.clipboard.writeText(cleaned);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     }
