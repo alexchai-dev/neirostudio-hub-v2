@@ -344,17 +344,27 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
   // Download Canvas Image
   const handleDownload = () => {
     triggerHaptic('heavy');
-    if (!isUnlocked) {
-      setIsUnlockModalOpen(true);
-      return;
-    }
-
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const link = document.createElement('a');
-    link.download = `youtube-cover-16x9-${Date.now()}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+
+    try {
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `youtube-cover-16x9-${Date.now()}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (e) {
+      console.error(e);
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const imageWin = window.open('', '_blank');
+        if (imageWin) {
+          imageWin.document.write(`<img src="${canvas.toDataURL('image/png')}" style="max-width:100%"/>`);
+        }
+      }
+    }
   };
 
   // Growth Hack Channel Subscription Bonus

@@ -338,17 +338,23 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
   // Download Handler
   const handleDownload = () => {
     triggerHaptic('heavy');
-    if (!isUnlocked) {
-      setIsUnlockModalOpen(true);
-      return;
-    }
-
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const link = document.createElement('a');
-    link.download = `food-styling-8k-${Date.now()}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+
+    try {
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `food-styling-8k-${Date.now()}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (e) {
+      console.error(e);
+      if (canvasRef.current) {
+        window.open(canvasRef.current.toDataURL('image/png'), '_blank');
+      }
+    }
   };
 
   // Growth Hack Channel Subscription Bonus
