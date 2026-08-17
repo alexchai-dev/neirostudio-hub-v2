@@ -177,7 +177,10 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       img.crossOrigin = 'anonymous';
       img.src = bgImageUrl;
       img.onload = () => {
+        ctx.save();
+        ctx.filter = 'brightness(1.15) contrast(1.12) saturate(1.25)';
         ctx.drawImage(img, 0, 0, 1280, 720);
+        ctx.restore();
         renderLayer2Typography(ctx);
       };
       img.onerror = () => {
@@ -192,9 +195,9 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
 
   const renderFallbackBackground = (ctx) => {
     const grad = ctx.createLinearGradient(0, 0, 1280, 720);
-    grad.addColorStop(0, '#090d16');
-    grad.addColorStop(0.5, '#1e1b4b');
-    grad.addColorStop(1, '#07090e');
+    grad.addColorStop(0, '#0f172a');
+    grad.addColorStop(0.5, '#312e81');
+    grad.addColorStop(1, '#0284c7');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 1280, 720);
   };
@@ -220,11 +223,11 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2Typography = (ctx) => {
-    // 1. Dark Vignette Overlay for maximum contrast on light & white backgrounds
+    // 1. Subtle Text Contrast Shadow Gradient (No dark screen masking)
     const vignette = ctx.createLinearGradient(0, 0, 1280, 0);
-    vignette.addColorStop(0, 'rgba(7, 9, 14, 0.85)');
-    vignette.addColorStop(0.55, 'rgba(7, 9, 14, 0.5)');
-    vignette.addColorStop(1, 'rgba(7, 9, 14, 0.15)');
+    vignette.addColorStop(0, 'rgba(0, 0, 0, 0.4)');
+    vignette.addColorStop(0.5, 'rgba(0, 0, 0, 0.15)');
+    vignette.addColorStop(1, 'rgba(0, 0, 0, 0.0)');
     ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, 1280, 720);
 

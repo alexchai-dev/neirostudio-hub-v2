@@ -167,12 +167,12 @@ export default async function handler(req, res) {
     let basePrompt = customPrompt || prompt || 'Futuristic luxury presentation cover';
     if (moduleType === 'youtube-cover' || moduleType === 'youtube') {
       const userPrompt = customPrompt || prompt || topic || 'Заработок на ИИ 2026';
-      let styleVibe = 'vibrant high contrast viral YouTube thumbnail background, explosive neon lighting, dramatic studio glow, 8k resolution';
-      if (style === 'cyberpunk') styleVibe = 'high tech futuristic cyberpunk city night background, glowing cyan and magenta neon lights, 8k resolution';
-      if (style === 'business') styleVibe = 'luxury modern high rise executive penthouse office background, dramatic gold and navy ambient lighting, Forbes 8k';
-      if (style === 'gaming') styleVibe = 'epic esports gaming setup background, RGB neon studio lights, dark aggressive gaming atmosphere, 8k';
-      if (style === 'minimal') styleVibe = 'clean elegant dark studio background, subtle gradient lighting, 8k minimal';
-      basePrompt = `${userPrompt}, ${styleVibe}, masterwork, cinematic depth of field, trending on YouTube, highly detailed background artwork`;
+      let styleVibe = 'bright vibrant high-contrast viral YouTube thumbnail background, ultra bright softbox studio lights, colorful cyan gold neon glow, golden hour studio reflections, 8k render, no dark shadows, hyper realistic studio backdrop';
+      if (style === 'cyberpunk') styleVibe = 'bright glowing cyberpunk studio, vibrant magenta cyan and gold neon lights, 8k resolution, crisp bright lighting, no dark shadows';
+      if (style === 'business') styleVibe = 'ultra bright luxury Forbes executive penthouse studio, gold and bright navy ambient softbox lighting, 8k photography, crisp clear light';
+      if (style === 'gaming') styleVibe = 'bright esports gaming studio, vibrant RGB studio lighting, high contrast colorful 8k, bright room';
+      if (style === 'minimal') styleVibe = 'bright elegant minimalist studio backdrop, vibrant gradient softbox lighting, 8k, ultra clean bright';
+      basePrompt = `${userPrompt}, ${styleVibe}, masterwork, cinematic depth of field, trending on YouTube, highly detailed bright artwork`;
     } else if (moduleType === 'tattoo') {
       basePrompt = `Pure white background stencil tattoo design of ${customPrompt || prompt || 'dragon'}, sharp clean black vector line art, pure white background #ffffff, no gradients, transfer ready`;
     } else if (moduleType === 'amazon') {
