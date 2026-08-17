@@ -34,9 +34,9 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
   // Generation & Engine State
   const [bgImageUrl, setBgImageUrl] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [isSubscribedChannel, setIsSubscribedChannel] = useState(false);
   const [isUnlockModalOpen, setIsUnlockModalOpen] = useState(false);
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+  const [savedImageSrc, setSavedImageSrc] = useState('');
   const [userEnergy, setUserEnergy] = useState(5);
 
   const canvasRef = useRef(null);
@@ -382,57 +382,33 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     }
   };
 
-  // Download Canvas Image (Mobile Telegram WebApp Compatible)
+  // Download Canvas Image (Mobile Telegram & Web Safe)
   const handleDownload = () => {
     triggerHaptic('heavy');
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     try {
-      canvas.toBlob((blob) => {
-        if (!blob) {
-          const dataUrl = canvas.toDataURL('image/png');
-          const win = window.open(dataUrl, '_blank');
-          if (!win && window.Telegram?.WebApp) {
-            window.Telegram.WebApp.openLink(dataUrl);
-          }
-          return;
-        }
+      const dataUrl = canvas.toDataURL('image/png');
+      setSavedImageSrc(dataUrl);
+      setIsSaveModalOpen(true);
 
-        const blobUrl = URL.createObjectURL(blob);
-        const fileName = `youtube-cover-16x9-${Date.now()}.png`;
-
-        // 1. Telegram WebApp Native Download if supported
-        if (window.Telegram?.WebApp?.downloadFile) {
-          window.Telegram.WebApp.downloadFile({
-            url: blobUrl,
-            filename: fileName
-          });
-          return;
-        }
-
-        // 2. Standard HTML5 Download anchor
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.download = fileName;
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-
-        setTimeout(() => {
-          if (document.body.contains(link)) {
-            document.body.removeChild(link);
-          }
-          URL.revokeObjectURL(blobUrl);
-        }, 2000);
-      }, 'image/png', 1.0);
+      // Also attempt automatic browser download anchor
+      const proxyUrl = bgImageUrl ? `/api/download-image?url=${encodeURIComponent(bgImageUrl)}` : dataUrl;
+      const link = document.createElement('a');
+      link.href = proxyUrl;
+      link.download = `youtube-cover-16x9-${Date.now()}.png`;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => {
+        if (document.body.contains(link)) document.body.removeChild(link);
+      }, 1000);
     } catch (e) {
       console.error(e);
-      const dataUrl = canvas.toDataURL('image/png');
-      if (window.Telegram?.WebApp) {
-        window.Telegram.WebApp.openLink(dataUrl);
-      } else {
-        window.open(dataUrl, '_blank');
+      if (bgImageUrl) {
+        setSavedImageSrc(bgImageUrl);
+        setIsSaveModalOpen(true);
       }
     }
   };
@@ -739,6 +715,59 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                   {lang === item.code && <CheckCircle2 className="w-4 h-4 text-rose-400" />}
                 </button>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 📥 DIRECT SAVE & DOWNLOAD MODAL (GUARANTEED TELEGRAM MINI APP SAFE) */}
+      {isSaveModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-lg animate-fade-in">
+          <div className="bg-[#0f172a] border border-cyan-500/50 rounded-3xl p-5 max-w-lg w-full text-center relative shadow-2xl shadow-cyan-500/30">
+            <button
+              onClick={() => setIsSaveModalOpen(false)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-all"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center justify-center gap-2 text-cyan-400 mb-2 font-bold text-base">
+              <Download className="w-5 h-5 animate-bounce" />
+              <span>Збереження / Завантаження HD Обкладинки</span>
+            </div>
+
+            <p className="text-slate-300 text-xs mb-3">
+              📸 <b>Для збереження на смартфоні:</b> Натисніть та утримуйте обкладинку нижче та виберіть <b>«Зберегти у Фото»</b>:
+            </p>
+
+            {savedImageSrc && (
+              <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 mb-4 bg-black/80 p-1">
+                <img
+                  src={savedImageSrc}
+                  alt="HD Cover Preview"
+                  className="w-full h-auto object-contain max-h-[55vh] rounded-xl select-all cursor-pointer"
+                />
+              </div>
+            )}
+
+            <div className="flex flex-col gap-2">
+              <a
+                href={bgImageUrl ? `/api/download-image?url=${encodeURIComponent(bgImageUrl)}` : savedImageSrc}
+                download={`youtube-cover-16x9-${Date.now()}.png`}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2 transition-all"
+              >
+                <Download className="w-4 h-4" />
+                <span>🌐 Завантажити файл через Серверний Проксі</span>
+              </a>
+
+              <button
+                onClick={() => setIsSaveModalOpen(false)}
+                className="w-full py-2 px-4 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700"
+              >
+                Закрити
+              </button>
             </div>
           </div>
         </div>
