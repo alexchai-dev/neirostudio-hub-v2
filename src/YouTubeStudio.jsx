@@ -153,12 +153,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     }
   }[lang] || t.ru;
 
-  useEffect(() => {
-    if (!bgImageUrl) {
-      handleGenerate();
-    }
-  }, []);
-
+  // Draw Canvas on State Changes
   useEffect(() => {
     drawDualLayerCanvas();
   }, [bgImageUrl, mainText, subText, selectedColor, isUnlocked, engineMode]);
@@ -405,35 +400,67 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     }
   };
 
+  // Trigger Direct Laptop/Desktop & Mobile Download
+  const triggerLaptopDownload = () => {
+    triggerHaptic('heavy');
+    const imageSrc = savedImageSrc || bgImageUrl;
+    if (!imageSrc) return;
+
+    try {
+      if (imageSrc.startsWith('data:')) {
+        const parts = imageSrc.split(';base64,');
+        const contentType = parts[0].split(':')[1];
+        const raw = window.atob(parts[1]);
+        const uInt8Array = new Uint8Array(raw.length);
+        for (let i = 0; i < raw.length; ++i) {
+          uInt8Array[i] = raw.charCodeAt(i);
+        }
+        const blob = new Blob([uInt8Array], { type: contentType });
+        const blobUrl = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = `youtube-cover-16x9-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          if (document.body.contains(a)) document.body.removeChild(a);
+          URL.revokeObjectURL(blobUrl);
+        }, 1000);
+      } else {
+        const a = document.createElement('a');
+        a.href = `/api/download-image?url=${encodeURIComponent(imageSrc)}`;
+        a.download = `youtube-cover-16x9-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          if (document.body.contains(a)) document.body.removeChild(a);
+        }, 1000);
+      }
+    } catch (err) {
+      console.error('Laptop download error:', err);
+      window.open(imageSrc, '_blank');
+    }
+  };
+
   // Download Canvas Image (Mobile Telegram & Web Safe)
   const handleDownload = () => {
     triggerHaptic('heavy');
     const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    try {
-      const dataUrl = canvas.toDataURL('image/png');
-      setSavedImageSrc(dataUrl);
-      setIsSaveModalOpen(true);
-
-      // Also attempt automatic browser download anchor
-      const proxyUrl = bgImageUrl ? `/api/download-image?url=${encodeURIComponent(bgImageUrl)}` : dataUrl;
-      const link = document.createElement('a');
-      link.href = proxyUrl;
-      link.download = `youtube-cover-16x9-${Date.now()}.png`;
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      setTimeout(() => {
-        if (document.body.contains(link)) document.body.removeChild(link);
-      }, 1000);
-    } catch (e) {
-      console.error(e);
-      if (bgImageUrl) {
-        setSavedImageSrc(bgImageUrl);
+    if (canvas) {
+      try {
+        const dataUrl = canvas.toDataURL('image/png');
+        setSavedImageSrc(dataUrl);
+        setIsSaveModalOpen(true);
+      } catch (e) {
+        if (bgImageUrl) setSavedImageSrc(bgImageUrl);
         setIsSaveModalOpen(true);
       }
+    } else if (bgImageUrl) {
+      setSavedImageSrc(bgImageUrl);
+      setIsSaveModalOpen(true);
     }
+    setTimeout(() => triggerLaptopDownload(), 300);
   };
 
   // Growth Hack Channel Subscription Bonus
@@ -813,16 +840,13 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
             )}
 
             <div className="flex flex-col gap-2">
-              <a
-                href={bgImageUrl ? `/api/download-image?url=${encodeURIComponent(bgImageUrl)}` : savedImageSrc}
-                download={`youtube-cover-16x9-${Date.now()}.png`}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2 transition-all"
+              <button
+                onClick={triggerLaptopDownload}
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
-                <Download className="w-4 h-4" />
-                <span>🌐 Завантажити файл через Серверний Проксі</span>
-              </a>
+                <Download className="w-4 h-4 text-cyan-200" />
+                <span>🌐 Завантажити файл на ПК / Ноутбук / Смартфон</span>
+              </button>
 
               <button
                 onClick={() => setIsSaveModalOpen(false)}

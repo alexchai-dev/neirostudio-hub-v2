@@ -160,12 +160,7 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
     }
   }[lang] || t.ru;
 
-  useEffect(() => {
-    if (!bgImageUrl) {
-      handleGenerate();
-    }
-  }, []);
-
+  // Draw Canvas on State Changes
   useEffect(() => {
     drawDualLayerCanvas();
   }, [bgImageUrl, selectedBadge, badgePosition, isUnlocked]);

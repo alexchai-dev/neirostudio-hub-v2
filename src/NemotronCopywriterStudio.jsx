@@ -166,12 +166,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
     }
   }[lang] || t.ru;
 
-  useEffect(() => {
-    if (!bgImageUrl) {
-      handleGenerate();
-    }
-  }, []);
-
+  // Draw Canvas on State Changes
   useEffect(() => {
     drawDualLayerCanvas();
   }, [bgImageUrl, selectedBadge, badgePosition, isUnlocked]);

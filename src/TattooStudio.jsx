@@ -175,12 +175,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
     }
   }[lang] || t.ru;
 
-  useEffect(() => {
-    if (!bgImageUrl) {
-      handleGenerate();
-    }
-  }, []);
-
+  // Draw Canvas on State Changes
   useEffect(() => {
     drawDualLayerCanvas();
   }, [bgImageUrl, selectedBadge, placementGuide, badgePosition, isUnlocked]);

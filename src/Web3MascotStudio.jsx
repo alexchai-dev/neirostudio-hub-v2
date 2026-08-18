@@ -166,12 +166,7 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
     }
   }[lang] || t.ru;
 
-  useEffect(() => {
-    if (!bgImageUrl) {
-      handleGenerate();
-    }
-  }, []);
-
+  // Draw Canvas on State Changes
   useEffect(() => {
     drawDualLayerCanvas();
   }, [bgImageUrl, selectedBadge, badgePosition, tickerText, isUnlocked]);
