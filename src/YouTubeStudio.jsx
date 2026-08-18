@@ -838,23 +838,32 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
             </p>
 
             {savedImageSrc && (
-              <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 mb-4 bg-black/80 p-1">
+              <a
+                href={bgImageUrl ? `https://neirostudio-hub-v2.vercel.app/api/download-image?url=${encodeURIComponent(bgImageUrl)}` : savedImageSrc}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block relative rounded-2xl overflow-hidden border border-cyan-500/30 mb-4 bg-black/80 p-1 group cursor-pointer"
+                title="Клацніть щоб відкрити повний розмір"
+              >
                 <img
                   src={savedImageSrc}
                   alt="HD Cover Preview"
-                  className="w-full h-auto object-contain max-h-[55vh] rounded-xl select-all cursor-pointer"
+                  className="w-full h-auto object-contain max-h-[55vh] rounded-xl select-all"
                 />
-              </div>
+              </a>
             )}
 
             <div className="flex flex-col gap-2">
-              <button
-                onClick={triggerLaptopDownload}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2 transition-all cursor-pointer"
+              <a
+                href={bgImageUrl ? `https://neirostudio-hub-v2.vercel.app/api/download-image?url=${encodeURIComponent(bgImageUrl)}` : savedImageSrc}
+                download={`youtube-cover-16x9-${Date.now()}.png`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2 transition-all cursor-pointer select-none"
               >
                 <Download className="w-4 h-4 text-cyan-200" />
-                <span>🌐 Завантажити файл на ПК / Ноутбук / Смартфон</span>
-              </button>
+                <span>🌐 Завантажити HD Файл (Для ПК / Ноутбука / Телефона)</span>
+              </a>
 
               <button
                 onClick={() => setIsSaveModalOpen(false)}
