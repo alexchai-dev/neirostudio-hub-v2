@@ -352,12 +352,24 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
     link.click();
   };
 
-  // Growth Hack Channel Subscription Bonus
+  // Growth Hack Channel Subscription Bonus (Anti-Cheat One-Time Only)
   const handleClaimSubscribeBonus = () => {
     triggerHaptic('heavy');
+    const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || 'guest';
+    const storageKey = `neiro_sub_claimed_${tgUser}`;
+
+    if (localStorage.getItem(storageKey)) {
+      alert(lang === 'ru' ? "Вы уже получили одноразовый бонус за подписку!" : "Ви вже отримали одноразовий бонус за підписку!");
+      setIsSubscribedChannel(true);
+      setIsUnlocked(true);
+      setIsUnlockModalOpen(false);
+      return;
+    }
+
+    localStorage.setItem(storageKey, 'true');
     setIsSubscribedChannel(true);
     setIsUnlocked(true);
-    setUserEnergy(userEnergy + 3);
+    setUserEnergy(prev => prev + 3);
     setIsUnlockModalOpen(false);
 
     if (rawCopyText) {
