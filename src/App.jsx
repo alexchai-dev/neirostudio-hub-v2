@@ -88,6 +88,14 @@ export default function App() {
   const [isStarsModalOpen, setIsStarsModalOpen] = useState(false);
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
+  const [userEnergy] = useState(() => {
+    try {
+      const saved = localStorage.getItem('neiro_user_energy');
+      return saved !== null ? parseInt(saved, 10) : 5;
+    } catch {
+      return 5;
+    }
+  });
 
   const handleSelectLang = (newLang) => {
     triggerHaptic('light');
@@ -529,7 +537,7 @@ export default function App() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/30 text-amber-400 hover:border-amber-500/60 transition-all text-xs font-semibold"
             >
               <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              <span>5 / 5</span>
+              <span>{userEnergy} / 5</span>
               <span className="text-[10px] bg-amber-500/20 px-1.5 py-0.5 rounded-full text-amber-300 ml-0.5">+</span>
             </button>
 
