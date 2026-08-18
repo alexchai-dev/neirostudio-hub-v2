@@ -490,6 +490,23 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     alert(t.unlockedToast);
   };
 
+  // Viral Growth Referral Engine
+  const handleShareReferral = () => {
+    triggerHaptic('medium');
+    const tgUserId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || 'demo';
+    const refLink = `https://t.me/NeiroStudioAIBot?start=ref_${tgUserId}`;
+    const shareText = lang === 'ru'
+      ? `🔥 Генерируй 8K 3D-обложки для YouTube за 1.5 секунды прямо в Telegram! Держи 3⚡ бесплатные энергии:`
+      : `🔥 Генеруй 8K 3D-обкладинки для YouTube за 1.5 секунди прямо у Telegram! Тримай 3⚡ безкоштовні енергії:`;
+
+    if (window.Telegram?.WebApp?.openTelegramLink) {
+      window.Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(shareText)}`);
+    } else {
+      navigator.clipboard.writeText(`${shareText}\n${refLink}`);
+      alert(lang === 'ru' ? "Реферальная ссылка скопирована в буфер!" : "Реферальне посилання скопійовано у буфер!");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-100 pb-20">
       {/* HEADER BAR */}
@@ -784,6 +801,14 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                 >
                   <Star className="w-4 h-4 fill-amber-400" />
                   <span>{t.starsDealBtn}</span>
+                </button>
+
+                <button
+                  onClick={handleShareReferral}
+                  className="w-full py-3 px-4 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 font-bold text-xs flex items-center justify-center gap-2 hover:bg-cyan-900/60"
+                >
+                  <Flame className="w-4 h-4 text-cyan-400" />
+                  <span>{lang === 'ru' ? "👥 Запросить друга (+3 ⚡ Энергии)" : "👥 Запросити друга (+3 ⚡ Енергії)"}</span>
                 </button>
               </div>
             </div>
