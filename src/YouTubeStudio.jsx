@@ -400,15 +400,27 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     }
   };
 
-  // Trigger Direct Laptop/Desktop & Mobile Download
+  // Trigger Direct Laptop/Desktop & Mobile Download (Telegram Desktop Safe)
   const triggerLaptopDownload = () => {
     triggerHaptic('heavy');
     const imageSrc = savedImageSrc || bgImageUrl;
     if (!imageSrc) return;
 
+    const proxyUrl = imageSrc.startsWith('http')
+      ? `https://neirostudio-hub-v2.vercel.app/api/download-image?url=${encodeURIComponent(imageSrc)}`
+      : imageSrc;
+
+    // Telegram WebApp Native openLink (Works 100% in Telegram Desktop Client on Laptops/PCs!)
     try {
-      if (imageSrc.startsWith('data:')) {
-        const parts = imageSrc.split(';base64,');
+      if (window.Telegram?.WebApp?.openLink && proxyUrl.startsWith('http')) {
+        window.Telegram.WebApp.openLink(proxyUrl);
+        return;
+      }
+    } catch (e) {}
+
+    try {
+      if (proxyUrl.startsWith('data:')) {
+        const parts = proxyUrl.split(';base64,');
         const contentType = parts[0].split(':')[1];
         const raw = window.atob(parts[1]);
         const uInt8Array = new Uint8Array(raw.length);
@@ -428,18 +440,11 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
           URL.revokeObjectURL(blobUrl);
         }, 1000);
       } else {
-        const a = document.createElement('a');
-        a.href = `/api/download-image?url=${encodeURIComponent(imageSrc)}`;
-        a.download = `youtube-cover-16x9-${Date.now()}.png`;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => {
-          if (document.body.contains(a)) document.body.removeChild(a);
-        }, 1000);
+        window.open(proxyUrl, '_blank');
       }
     } catch (err) {
       console.error('Laptop download error:', err);
-      window.open(imageSrc, '_blank');
+      window.open(proxyUrl, '_blank');
     }
   };
 
@@ -825,8 +830,11 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
               <span>Збереження / Завантаження HD Обкладинки</span>
             </div>
 
-            <p className="text-slate-300 text-xs mb-3">
-              📸 <b>Для збереження на смартфоні:</b> Натисніть та утримуйте обкладинку нижче та виберіть <b>«Зберегти у Фото»</b>:
+            <p className="text-slate-300 text-xs mb-1">
+              📸 <b>На смартфоні:</b> Натисніть та утримуйте обкладинку нижче ➔ <b>«Зберегти у Фото»</b>
+            </p>
+            <p className="text-cyan-400 text-[11px] mb-3">
+              💻 <b>На Ноутбуці / ПК:</b> Клацніть правою кнопкою миші на картинку нижче ➔ <b>«Зберегти зображення як...»</b> або скористайтеся кнопкою «Завантажити»
             </p>
 
             {savedImageSrc && (
