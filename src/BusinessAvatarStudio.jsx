@@ -79,23 +79,25 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       positionLabel: "5. Расположение бейджа",
       circleMaskToggle: "⭕ Круговая рамка Telegram/LinkedIn",
       generateBtn: "Сгенерировать Деловые Портреты",
-      presetForbes: "💼 Forbes Executive",
-      presetDubai: "🏙️ Dubai Penthouse",
-      presetOldMoney: "💎 Old Money Luxury",
-      presetKeynote: "🎙️ Keynote Speaker",
-      badgeForbes: "💼 FORBES EXECUTIVE",
-      badgeFounder: "🚀 FOUNDER & CEO",
-      badgeKeynote: "🎙️ KEYNOTE SPEAKER",
-      badgeExpert: "⭐ TOP EXPERT",
-      badgeOldMoney: "💎 OLD MONEY LUXURY",
+      presetForbes: "💼 Бизнес Руководитель",
+      presetDubai: "🏙️ Пентхаус Дубай",
+      presetOldMoney: "💎 Элитный Old Money",
+      presetKeynote: "🎙️ Спикер Конференций",
+      badgeForbes: "💼 ГЕНЕРАЛЬНЫЙ ДИРЕКТОР",
+      badgeFounder: "🚀 ОСНОВАТЕЛЬ & CEO",
+      badgeKeynote: "🎙️ ТОП-СПИКЕР",
+      badgeExpert: "⭐ ТОП ЭКСПЕРТ",
+      badgeOldMoney: "💎 ЭЛИТНЫЙ OLD MONEY",
       badgeNone: "🚫 Без бейджа",
       posBottomCenter: "⬇️ Снизу по центру",
       posTopCenter: "⬆️ Сверху по центру",
       posTopLeft: "↖️ Сверху слева",
       posTopRight: "↗️ Сверху справа",
-      previewHeader: "Превью Аватарки (Live 1000x1000 Canvas)",
+      previewHeader: "Превью Аватарки",
+      canvasPill: "Деловой Портрет",
+      faceSwapTitle: "📸 Загрузить свое фото (Замена Лица)",
       downloadBtn: "Скачать Аватарку",
-      unlockBtn: "🎁 Снять Вотермарку",
+      unlockBtn: "Снять Вотермарку",
       modalUnlockTitle: "Разблокировка аватарки без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте аватарку без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
@@ -116,23 +118,25 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       positionLabel: "5. Розташування бейджа",
       circleMaskToggle: "⭕ Кругова рамка Telegram/LinkedIn",
       generateBtn: "Згенерувати Ділові Портрети",
-      presetForbes: "💼 Forbes Executive",
-      presetDubai: "🏙️ Dubai Penthouse",
-      presetOldMoney: "💎 Old Money Luxury",
-      presetKeynote: "🎙️ Keynote Speaker",
-      badgeForbes: "💼 FORBES EXECUTIVE",
-      badgeFounder: "🚀 FOUNDER & CEO",
-      badgeKeynote: "🎙️ KEYNOTE SPEAKER",
-      badgeExpert: "⭐ TOP EXPERT",
-      badgeOldMoney: "💎 OLD MONEY LUXURY",
+      presetForbes: "💼 Бізнес Керівник",
+      presetDubai: "🏙️ Пентхаус Дубай",
+      presetOldMoney: "💎 Елітний Old Money",
+      presetKeynote: "🎙️ Спікер Конференцій",
+      badgeForbes: "💼 ГЕНЕРАЛЬНИЙ ДИРЕКТОР",
+      badgeFounder: "🚀 ЗАСНОВНИК & CEO",
+      badgeKeynote: "🎙️ ТОП-СПІКЕР",
+      badgeExpert: "⭐ ТОП ЕКСПЕРТ",
+      badgeOldMoney: "💎 ЕЛІТНИЙ OLD MONEY",
       badgeNone: "🚫 Без бейджа",
       posBottomCenter: "⬇️ Знизу по центру",
       posTopCenter: "⬆️ Зверху по центру",
       posTopLeft: "↖️ Зверху ліворуч",
       posTopRight: "↗️ Зверху праворуч",
-      previewHeader: "Прев'ю Аватарки (Live 1000x1000 Canvas)",
+      previewHeader: "Прев'ю Аватарки",
+      canvasPill: "Діловий Портрет",
+      faceSwapTitle: "📸 Завантажити своє фото (Заміна Обличчя)",
       downloadBtn: "Завантажити Аватарку",
-      unlockBtn: "🎁 Зняти Вотермарку",
+      unlockBtn: "Зняти Вотермарку",
       modalUnlockTitle: "Розблокування аватарки без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте аватарку без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
@@ -141,18 +145,18 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
     },
     en: {
       studioTitle: "Business Avatar Pro",
-      studioSub: "Dual-Layer Executive Engine • FLUX 1.0 8K + Expert Status Badges",
+      studioSub: "Executive Portrait Engine & Status Badges",
       backHub: "To Hub",
-      genderLabel: "1. Expert Gender (Gender Selection)",
+      genderLabel: "1. Expert Gender",
       genderMale: "👨 Male Executive",
       genderFemale: "👩 Female Executive",
-      presetLabel: "2. Portrait Style & Background Vibe",
-      customPromptLabel: "3. Appearance Details (Optional)",
+      presetLabel: "2. Portrait Style",
+      customPromptLabel: "3. Appearance Details",
       customPromptPlaceholder: "e.g. glasses, navy blue suit, confident smile...",
-      badgeLabel: "4. Vector Status Badge (Layer 2)",
-      positionLabel: "5. Badge Safe Position",
+      badgeLabel: "4. Status Badge",
+      positionLabel: "5. Badge Position",
       circleMaskToggle: "⭕ Circle Crop Mask (Telegram/LinkedIn)",
-      generateBtn: "Generate 8K Executive Portrait",
+      generateBtn: "Generate Executive Portrait",
       presetForbes: "💼 Forbes Executive",
       presetDubai: "🏙️ Dubai Penthouse",
       presetOldMoney: "💎 Old Money Luxury",
@@ -162,18 +166,20 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       badgeKeynote: "🎙️ KEYNOTE SPEAKER",
       badgeExpert: "⭐ TOP EXPERT",
       badgeOldMoney: "💎 OLD MONEY LUXURY",
-      badgeNone: "🚫 No Badge (Clean Portrait)",
+      badgeNone: "🚫 No Badge",
       posBottomCenter: "⬇️ Bottom Center",
       posTopCenter: "⬆️ Top Center",
       posTopLeft: "↖️ Top Left",
       posTopRight: "↗️ Top Right",
-      previewHeader: "Avatar Preview (Live 1000x1000 Canvas)",
-      downloadBtn: "Download 8K Avatar",
-      unlockBtn: "🎁 Remove Watermark & Get 8K",
-      modalUnlockTitle: "Growth Hack: Unlock 8K HD",
-      modalUnlockDesc: "Claim +3 free ⚡ generations & download watermark-free 8K avatar in 1 click!",
+      previewHeader: "Avatar Preview",
+      canvasPill: "Executive Canvas",
+      faceSwapTitle: "📸 Upload Photo (Face Swap)",
+      downloadBtn: "Download Avatar",
+      unlockBtn: "Remove Watermark",
+      modalUnlockTitle: "Unlock Watermark-Free Avatar",
+      modalUnlockDesc: "Claim +3 free ⚡ generations & download avatar in 1 click!",
       subscribeDealBtn: "📢 Subscribe to Channel (+3 ⚡ Free)",
-      starsDealBtn: "⭐ Download 8K with Telegram Stars",
+      starsDealBtn: "⭐ Download with Telegram Stars",
       unlockedToast: "Watermark removed! +3 ⚡ bonus added!"
     }
   }[lang] || t.ru;
@@ -305,7 +311,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
       ctx.shadowBlur = 10;
-      ctx.fillText('NEIROSTUDIO AVATAR PREVIEW • UNLOCK 8K', 70, 935);
+      ctx.fillText('NEIROSTUDIO AVATAR PREVIEW', 70, 935);
       ctx.restore();
     }
   };
@@ -518,7 +524,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
               <div>
                 <label className="block text-xs font-semibold text-cyan-400 mb-1.5 flex items-center gap-1.5">
                   <UserCheck className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>{lang === 'ru' ? "📸 Загрузить свое фото (Face Swap)" : "📸 Завантажити своє фото (Face Swap)"}</span>
+                  <span>{t.faceSwapTitle}</span>
                 </label>
 
                 {userPhotoUrl ? (
@@ -643,7 +649,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-bold uppercase border border-cyan-500/30">
-                  Executive Canvas
+                  {t.canvasPill}
                 </span>
               </div>
 

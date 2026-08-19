@@ -74,17 +74,19 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       presetPenthouse: "🏙️ Пентхаус Люкс",
       presetJapandi: "🌾 Загородный Джапанди",
       presetLoft: "🏭 Студийный Лофт",
-      badgeStaging: "🏠 VIRTUAL STAGING",
-      badgeSale: "✨ FOR SALE / ПРОДАЖА",
-      badgeRent: "🗝️ FOR RENT / АРЕНДА",
-      badgeSpec: "📐 85 m² PREMIUM",
+      badgeStaging: "🏠 ВИРТУАЛЬНЫЙ СТЕЙДЖИНГ",
+      badgeSale: "✨ ПРОДАЖА ОБЪЕКТА",
+      badgeRent: "🗝️ ДОЛГОСРОЧНАЯ АРЕНДА",
+      badgeSpec: "📐 85 m² ПРЕМИУМ",
+      badgeNone: "🚫 Без бейджа",
       posTopLeft: "↖️ Сверху слева",
       posTopRight: "↗️ Сверху справа",
       posBottomLeft: "↙️ Снизу слева",
       posBottomRight: "↘️ Снизу справа",
-      previewHeader: "Рендер Интерьера (Live 1280x720 Canvas)",
+      previewHeader: "Рендер Интерьера",
+      canvasPill: "Интерьер 16:9",
       downloadBtn: "Скачать Рендер",
-      unlockBtn: "🎁 Снять Вотермарку",
+      unlockBtn: "Снять Вотермарку",
       modalUnlockTitle: "Разблокировка фото без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте фото интерьера без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
@@ -112,17 +114,19 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       presetPenthouse: "🏙️ Пентхаус Люкс",
       presetJapandi: "🌾 Загородний Джапанді",
       presetLoft: "🏭 Студійний Лофт",
-      badgeStaging: "🏠 VIRTUAL STAGING",
-      badgeSale: "✨ FOR SALE / ПРОДАЖ",
-      badgeRent: "🗝️ FOR RENT / ОРЕНДА",
-      badgeSpec: "📐 85 m² PREMIUM",
+      badgeStaging: "🏠 ВІРТУАЛЬНИЙ СТЕЙДЖИНГ",
+      badgeSale: "✨ ПРОДАЖ ОБ'ЄКТА",
+      badgeRent: "🗝️ ДОВГОСТРОКОВА ОРЕНДА",
+      badgeSpec: "📐 85 m² ПРЕМІУМ",
+      badgeNone: "🚫 Без бейджа",
       posTopLeft: "↖️ Зверху ліворуч",
       posTopRight: "↗️ Зверху праворуч",
       posBottomLeft: "↙️ Знизу ліворуч",
       posBottomRight: "↘️ Знизу праворуч",
-      previewHeader: "Рендер Інтер'єру (Live 1280x720 Canvas)",
+      previewHeader: "Рендер Інтер'єру",
+      canvasPill: "Інтер'єр 16:9",
       downloadBtn: "Завантажити Рендер",
-      unlockBtn: "🎁 Зняти Вотермарку",
+      unlockBtn: "Зняти Вотермарку",
       modalUnlockTitle: "Розблокування фото без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте фото інтер'єру без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
@@ -138,12 +142,12 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       roomBedroom: "🪟 Bedroom",
       roomKitchen: "🍳 Kitchen",
       roomOffice: "💻 Office",
-      presetLabel: "2. Interior Style & Vibe",
-      customPromptLabel: "3. Interior Details or View (Optional)",
+      presetLabel: "2. Interior Style",
+      customPromptLabel: "3. Interior Details",
       customPromptPlaceholder: "e.g. skyline view, fireplace, beige sofa...",
-      badgeLabel: "4. Property Status Badge (Layer 2)",
-      positionLabel: "5. Badge Position (prevents covering interior)",
-      priceLabel: "6. Property Price or Rent (Auto Dynamic Width)",
+      badgeLabel: "4. Property Status Badge",
+      positionLabel: "5. Badge Position",
+      priceLabel: "6. Property Price or Rent",
       pricePlaceholder: "e.g. $1,250,000 or $2,500/mo",
       generateBtn: "Generate 8K Staging (16:9)",
       presetScandi: "🌿 Modern Scandinavian",
@@ -596,7 +600,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-bold uppercase border border-indigo-500/30">
-                  16:9 Canvas
+                  {t.canvasPill}
                 </span>
               </div>
 
@@ -605,7 +609,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
                 {isGenerating && (
                   <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center text-indigo-400 text-xs">
                     <RefreshCw className="w-8 h-8 animate-spin mb-2" />
-                    <span>Синтез FLUX 1.0 8K Architectural Staging...</span>
+                    <span>Синтез интерьера...</span>
                   </div>
                 )}
               </div>

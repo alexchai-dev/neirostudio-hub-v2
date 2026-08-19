@@ -80,9 +80,10 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       colCyan: "Неоновый Циан",
       colFlame: "Огонь & Золото",
       colLime: "Салатовый Драйв",
-      previewHeader: "Готовая Обложка (Live Canvas Preview)",
+      previewHeader: "Готовая Обложка",
+      canvasPill: "Обложка YouTube (16:9)",
       downloadBtn: "Скачать Обложку",
-      unlockBtn: "🎁 Снять Вотермарку",
+      unlockBtn: "Снять Вотермарку",
       modalUnlockTitle: "Разблокировка обложки без вотермарки",
       modalUnlockDesc: "Получите 3 бесплатные ⚡ генерации и скачайте обложку без вотермарки за 1 клик!",
       subscribeDealBtn: "📢 Подписаться на наш Канал (+3 ⚡ Бесплатно)",
@@ -111,9 +112,10 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       colCyan: "Неоновий Ціан",
       colFlame: "Вогонь & Золото",
       colLime: "Салатовий Драйв",
-      previewHeader: "Готова Обкладинка (Live Canvas Preview)",
+      previewHeader: "Готова Обкладинка",
+      canvasPill: "Обкладинка YouTube (16:9)",
       downloadBtn: "Завантажити Обкладинку",
-      unlockBtn: "🎁 Зняти Вотермарку",
+      unlockBtn: "Зняти Вотермарку",
       modalUnlockTitle: "Розблокування обкладинки без вотермарки",
       modalUnlockDesc: "Отримайте 3 безкоштовні ⚡ генерації та завантажте обкладинку без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на наш Канал (+3 ⚡ Безкоштовно)",
@@ -122,17 +124,17 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     },
     en: {
       studioTitle: "YouTube 16:9 AI Studio",
-      studioSub: "Dual-Layer Engine • FLUX 1.0 8K + Vector Typography",
+      studioSub: "YouTube Thumbnail Design Engine",
       backHub: "To Hub",
-      topicLabel: "1. Video Topic / Prompt (Layer 1 - FLUX 1.0)",
-      topicPlaceholder: "e.g. AI Side Hustles 2026, Tesla Cybercab review...",
-      mainTextLabel: "2. Main Headline Text (Layer 2 - Multiline Support)",
-      mainTextPlaceholder: "Main thumbnail title (supports long titles)",
-      subTextLabel: "3. Subtitle / Badge Text (Layer 2)",
+      topicLabel: "1. Video Topic or Concept",
+      topicPlaceholder: "e.g. AI Side Hustles 2026, Tesla review...",
+      mainTextLabel: "2. Main Headline Text",
+      mainTextPlaceholder: "Main thumbnail title (supports multiline)",
+      subTextLabel: "3. Subtitle / Badge Text",
       subTextPlaceholder: "Extra text or money amount",
       styleLabel: "4. Background Style & Vibe",
       colorLabel: "5. Text Color Palette",
-      generateBtn: "Generate Dual-Layer Thumbnail (16:9)",
+      generateBtn: "Generate Thumbnail (16:9)",
       viralStyle: "🔥 Viral Clickbait",
       cyberStyle: "🌆 Cyberpunk",
       bizStyle: "💼 Forbes Business",
@@ -142,13 +144,14 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       colCyan: "Neon Cyan",
       colFlame: "Fire & Gold",
       colLime: "Lime Drive",
-      previewHeader: "Generated Cover (Live Canvas Preview)",
-      downloadBtn: "Download 16:9 HD Cover",
-      unlockBtn: "🎁 Remove Watermark & Get 4K",
-      modalUnlockTitle: "Growth Hack: Unlock 4K HD",
-      modalUnlockDesc: "Claim +3 free ⚡ generations & download watermark-free HD cover in 1 click!",
-      subscribeDealBtn: "📢 Subscribe to Telegram Channel (+3 ⚡ Free)",
-      starsDealBtn: "⭐ Download 4K with Telegram Stars",
+      previewHeader: "Thumbnail Preview",
+      canvasPill: "YouTube Thumbnail (16:9)",
+      downloadBtn: "Download Cover",
+      unlockBtn: "Remove Watermark",
+      modalUnlockTitle: "Unlock Watermark-Free Cover",
+      modalUnlockDesc: "Claim +3 free ⚡ generations & download cover in 1 click!",
+      subscribeDealBtn: "📢 Subscribe to Channel (+3 ⚡ Free)",
+      starsDealBtn: "⭐ Download with Telegram Stars",
       unlockedToast: "Watermark removed! +3 ⚡ bonus added!"
     }
   }[lang] || t.ru;
@@ -728,7 +731,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded-full font-bold uppercase border border-rose-500/30">
-                  16:9 HD (1280x720)
+                  {t.canvasPill}
                 </span>
               </div>
 
@@ -737,7 +740,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                 {isGenerating && (
                   <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center text-rose-400 text-xs">
                     <RefreshCw className="w-8 h-8 animate-spin mb-2" />
-                    <span>Синтез FLUX 1.0 + Canvas Vector Typography...</span>
+                    <span>Синтез обложки...</span>
                   </div>
                 )}
               </div>

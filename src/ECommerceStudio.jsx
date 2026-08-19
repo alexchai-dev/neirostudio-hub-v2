@@ -71,13 +71,15 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       badgeRating: "⭐ 5.0 РЕЙТИНГ",
       badgePremium: "✨ 100% ПРЕМИУМ",
       badgeShipping: "🚚 БЕСПЛАТНАЯ ДОСТАВКА",
+      badgeNone: "🚫 Без бейджа",
       posTopLeft: "↖️ Сверху слева",
       posTopRight: "↗️ Сверху справа",
       posBottomLeft: "↙️ Снизу слева",
       posBottomRight: "↘️ Снизу справа",
-      previewHeader: "Карточка Товара (Live 1000x1000 Canvas)",
+      previewHeader: "Карточка Товара",
+      canvasPill: "Товарная Карточка",
       downloadBtn: "Скачать Карточку",
-      unlockBtn: "🎁 Снять Вотермарку",
+      unlockBtn: "Снять Вотермарку",
       modalUnlockTitle: "Разблокировка карточки без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте карточку без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
@@ -102,14 +104,16 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       badgeDiscount: "💥 ЗНИЖКА -50%",
       badgeRating: "⭐ 5.0 РЕЙТИНГ",
       badgePremium: "✨ 100% ПРЕМІУМ",
-      badgeShipping: "🚚 БЕЗКОШТОВНА ДОСТАВКА",
+      badgeShipping: "🚚 БЕСКОШТОВНА ДОСТАВКА",
+      badgeNone: "🚫 Без бейджа",
       posTopLeft: "↖️ Зверху ліворуч",
       posTopRight: "↗️ Зверху праворуч",
       posBottomLeft: "↙️ Знизу ліворуч",
       posBottomRight: "↘️ Знизу праворуч",
-      previewHeader: "Картка Товара (Live 1000x1000 Canvas)",
+      previewHeader: "Картка Товару",
+      canvasPill: "Товарна Картка",
       downloadBtn: "Завантажити Картку",
-      unlockBtn: "🎁 Зняти Вотермарку",
+      unlockBtn: "Зняти Вотермарку",
       modalUnlockTitle: "Розблокування картки без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте картку без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
@@ -118,12 +122,12 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
     },
     en: {
       studioTitle: "E-Commerce Product Studio",
-      studioSub: "Studio Product Photos with Infographics",
+      studioSub: "Studio Product Photos & Infographics",
       backHub: "To Hub",
       productLabel: "1. Product Name or Item",
       productPlaceholder: "e.g. Diamond ring, luxury perfume...",
       presetLabel: "2. Studio Background",
-      badgeLabel: "3. Vector Infographic Badge",
+      badgeLabel: "3. Infographic Badge",
       positionLabel: "4. Badge Position",
       priceLabel: "5. Price Tag or Offer",
       pricePlaceholder: "e.g. $49.99 or -30% OFF",
@@ -135,17 +139,19 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       badgeRating: "⭐ 5.0 RATING",
       badgePremium: "✨ 100% PREMIUM",
       badgeShipping: "🚚 FREE SHIPPING",
+      badgeNone: "🚫 No Badge",
       posTopLeft: "↖️ Top Left",
       posTopRight: "↗️ Top Right",
       posBottomLeft: "↙️ Bottom Left",
       posBottomRight: "↘️ Bottom Right",
-      previewHeader: "Product Card (Live 1000x1000 Canvas)",
-      downloadBtn: "Download 8K Card",
-      unlockBtn: "🎁 Remove Watermark & Get 8K",
-      modalUnlockTitle: "Growth Hack: Unlock 8K HD",
-      modalUnlockDesc: "Claim +3 free ⚡ generations & download watermark-free 8K photo in 1 click!",
+      previewHeader: "Product Preview",
+      canvasPill: "Product Canvas",
+      downloadBtn: "Download Card",
+      unlockBtn: "Remove Watermark",
+      modalUnlockTitle: "Unlock Watermark-Free Photo",
+      modalUnlockDesc: "Claim +3 free ⚡ generations & download watermark-free photo in 1 click!",
       subscribeDealBtn: "📢 Subscribe to Channel (+3 ⚡ Free)",
-      starsDealBtn: "⭐ Download 8K with Telegram Stars",
+      starsDealBtn: "⭐ Download with Telegram Stars",
       unlockedToast: "Watermark removed! +3 ⚡ bonus added!"
     }
   }[lang] || t.ru;
@@ -583,7 +589,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold uppercase border border-emerald-500/30">
-                  Studio Canvas
+                  {t.canvasPill}
                 </span>
               </div>
 
