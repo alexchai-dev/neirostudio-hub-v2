@@ -223,6 +223,11 @@ export default async function handler(req, res) {
     let falErrorDetails = null;
     console.log('Fal.ai key present check:', Boolean(rawFalKey));
 
+    const isSquareModule = moduleType === 'avatar';
+    const imageSizeParam = isSquareModule ? "square_hd" : "landscape_16_9";
+    const widthParam = isSquareModule ? 1000 : 1280;
+    const heightParam = isSquareModule ? 1000 : 720;
+
     if (rawFalKey) {
       const cleanFalKey = rawFalKey.trim();
       try {
@@ -234,7 +239,7 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             prompt: basePrompt,
-            image_size: "landscape_16_9",
+            image_size: imageSizeParam,
             num_inference_steps: 4,
             enable_safety_checker: false
           })
@@ -266,7 +271,7 @@ export default async function handler(req, res) {
 
     const encodedPrompt = encodeURIComponent(basePrompt);
     const randomSeed = Math.floor(Math.random() * 999999);
-    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1280&height=720&seed=${randomSeed}&nologo=true&model=flux&enhance=true`;
+    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=${widthParam}&height=${heightParam}&seed=${randomSeed}&nologo=true&model=flux&enhance=true`;
 
     return res.status(200).json({
       ok: true,

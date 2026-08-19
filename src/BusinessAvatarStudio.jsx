@@ -184,7 +184,19 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       img.crossOrigin = 'anonymous';
       img.src = bgImageUrl;
       img.onload = () => {
-        ctx.drawImage(img, 0, 0, 1000, 1000);
+        const imgAspect = img.width / img.height;
+        let renderW = 1000;
+        let renderH = 1000;
+        let renderX = 0;
+        let renderY = 0;
+        if (imgAspect > 1) {
+          renderW = 1000 * imgAspect;
+          renderX = (1000 - renderW) / 2;
+        } else {
+          renderH = 1000 / imgAspect;
+          renderY = (1000 - renderH) / 2;
+        }
+        ctx.drawImage(img, renderX, renderY, renderW, renderH);
         renderLayer2BadgesAndMask(ctx);
       };
       img.onerror = () => {
