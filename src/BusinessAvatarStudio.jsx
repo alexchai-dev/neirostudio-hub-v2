@@ -558,15 +558,17 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
                     { id: 'forbes', label: t.badgeForbes },
                     { id: 'founder', label: t.badgeFounder },
                     { id: 'keynote', label: t.badgeKeynote },
-                    { id: 'expert', label: t.badgeExpert },
-                    { id: 'none', label: t.badgeNone }
+                    { id: 'expert', label: t.badgeExpert }
                   ].map((bd) => (
                     <button
                       key={bd.id}
-                      onClick={() => setSelectedBadge(bd.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedBadge((prev) => (prev === bd.id ? 'none' : bd.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedBadge === bd.id
-                          ? 'bg-cyan-600/30 border-cyan-500 text-cyan-300'
+                          ? 'bg-cyan-600/30 border-cyan-500 text-cyan-300 shadow-md shadow-cyan-950/40'
                           : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
                       }`}
                     >
