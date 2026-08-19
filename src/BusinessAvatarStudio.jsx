@@ -28,6 +28,19 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
   const [selectedBadge, setSelectedBadge] = useState('forbes'); // forbes | founder | keynote | expert | oldmoney
   const [badgePosition, setBadgePosition] = useState('bottom-center'); // top-center | bottom-center | top-left | top-right
   const [showCircleMask, setShowCircleMask] = useState(true); // QA Test Circle Crop Overlay
+  const [userPhotoUrl, setUserPhotoUrl] = useState(''); // Face Swap photo upload
+
+  const handlePhotoUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setUserPhotoUrl(event.target?.result || '');
+        triggerHaptic('medium');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Engine & UI State
   const [bgImageUrl, setBgImageUrl] = useState('');
@@ -75,6 +88,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       badgeKeynote: "🎙️ KEYNOTE SPEAKER",
       badgeExpert: "⭐ TOP EXPERT",
       badgeOldMoney: "💎 OLD MONEY LUXURY",
+      badgeNone: "🚫 Без бейджа (Чистый Портрет)",
       posBottomCenter: "⬇️ Снизу по центру",
       posTopCenter: "⬆️ Сверху по центру",
       posTopLeft: "↖️ Сверху слева",
@@ -111,6 +125,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       badgeKeynote: "🎙️ KEYNOTE SPEAKER",
       badgeExpert: "⭐ TOP EXPERT",
       badgeOldMoney: "💎 OLD MONEY LUXURY",
+      badgeNone: "🚫 Без бейджа (Чистий Портрет)",
       posBottomCenter: "⬇️ Знизу по центру",
       posTopCenter: "⬆️ Зверху по центру",
       posTopLeft: "↖️ Зверху ліворуч",
@@ -147,6 +162,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       badgeKeynote: "🎙️ KEYNOTE SPEAKER",
       badgeExpert: "⭐ TOP EXPERT",
       badgeOldMoney: "💎 OLD MONEY LUXURY",
+      badgeNone: "🚫 No Badge (Clean Portrait)",
       posBottomCenter: "⬇️ Bottom Center",
       posTopCenter: "⬆️ Top Center",
       posTopLeft: "↖️ Top Left",
@@ -218,55 +234,57 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
   };
 
   const renderLayer2BadgesAndMask = (ctx) => {
-    const badgesDict = {
-      forbes: { text: t.badgeForbes, bg: '#090d16', border: '#f59e0b', textCol: '#fbbf24' },
-      founder: { text: t.badgeFounder, bg: '#0284c7', border: '#38bdf8', textCol: '#ffffff' },
-      keynote: { text: t.badgeKeynote, bg: '#9333ea', border: '#c084fc', textCol: '#ffffff' },
-      expert: { text: t.badgeExpert, bg: '#059669', border: '#34d399', textCol: '#ffffff' },
-      oldmoney: { text: t.badgeOldMoney, bg: '#451a03', border: '#d97706', textCol: '#fef3c7' }
-    };
+    if (selectedBadge !== 'none') {
+      const badgesDict = {
+        forbes: { text: t.badgeForbes, bg: '#090d16', border: '#f59e0b', textCol: '#fbbf24' },
+        founder: { text: t.badgeFounder, bg: '#0284c7', border: '#38bdf8', textCol: '#ffffff' },
+        keynote: { text: t.badgeKeynote, bg: '#9333ea', border: '#c084fc', textCol: '#ffffff' },
+        expert: { text: t.badgeExpert, bg: '#059669', border: '#34d399', textCol: '#ffffff' },
+        oldmoney: { text: t.badgeOldMoney, bg: '#451a03', border: '#d97706', textCol: '#fef3c7' }
+      };
 
-    const currentBadge = badgesDict[selectedBadge] || badgesDict.forbes;
+      const currentBadge = badgesDict[selectedBadge] || badgesDict.forbes;
 
-    // Calculate Badge Position with Circle Crop Safe Zone Margins (QA Requirement)
-    ctx.save();
-    ctx.font = '800 30px "Plus Jakarta Sans", sans-serif';
-    ctx.textBaseline = 'top';
+      // Calculate Badge Position with Circle Crop Safe Zone Margins (QA Requirement)
+      ctx.save();
+      ctx.font = '800 30px "Plus Jakarta Sans", sans-serif';
+      ctx.textBaseline = 'top';
 
-    const badgeText = currentBadge.text;
-    const badgeWidth = ctx.measureText(badgeText).width + 36;
-    const badgeHeight = 52;
+      const badgeText = currentBadge.text;
+      const badgeWidth = ctx.measureText(badgeText).width + 36;
+      const badgeHeight = 52;
 
-    let bx = (1000 - badgeWidth) / 2; // default bottom-center
-    let by = 820; // safe zone inside circle crop
+      let bx = (1000 - badgeWidth) / 2; // default bottom-center
+      let by = 820; // safe zone inside circle crop
 
-    if (badgePosition === 'top-center') {
-      by = 120;
-    } else if (badgePosition === 'top-left') {
-      bx = 120;
-      by = 140;
-    } else if (badgePosition === 'top-right') {
-      bx = 1000 - badgeWidth - 120;
-      by = 140;
+      if (badgePosition === 'top-center') {
+        by = 120;
+      } else if (badgePosition === 'top-left') {
+        bx = 120;
+        by = 140;
+      } else if (badgePosition === 'top-right') {
+        bx = 1000 - badgeWidth - 120;
+        by = 140;
+      }
+
+      // Badge Shadow & Styling
+      ctx.shadowColor = 'rgba(0,0,0,0.85)';
+      ctx.shadowBlur = 18;
+
+      ctx.fillStyle = currentBadge.bg;
+      ctx.strokeStyle = currentBadge.border;
+      ctx.lineWidth = 3;
+
+      ctx.beginPath();
+      ctx.roundRect(bx, by, badgeWidth, badgeHeight, 14);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = currentBadge.textCol;
+      ctx.fillText(badgeText, bx + 18, by + 10);
+      ctx.restore();
     }
-
-    // Badge Shadow & Styling
-    ctx.shadowColor = 'rgba(0,0,0,0.85)';
-    ctx.shadowBlur = 18;
-
-    ctx.fillStyle = currentBadge.bg;
-    ctx.strokeStyle = currentBadge.border;
-    ctx.lineWidth = 3;
-
-    ctx.beginPath();
-    ctx.roundRect(bx, by, badgeWidth, badgeHeight, 14);
-    ctx.fill();
-    ctx.stroke();
-
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = currentBadge.textCol;
-    ctx.fillText(badgeText, bx + 18, by + 10);
-    ctx.restore();
 
     // 2. CIRCLE CROP MASK OVERLAY (FOR QA & SOCIAL MEDIA AVATAR PREVIEW)
     if (showCircleMask) {
@@ -496,6 +514,40 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
                 />
               </div>
 
+              {/* FACE SWAP PHOTO UPLOAD */}
+              <div>
+                <label className="block text-xs font-semibold text-cyan-400 mb-1.5 flex items-center gap-1.5">
+                  <UserCheck className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>{lang === 'ru' ? "📸 Загрузить свое фото (Face Swap)" : "📸 Завантажити своє фото (Face Swap)"}</span>
+                </label>
+
+                {userPhotoUrl ? (
+                  <div className="flex items-center gap-3 p-3 bg-slate-900/90 border border-cyan-500/40 rounded-xl">
+                    <img src={userPhotoUrl} alt="Uploaded face" className="w-10 h-10 rounded-full object-cover border border-cyan-400 shadow-md" />
+                    <div className="flex-1 text-[11px] text-slate-300">
+                      <p className="font-bold text-cyan-300">{lang === 'ru' ? "Ваше фото загружено" : "Ваше фото завантажено"}</p>
+                      <p className="text-[10px] text-slate-400">{lang === 'ru' ? "🔒 Обрабатывается локально в памяти" : "🔒 Обробляється локально у пам'яті"}</p>
+                    </div>
+                    <button
+                      onClick={() => setUserPhotoUrl('')}
+                      className="text-xs text-rose-400 hover:text-rose-300 font-bold px-2.5 py-1 bg-rose-950/40 rounded-lg border border-rose-500/30"
+                    >
+                      {lang === 'ru' ? "Удалить" : "Видалити"}
+                    </button>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center justify-center p-3.5 border-2 border-dashed border-slate-700/80 hover:border-cyan-500/60 rounded-xl bg-slate-900/50 cursor-pointer transition-all text-center">
+                    <span className="text-xs text-cyan-400 font-bold mb-0.5">
+                      {lang === 'ru' ? "＋ Выбрать фото/селфи" : "＋ Обрати фото/селфі"}
+                    </span>
+                    <span className="text-[10px] text-slate-400">
+                      {lang === 'ru' ? "🔒 Безопасно. Обработка в памяти браузера" : "🔒 Безпечно. Обробка у пам'яті браузера"}
+                    </span>
+                    <input type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
+                  </label>
+                )}
+              </div>
+
               {/* BADGE SELECTION */}
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">
@@ -506,7 +558,8 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
                     { id: 'forbes', label: t.badgeForbes },
                     { id: 'founder', label: t.badgeFounder },
                     { id: 'keynote', label: t.badgeKeynote },
-                    { id: 'expert', label: t.badgeExpert }
+                    { id: 'expert', label: t.badgeExpert },
+                    { id: 'none', label: t.badgeNone }
                   ].map((bd) => (
                     <button
                       key={bd.id}
