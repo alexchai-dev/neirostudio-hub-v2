@@ -24,10 +24,22 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
   const [lang, setLang] = useState(initialLang);
   const [isLangModalOpen, setIsLangModalOpen] = useState(false);
 
+  const getDefaultMainText = (targetLang) => {
+    if (targetLang === 'ua') return 'СЕКРЕТ ШІ 2026';
+    if (targetLang === 'en') return 'AI SECRETS 2026';
+    return 'СЕКРЕТ ИИ 2026';
+  };
+
+  const getDefaultSubText = (targetLang) => {
+    if (targetLang === 'ua') return '$10,000 / МІСЯЦЬ';
+    if (targetLang === 'en') return '$10,000 / MONTH';
+    return '$10,000 / МЕСЯЦ';
+  };
+
   // Form Controls State
   const [topicPrompt, setTopicPrompt] = useState('');
-  const [mainText, setMainText] = useState('СЕКРЕТ ИИ 2026');
-  const [subText, setSubText] = useState('$10,000 / МЕСЯЦ');
+  const [mainText, setMainText] = useState(() => getDefaultMainText(initialLang));
+  const [subText, setSubText] = useState(() => getDefaultSubText(initialLang));
   const [selectedStyle, setSelectedStyle] = useState('viral'); // viral | cyberpunk | business | gaming | minimal
   const [selectedColor, setSelectedColor] = useState('yellow'); // yellow | cyan | flame | lime
 
@@ -55,6 +67,26 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       }
     } catch (e) {}
   };
+
+  const handleSelectLang = (newLang) => {
+    triggerHaptic('light');
+    const defaultMains = ['СЕКРЕТ ИИ 2026', 'СЕКРЕТ ШІ 2026', 'AI SECRETS 2026'];
+    const defaultSubs = ['$10,000 / МЕСЯЦ', '$10,000 / МІСЯЦЬ', '$10,000 / MONTH'];
+
+    setMainText((prev) => (defaultMains.includes(prev.trim()) ? getDefaultMainText(newLang) : prev));
+    setSubText((prev) => (defaultSubs.includes(prev.trim()) ? getDefaultSubText(newLang) : prev));
+    setLang(newLang);
+    try { localStorage.setItem('neiro_user_lang', newLang); } catch (e) {}
+    setIsLangModalOpen(false);
+  };
+
+  useEffect(() => {
+    setLang(initialLang);
+    const defaultMains = ['СЕКРЕТ ИИ 2026', 'СЕКРЕТ ШІ 2026', 'AI SECRETS 2026'];
+    const defaultSubs = ['$10,000 / МЕСЯЦ', '$10,000 / МІСЯЦЬ', '$10,000 / MONTH'];
+    setMainText((prev) => (defaultMains.includes(prev.trim()) ? getDefaultMainText(initialLang) : prev));
+    setSubText((prev) => (defaultSubs.includes(prev.trim()) ? getDefaultSubText(initialLang) : prev));
+  }, [initialLang]);
 
   // Trilingual Dictionary
   const t = {
@@ -851,7 +883,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
               ].map((item) => (
                 <button
                   key={item.code}
-                  onClick={() => { setLang(item.code); setIsLangModalOpen(false); }}
+                  onClick={() => handleSelectLang(item.code)}
                   className={`w-full py-2.5 px-4 rounded-xl border text-left font-semibold text-xs flex items-center justify-between transition-all ${
                     lang === item.code
                       ? 'bg-rose-600/20 border-rose-500 text-rose-300'

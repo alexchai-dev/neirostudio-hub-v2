@@ -22,8 +22,14 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
   const [lang, setLang] = useState(initialLang);
   const [isLangModalOpen, setIsLangModalOpen] = useState(false);
 
+  const getDefaultProductPrompt = (targetLang) => {
+    if (targetLang === 'ua') return 'Флакон парфуму / Крем';
+    if (targetLang === 'en') return 'Perfume Bottle / Skin Cream';
+    return 'Флакон парфюма / Крем';
+  };
+
   // Form Controls State
-  const [productPrompt, setProductPrompt] = useState('Флакон парфюма / Крем');
+  const [productPrompt, setProductPrompt] = useState(() => getDefaultProductPrompt(initialLang));
   const [selectedPreset, setSelectedPreset] = useState('marble'); // marble | tropical | slate | neon
   const [selectedBadge, setSelectedBadge] = useState('hit'); // hit | discount | rating | premium | shipping
   const [badgePosition, setBadgePosition] = useState('top-left'); // top-left | top-right | bottom-left | bottom-right
@@ -49,6 +55,21 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       }
     } catch (e) {}
   };
+
+  const handleSelectLang = (newLang) => {
+    triggerHaptic('light');
+    const defaultProducts = ['Флакон парфюма / Крем', 'Флакон парфуму / Крем', 'Perfume Bottle / Skin Cream'];
+    setProductPrompt((prev) => (defaultProducts.includes(prev.trim()) ? getDefaultProductPrompt(newLang) : prev));
+    setLang(newLang);
+    try { localStorage.setItem('neiro_user_lang', newLang); } catch (e) {}
+    setIsLangModalOpen(false);
+  };
+
+  useEffect(() => {
+    setLang(initialLang);
+    const defaultProducts = ['Флакон парфюма / Крем', 'Флакон парфуму / Крем', 'Perfume Bottle / Skin Cream'];
+    setProductPrompt((prev) => (defaultProducts.includes(prev.trim()) ? getDefaultProductPrompt(initialLang) : prev));
+  }, [initialLang]);
 
   // Trilingual Dictionary
   const t = {
@@ -689,7 +710,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
               ].map((item) => (
                 <button
                   key={item.code}
-                  onClick={() => { setLang(item.code); setIsLangModalOpen(false); }}
+                  onClick={() => handleSelectLang(item.code)}
                   className={`w-full py-2.5 px-4 rounded-xl border text-left font-semibold text-xs flex items-center justify-between transition-all ${
                     lang === item.code
                       ? 'bg-emerald-600/20 border-emerald-500 text-emerald-300'
