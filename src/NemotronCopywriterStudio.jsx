@@ -296,7 +296,6 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
                     : 'bg-purple-600 hover:bg-purple-500 text-white shadow-purple-950/50'
                 }`}
               >
-                {isCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                 <span>{isCopied ? t.copiedText : t.copyBtn}</span>
               </button>
 

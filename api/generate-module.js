@@ -28,18 +28,22 @@ export default async function handler(req, res) {
     const userFormat = format || 'Пост для Telegram з AIDA-воронкою';
 
     if (moduleType === 'copywriter') {
-      const cacheKey = `copywriter_${userTopic.toLowerCase().trim()}_${userTarget.toLowerCase().trim()}`;
-      if (llmCacheMap.has(cacheKey)) {
-        console.log('⚡ Returning 50ms In-Memory Cached Copywriter response');
-        return res.status(200).json({ ok: true, success: true, ...llmCacheMap.get(cacheKey), cached: true });
-      }
+      const userLang = req.body.lang || 'ru';
+      const userCat = req.body.category || 'post';
 
       let copyText = '';
 
-      // Try NVIDIA NIM API with 4.5s fast timeout to prevent Vercel Hobby 10s gateway timeout
+      const sysPrompts = {
+        ru: "Ты вирусно-ориентированный SMM-копирайтер высшего класса. Напиши сильный, вовлекающий пост для Telegram/SMM по теме пользователя. Используй AIDA-структуру, эмодзи, абзацы и четкий призыв к действию. НЕ используй маркдаун звездочки **. Пиши чистый готовый текст без звездочек.",
+        ua: "Ти вірусний SMM-копірайтер вищого класу. Напиши сильний, залучаючий пост для Telegram/SMM за темою користувача. Використовуй AIDA-структуру, емодзі, абзаци та чіткий заклик до дії. НЕ використовуй маркдаун зірочки **. Пиши чистий готовий текст без зірочок.",
+        en: "You are a top-tier viral SMM copywriter. Write a compelling, high-converting social media post based on the user's specific prompt. Use AIDA structure, clean formatting, emojis, clear paragraphs, and a call to action. Do NOT use markdown asterisks **. Write clean text."
+      };
+
+      const systemInstruction = sysPrompts[userLang] || sysPrompts.ru;
+
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 4500);
+        const timeoutId = setTimeout(() => controller.abort(), 6500);
 
         const nimRes = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
           method: "POST",
@@ -50,17 +54,11 @@ export default async function handler(req, res) {
           body: JSON.stringify({
             model: "meta/llama-3.1-70b-instruct",
             messages: [
-              {
-                role: "system",
-                content: "Ти вірусний SMM-копірайтер. Створи вірусний пост з AIDA структурою, емодзі та заклик до дії. НЕ використовуй маркдаун зірочки ** навколо слів. Пиши чистий готовий текст без зірочок."
-              },
-              {
-                role: "user",
-                content: `Тема: "${userTopic}". Аудиторія: ${userTarget}.`
-              }
+              { role: "system", content: systemInstruction },
+              { role: "user", content: `Формат: ${userCat}. Задача/Тема: "${userTopic}". Напиши экспертный вирусный пост.` }
             ],
-            temperature: 0.7,
-            max_tokens: 600
+            temperature: 0.85,
+            max_tokens: 800
           }),
           signal: controller.signal
         });
@@ -76,37 +74,43 @@ export default async function handler(req, res) {
       }
 
       if (!copyText) {
-        copyText = `🚀 ${userTopic.toUpperCase()}\n\n` +
-          `💡 Увага: Більшість забуває про найголовніший секрет у 2026 році...\n\n` +
-          `🔥 Інтерес: Якщо ви хочете підняти охоплення у 3 рази, почніть впроваджувати ці 3 кроки вже сьогодні:\n` +
-          `1️⃣ Персональний бренд: Люди купують у людей, а не у знеособлених компаній.\n` +
-          `2️⃣ Миттєвий Time-to-Value: Скорочуйте шлях користувача до першого результату до 3 секунд.\n` +
-          `3️⃣ ШІ-Автоматизація: Делегуйте рутину автономним нейромережним агентам.\n\n` +
-          `💎 Бажання: Уявіть, що ваш продукт сам залучає гарячих клієнтів 24/7 без реклами.\n\n` +
-          `🎯 Дія: Збережіть цей пост та напишіть у коментарях "+", щоб отримати чек-лист!\n\n` +
-          `📌 Цільова аудиторія: ${userTarget} | Роль: ${userRole}`;
+        if (userLang === 'ru') {
+          copyText = `🔥 ${userTopic.toUpperCase()}\n\n` +
+            `📌 Внимание: Большинство предпринимателей и экспертов совершают одну и ту же скрытую ошибку...\n\n` +
+            `💡 Главный разбор темы:\n` +
+            `1️⃣ Анализ ситуации: Когда вы работаете над темами вроде "${userTopic}", ключевой фактор успеха — это точный фокус на ценности для клиента.\n` +
+            `2️⃣ Ошибка в подходе: Попытка делать всё вручную сливает бюджет и ресурсы в минус.\n` +
+            `3️⃣ Решение 2026 года: Внедрение нейросетевых инструментов сокращает время на задачи в 10 раз.\n\n` +
+            `🚀 Результат: Вы получаете готовое решение без лишней рутины и переплат.\n\n` +
+            `🎯 Действие: Сохраняйте этот пост и напишите "+", чтобы получить подробный разбор!`;
+        } else if (userLang === 'en') {
+          copyText = `🔥 ${userTopic.toUpperCase()}\n\n` +
+            `📌 Attention: Most business owners and creators make the exact same hidden mistake...\n\n` +
+            `💡 Key Takeaways:\n` +
+            `1️⃣ The Core Issue: When addressing "${userTopic}", the defining success factor is immediate value.\n` +
+            `2️⃣ The Manual Trap: Trying to solve everything manually burns time and budget.\n` +
+            `3️⃣ The 2026 AI Solution: Deploying autonomous AI agents cuts operational time by 10x.\n\n` +
+            `🚀 The Outcome: Scalable execution with maximum conversion and zero fluff.\n\n` +
+            `🎯 Action: Save this post and comment "+" to get full strategic access!`;
+        } else {
+          copyText = `🔥 ${userTopic.toUpperCase()}\n\n` +
+            `📌 Увага: Більшість підприємців та експертів припускаються однієї і тієї ж прихованої помилки...\n\n` +
+            `💡 Головний розбір теми:\n` +
+            `1️⃣ Аналіз ситуації: Коли ви працюєте над темами накшталт "${userTopic}", ключовий фактор успіху — це точний фокус на цінності.\n` +
+            `2️⃣ Помилка у підході: Спроба робити все вручну зливає бюджет та ресурси у мінус.\n` +
+            `3️⃣ Рішення 2026 року: Впровадження нейромережних інструментів скорочує час у 10 разів.\n\n` +
+            `🚀 Результат: Ви отримуєте готове рішення без зайвої рутини.\n\n` +
+            `🎯 Дія: Збережіть цей пост та напишіть "+", щоб отримати детальний розбір!`;
+        }
       }
 
       // Systemic markdown asterisks sanitizer
       copyText = copyText.replace(/\*\*/g, '').replace(/\*/g, '');
 
-      const bgPrompt = encodeURIComponent(`Abstract dark cybernetic background with glowing purple cyan neon typography for ${userTopic}, 8k studio lighting, sleek glassmorphism dashboard, futuristic UI background`);
-      const randomSeed = Math.floor(Math.random() * 999999);
-      const imageUrl = `https://image.pollinations.ai/prompt/${bgPrompt}?width=1280&height=720&seed=${randomSeed}&nologo=true`;
-
-      const responsePayload = {
-        copyText,
-        imageUrl,
-        seed: randomSeed,
-      };
-
-      if (llmCacheMap.size > 200) llmCacheMap.clear();
-      llmCacheMap.set(cacheKey, responsePayload);
-
       return res.status(200).json({
         ok: true,
         success: true,
-        ...responsePayload,
+        copyText,
         timestamp: new Date().toISOString()
       });
     }
