@@ -34,7 +34,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
   // Generation & Engine State
   const [bgImageUrl, setBgImageUrl] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [engineMode, setEngineMode] = useState('full3d'); // 'full3d' | 'canvas'
+  const [isCustomTextActive, setIsCustomTextActive] = useState(true);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [isSubscribedChannel, setIsSubscribedChannel] = useState(false);
   const [isUnlockModalOpen, setIsUnlockModalOpen] = useState(false);
@@ -88,7 +88,12 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       modalUnlockDesc: "Получите 3 бесплатные ⚡ генерации и скачайте обложку без вотермарки за 1 клик!",
       subscribeDealBtn: "📢 Подписаться на наш Канал (+3 ⚡ Бесплатно)",
       starsDealBtn: "⭐ Скачать за Telegram Stars",
-      unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
+      unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!",
+      customTextLabel: "Текст на обложке",
+      customTextActive: "🎨 Кастомный Текст (Включен)",
+      customTextInactive: "🚫 Без текста (Отжат)",
+      customTextActiveDesc: "✏️ Векторный текст и плашки накладываются поверх обложки",
+      customTextInactiveDesc: "🚫 Текст отключен: генерируется чистая фоновая картинка без надписей"
     },
     ua: {
       studioTitle: "YouTube 16:9 AI Studio",
@@ -120,7 +125,12 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       modalUnlockDesc: "Отримайте 3 безкоштовні ⚡ генерації та завантажте обкладинку без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на наш Канал (+3 ⚡ Безкоштовно)",
       starsDealBtn: "⭐ Завантажити за Telegram Stars",
-      unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
+      unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!",
+      customTextLabel: "Текст на обкладинці",
+      customTextActive: "🎨 Кастомний Текст (Увімкнено)",
+      customTextInactive: "🚫 Без тексту (Віджато)",
+      customTextActiveDesc: "✏️ Векторний текст та плашки накладаються поверх обкладинки",
+      customTextInactiveDesc: "🚫 Текст вимкнено: ґенерується чиста фонова картинка без написів"
     },
     en: {
       studioTitle: "YouTube 16:9 AI Studio",
@@ -152,14 +162,19 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       modalUnlockDesc: "Claim +3 free ⚡ generations & download cover in 1 click!",
       subscribeDealBtn: "📢 Subscribe to Channel (+3 ⚡ Free)",
       starsDealBtn: "⭐ Download with Telegram Stars",
-      unlockedToast: "Watermark removed! +3 ⚡ bonus added!"
+      unlockedToast: "Watermark removed! +3 ⚡ bonus added!",
+      customTextLabel: "Thumbnail Text",
+      customTextActive: "🎨 Custom Text (Active)",
+      customTextInactive: "🚫 No Text (Disabled)",
+      customTextActiveDesc: "✏️ Vector typography and badge overlays rendered on thumbnail",
+      customTextInactiveDesc: "🚫 Text overlay disabled: clean background photo without text"
     }
   }[lang] || t.ru;
 
   // Draw Canvas on State Changes
   useEffect(() => {
     drawDualLayerCanvas();
-  }, [bgImageUrl, mainText, subText, selectedColor, isUnlocked, engineMode]);
+  }, [bgImageUrl, mainText, subText, selectedColor, isUnlocked, isCustomTextActive]);
 
   // ---------------------------------------------------------------------------
   // ADVANCED DUAL-LAYER CANVAS ENGINE WITH AUTO MULTILINE & DROP SHADOW
@@ -183,7 +198,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
         ctx.drawImage(img, 0, 0, 1280, 720);
         ctx.restore();
 
-        if (engineMode === 'canvas') {
+        if (isCustomTextActive) {
           renderLayer2Typography(ctx);
         } else {
           renderWatermarkOnly(ctx);
@@ -191,12 +206,12 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       };
       img.onerror = () => {
         renderFallbackBackground(ctx);
-        if (engineMode === 'canvas') renderLayer2Typography(ctx);
+        if (isCustomTextActive) renderLayer2Typography(ctx);
         else renderWatermarkOnly(ctx);
       };
     } else {
       renderFallbackBackground(ctx);
-      if (engineMode === 'canvas') renderLayer2Typography(ctx);
+      if (isCustomTextActive) renderLayer2Typography(ctx);
       else renderWatermarkOnly(ctx);
     }
   };
@@ -381,7 +396,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
           style: selectedStyle,
           mainText,
           subText,
-          engineMode,
+          isCustomTextActive,
           lang
         })
       });
@@ -557,7 +572,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-950/60 border border-rose-500/30 text-rose-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-rose-400" />
-            <span>YouTube Cover Engine • Vector Typography</span>
+            <span>YouTube Cover Engine</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
@@ -573,42 +588,35 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
           <div className="lg:col-span-5 space-y-4">
             <div className="glass-card rounded-2xl p-4 border border-slate-800 space-y-4">
 
-              {/* DUAL ENGINE MODE SELECTOR */}
-              <div className="bg-slate-900/90 border border-rose-500/30 rounded-2xl p-2.5">
+              {/* CUSTOM TEXT TOGGLE SELECTOR */}
+              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-3">
                 <label className="block text-xs font-bold text-white mb-2 flex items-center justify-between">
-                  <span>Режим Генерації ШІ</span>
-                  <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-semibold border border-amber-500/30">ТОП 2026</span>
+                  <span>{t.customTextLabel}</span>
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
+                    isCustomTextActive
+                      ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+                      : 'bg-slate-800 text-slate-400 border-slate-700'
+                  }`}>
+                    {isCustomTextActive ? (lang === 'ru' ? 'ВКЛЮЧЕН' : lang === 'ua' ? 'УВІМКНЕНО' : 'ACTIVE') : (lang === 'ru' ? 'ОТЖАТ' : lang === 'ua' ? 'ВІДЖАТО' : 'OFF')}
+                  </span>
                 </label>
-                <div className="grid grid-cols-2 gap-1.5 p-1 rounded-xl bg-slate-950 border border-slate-800">
-                  <button
-                    type="button"
-                    onClick={() => { triggerHaptic('light'); setEngineMode('full3d'); }}
-                    className={`py-2 px-2.5 rounded-lg font-extrabold text-[11px] flex items-center justify-center gap-1.5 transition-all ${
-                      engineMode === 'full3d'
-                        ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-lg shadow-rose-500/30 ring-1 ring-rose-400'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-                    }`}
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
-                    <span>🚀 3D Full AI ⭐ VIP</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => { triggerHaptic('light'); setEngineMode('canvas'); }}
-                    className={`py-2 px-2.5 rounded-lg font-extrabold text-[11px] flex items-center justify-center gap-1.5 transition-all ${
-                      engineMode === 'canvas'
-                        ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/30 ring-1 ring-cyan-400'
-                        : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-                    }`}
-                  >
-                    <Type className="w-3.5 h-3.5 text-cyan-300" />
-                    <span>🎨 Кастомний Текст</span>
-                  </button>
-                </div>
-                <p className="text-[10px] text-slate-400 mt-1.5 px-1 leading-tight">
-                  {engineMode === 'full3d'
-                    ? '✨ Створює єдиний 8K 3D-арт (персонаж + 3D неонова вивіска + бейджі в 1 клік)'
-                    : '✏️ Генерує 3D-фон та накладає кастомний векторний текст через Canvas'}
+                <button
+                  type="button"
+                  onClick={() => {
+                    triggerHaptic('medium');
+                    setIsCustomTextActive((prev) => !prev);
+                  }}
+                  className={`w-full py-2.5 px-3 rounded-xl font-extrabold text-xs flex items-center justify-center gap-2 transition-all border ${
+                    isCustomTextActive
+                      ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/30 ring-1 ring-cyan-400 border-cyan-400'
+                      : 'bg-slate-950 hover:bg-slate-800 text-slate-400 border-slate-800'
+                  }`}
+                >
+                  <Type className={`w-4 h-4 ${isCustomTextActive ? 'text-cyan-300' : 'text-slate-500'}`} />
+                  <span>{isCustomTextActive ? t.customTextActive : t.customTextInactive}</span>
+                </button>
+                <p className="text-[10px] text-slate-400 mt-2 px-1 leading-tight">
+                  {isCustomTextActive ? t.customTextActiveDesc : t.customTextInactiveDesc}
                 </p>
               </div>
 
@@ -625,30 +633,34 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                  {t.mainTextLabel}
-                </label>
-                <textarea
-                  rows={2}
-                  value={mainText}
-                  onChange={(e) => setMainText(e.target.value)}
-                  placeholder={t.mainTextPlaceholder}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-bold"
-                />
-              </div>
+              <div className={`transition-opacity duration-200 space-y-4 ${!isCustomTextActive ? 'opacity-50' : 'opacity-100'}`}>
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center justify-between">
+                    <span>{t.mainTextLabel}</span>
+                    {!isCustomTextActive && <span className="text-[10px] text-amber-400 font-normal">({lang === 'ru' ? 'Отжато' : lang === 'ua' ? 'Віджато' : 'Disabled'})</span>}
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={mainText}
+                    onChange={(e) => setMainText(e.target.value)}
+                    placeholder={t.mainTextPlaceholder}
+                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-bold"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                  {t.subTextLabel}
-                </label>
-                <input
-                  type="text"
-                  value={subText}
-                  onChange={(e) => setSubText(e.target.value)}
-                  placeholder={t.subTextPlaceholder}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-semibold"
-                />
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center justify-between">
+                    <span>{t.subTextLabel}</span>
+                    {!isCustomTextActive && <span className="text-[10px] text-amber-400 font-normal">({lang === 'ru' ? 'Отжато' : lang === 'ua' ? 'Віджато' : 'Disabled'})</span>}
+                  </label>
+                  <input
+                    type="text"
+                    value={subText}
+                    onChange={(e) => setSubText(e.target.value)}
+                    placeholder={t.subTextPlaceholder}
+                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-semibold"
+                  />
+                </div>
               </div>
 
               <div>
