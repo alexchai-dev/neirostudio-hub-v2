@@ -598,13 +598,13 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full font-bold uppercase border border-purple-500/30">
-                  NVIDIA Nemotron-70B Engine
+                  SMM Copywriter
                 </span>
               </div>
 
               {/* RAW GENERATED COPY TEXT DISPLAY (QA REQUIREMENT #1) */}
               <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 text-xs text-slate-200 leading-relaxed font-sans relative whitespace-pre-wrap max-h-48 overflow-y-auto">
-                {rawCopyText || 'Синтез текста Nemotron-70B...'}
+                {rawCopyText || 'Синтез текста...'}
                 <button
                   onClick={handleCopyText}
                   className="absolute top-2 right-2 px-2.5 py-1 rounded-lg bg-purple-600/30 border border-purple-500/50 text-purple-300 hover:bg-purple-600/50 text-[11px] font-bold flex items-center gap-1 transition-all"
@@ -647,7 +647,6 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
                     onClick={() => { triggerHaptic('medium'); setIsUnlockModalOpen(true); }}
                     className="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-950/50"
                   >
-                    <Gift className="w-4 h-4" />
                     <span>{t.unlockBtn}</span>
                   </button>
                 )}

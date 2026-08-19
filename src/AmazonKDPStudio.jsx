@@ -578,7 +578,6 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
                     onClick={() => { triggerHaptic('medium'); setIsUnlockModalOpen(true); }}
                     className="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-950/50"
                   >
-                    <Gift className="w-4 h-4" />
                     <span>{t.unlockBtn}</span>
                   </button>
                 )}

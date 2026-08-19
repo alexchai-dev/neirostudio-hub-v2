@@ -210,6 +210,10 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2Web3Badges = (ctx) => {
+    let bx = 60;
+    let by = 820;
+    let badgeHeight = 56;
+
     if (selectedBadge !== 'none') {
       const badgesDict = {
         gem: { text: t.badgeGem, bg: '#c026d3', border: '#f0abfc', textCol: '#ffffff', shadow: '#d946ef' },
@@ -227,10 +231,10 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
 
       const badgeText = currentBadge.text;
       const badgeWidth = ctx.measureText(badgeText).width + 40;
-      const badgeHeight = 56;
+      badgeHeight = 56;
 
-      let bx = (1000 - badgeWidth) / 2; // default bottom-center
-      let by = 820;
+      bx = (1000 - badgeWidth) / 2; // default bottom-center
+      by = 820;
 
       if (badgePosition === 'top-center') {
         by = 80;
@@ -624,7 +628,6 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
                     onClick={() => { triggerHaptic('medium'); setIsUnlockModalOpen(true); }}
                     className="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-950/50"
                   >
-                    <Gift className="w-4 h-4" />
                     <span>{t.unlockBtn}</span>
                   </button>
                 )}
