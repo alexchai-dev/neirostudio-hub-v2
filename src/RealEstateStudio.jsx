@@ -149,7 +149,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       positionLabel: "5. Badge Position",
       priceLabel: "6. Property Price or Rent",
       pricePlaceholder: "e.g. $1,250,000 or $2,500/mo",
-      generateBtn: "Generate 8K Staging (16:9)",
+      generateBtn: "Generate HD Staging (16:9)",
       presetScandi: "🌿 Modern Scandinavian",
       presetPenthouse: "🏙️ Penthouse Luxury",
       presetJapandi: "🌾 Cozy Japandi",
@@ -163,12 +163,12 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       posBottomLeft: "↙️ Bottom Left",
       posBottomRight: "↘️ Bottom Right",
       previewHeader: "Interior Render (Live 1280x720 Canvas)",
-      downloadBtn: "Download 8K Render",
-      unlockBtn: "🎁 Remove Watermark & Get 8K",
-      modalUnlockTitle: "Growth Hack: Unlock 8K HD",
-      modalUnlockDesc: "Claim +3 free ⚡ generations & download watermark-free 8K interior photo in 1 click!",
+      downloadBtn: "Download HD Render",
+      unlockBtn: "Remove Watermark",
+      modalUnlockTitle: "Unlock Watermark-Free Cover",
+      modalUnlockDesc: "Claim +3 free ⚡ generations & download watermark-free interior photo in 1 click!",
       subscribeDealBtn: "📢 Subscribe to Channel (+3 ⚡ Free)",
-      starsDealBtn: "⭐ Download 8K with Telegram Stars",
+      starsDealBtn: "⭐ Download with Telegram Stars",
       unlockedToast: "Watermark removed! +3 ⚡ bonus added!"
     }
   }[lang] || t.ru;
@@ -347,7 +347,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
     try {
       const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
-      link.download = `realestate-staging-8k-${Date.now()}.png`;
+      link.download = `realestate-staging-hd-${Date.now()}.png`;
       link.href = dataUrl;
       document.body.appendChild(link);
       link.click();
@@ -668,7 +668,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
                     triggerHaptic('heavy');
                     setIsUnlocked(true);
                     setIsUnlockModalOpen(false);
-                    alert('Telegram Stars Payment Success! 8K Unlocked.');
+                    alert('Telegram Stars Payment Success! HD Unlocked.');
                   }}
                   className="w-full py-3 px-4 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-400 font-bold text-xs flex items-center justify-center gap-2 hover:bg-slate-800"
                 >

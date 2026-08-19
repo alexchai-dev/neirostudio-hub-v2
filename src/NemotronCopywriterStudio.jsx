@@ -354,7 +354,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
     const canvas = canvasRef.current;
     if (!canvas) return;
     const link = document.createElement('a');
-    link.download = `nemotron-smm-card-8k-${Date.now()}.png`;
+    link.download = `nemotron-smm-card-hd-${Date.now()}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
   };
@@ -700,7 +700,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
                       setTimeout(() => setIsCopied(false), 2000);
                     }
 
-                    alert('Telegram Stars Payment Success! 8K & Copy Unlocked.');
+                    alert('Telegram Stars Payment Success! HD & Copy Unlocked.');
                   }}
                   className="w-full py-3 px-4 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-400 font-bold text-xs flex items-center justify-center gap-2 hover:bg-slate-800"
                 >

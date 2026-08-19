@@ -160,12 +160,12 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
       posBottomLeft: "↙️ Bottom Left",
       posBottomRight: "↘️ Bottom Right",
       previewHeader: "Stencil Preview (Live 1000x1000 Canvas)",
-      downloadBtn: "Download 8K Stencil",
-      unlockBtn: "🎁 Remove Watermark & Get 8K",
-      modalUnlockTitle: "Growth Hack: Unlock 8K HD",
-      modalUnlockDesc: "Claim +3 free ⚡ generations & download watermark-free 8K tattoo stencil in 1 click!",
+      downloadBtn: "Download HD Stencil",
+      unlockBtn: "Remove Watermark",
+      modalUnlockTitle: "Unlock Watermark-Free Stencil",
+      modalUnlockDesc: "Claim +3 free ⚡ generations & download watermark-free tattoo stencil in 1 click!",
       subscribeDealBtn: "📢 Subscribe to Channel (+3 ⚡ Free)",
-      starsDealBtn: "⭐ Download 8K with Telegram Stars",
+      starsDealBtn: "⭐ Download with Telegram Stars",
       unlockedToast: "Watermark removed! +3 ⚡ bonus added!"
     }
   }[lang] || t.ru;
@@ -291,7 +291,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
       ctx.save();
       ctx.font = '800 24px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = 'rgba(9, 13, 22, 0.45)';
-      ctx.fillText('NEIROSTUDIO TATTOO PREVIEW • UNLOCK 8K', 50, 940);
+      ctx.fillText('NEIROSTUDIO TATTOO PREVIEW', 50, 940);
       ctx.restore();
     }
   };
@@ -319,6 +319,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
       }
     } catch (err) {
       console.error(err);
+      ctx.fillText('NEIROSTUDIO TATTOO PREVIEW', 50, 940);
     } finally {
       setIsGenerating(false);
     }
@@ -333,7 +334,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
     try {
       const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
-      link.download = `tattoo-sketch-8k-${Date.now()}.png`;
+      link.download = `tattoo-sketch-hd-${Date.now()}.png`;
       link.href = dataUrl;
       document.body.appendChild(link);
       link.click();
@@ -667,7 +668,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
                     triggerHaptic('heavy');
                     setIsUnlocked(true);
                     setIsUnlockModalOpen(false);
-                    alert('Telegram Stars Payment Success! 8K Unlocked.');
+                    alert('Telegram Stars Payment Success! HD Unlocked.');
                   }}
                   className="w-full py-3 px-4 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-400 font-bold text-xs flex items-center justify-center gap-2 hover:bg-slate-800"
                 >

@@ -362,7 +362,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
         }
 
         const blobUrl = URL.createObjectURL(blob);
-        const fileName = `ecom-product-8k-${Date.now()}.png`;
+        const fileName = `ecom-product-hd-${Date.now()}.png`;
 
         if (window.Telegram?.WebApp?.downloadFile) {
           window.Telegram.WebApp.downloadFile({ url: blobUrl, filename: fileName });
@@ -678,7 +678,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
                     triggerHaptic('heavy');
                     setIsUnlocked(true);
                     setIsUnlockModalOpen(false);
-                    alert('Telegram Stars Payment Success! 8K Unlocked.');
+                    alert('Telegram Stars Payment Success! HD Unlocked.');
                   }}
                   className="w-full py-3 px-4 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-400 font-bold text-xs flex items-center justify-center gap-2 hover:bg-slate-800"
                 >

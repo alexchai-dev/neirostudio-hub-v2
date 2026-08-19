@@ -546,8 +546,8 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     const tgUserId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || 'demo';
     const refLink = `https://t.me/NeiroStudioAIBot?start=ref_${tgUserId}`;
     const shareText = lang === 'ru'
-      ? `🔥 Генерируй 8K 3D-обложки для YouTube за 1.5 секунды прямо в Telegram! Держи 3⚡ бесплатные энергии:`
-      : `🔥 Генеруй 8K 3D-обкладинки для YouTube за 1.5 секунди прямо у Telegram! Тримай 3⚡ безкоштовні енергії:`;
+      ? `🔥 Генерируй 3D-обложки для YouTube за 1.5 секунды прямо в Telegram! Держи 3⚡ бесплатные энергии:`
+      : `🔥 Генеруй 3D-обкладинки для YouTube за 1.5 секунди прямо у Telegram! Тримай 3⚡ безкоштовні енергії:`;
 
     if (window.Telegram?.WebApp?.openTelegramLink) {
       window.Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(shareText)}`);

@@ -356,7 +356,7 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
     try {
       const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
-      link.download = `web3-mascot-8k-${Date.now()}.png`;
+      link.download = `web3-mascot-hd-${Date.now()}.png`;
       link.href = dataUrl;
       document.body.appendChild(link);
       link.click();
@@ -674,7 +674,7 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
                     triggerHaptic('heavy');
                     setIsUnlocked(true);
                     setIsUnlockModalOpen(false);
-                    alert('Telegram Stars Payment Success! 8K Unlocked.');
+                    alert('Telegram Stars Payment Success! HD Unlocked.');
                   }}
                   className="w-full py-3 px-4 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-400 font-bold text-xs flex items-center justify-center gap-2 hover:bg-slate-800"
                 >

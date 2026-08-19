@@ -145,7 +145,7 @@ export default function App() {
 
       mod2Title: "E-Commerce Студия Товаров",
       mod2Sub: "Профессиональная студийная предметная фотосъемка товаров для маркетплейсов и онлайн-магазинов.",
-      mod2Tag: "Товарная Карточка • 8K Студия",
+      mod2Tag: "Товарная Карточка • HD Студия",
 
       mod3Title: "Бизнес-Аватар & Портрет",
       mod3Sub: "Элитные ИИ-портреты эксперта в стилях Руководитель, Пентхаус Дубай, Old Money и Спикер.",
@@ -208,7 +208,7 @@ export default function App() {
 
       mod2Title: "E-Commerce Студія Товарів",
       mod2Sub: "Професійна студійна предметна фотозйомка товарів для маркетплейсів та онлайн-магазинів.",
-      mod2Tag: "Товарна Картка • 8K Студія",
+      mod2Tag: "Товарна Картка • HD Студія",
 
       mod3Title: "Бізнес-Аватар & Портрет",
       mod3Sub: "Елітні ШІ-портрети експерта у стилях Керівник, Пентхаус Дубай, Old Money та Спікер.",
@@ -271,7 +271,7 @@ export default function App() {
 
       mod2Title: "E-Commerce Product Studio",
       mod2Sub: "Professional studio product photography for e-commerce marketplaces and online stores.",
-      mod2Tag: "Product Studio • 8K Render",
+      mod2Tag: "Product Studio • HD Render",
 
       mod3Title: "Business Avatar & Portrait",
       mod3Sub: "Executive AI portraits for business experts in Dubai Penthouse, Old Money & Speaker styles.",
