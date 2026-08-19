@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   try {
     // Extract module type from query or URL path or request body
     const moduleType = req.query.module || req.body.module || 'youtube-cover';
-    const { prompt, customPrompt, style, headline, badge, price, topic, problem, level, target, role, format } = req.body || {};
+    const { prompt, customPrompt, style, headline, badge, price, topic, problem, level, target, role, format, gender, preset } = req.body || {};
 
     const userTopic = topic || customPrompt || prompt || 'Запуск ИИ-сервиса NeiroStudio';
     const userTarget = target || 'Предприниматели, блогеры, фрилансеры';
@@ -213,7 +213,16 @@ export default async function handler(req, res) {
     } else if (moduleType === 'ecommerce') {
       basePrompt = `Professional e-commerce product photography of ${customPrompt || prompt || 'perfume bottle'} on dark obsidian stone pedestal, studio softbox lighting, 8k render`;
     } else if (moduleType === 'avatar') {
-      basePrompt = `Professional executive portrait of ${customPrompt || prompt || 'man'}, ${style || 'Dubai Luxury'}, keynote speaker lighting, 8k camera, Vogue style`;
+      const isFemale = gender === 'female';
+      const personSubject = isFemale ? 'beautiful elegant business woman executive, businesswoman' : 'handsome executive man, businessman in luxury suit';
+      let presetStyle = 'luxury Forbes penthouse office background, warm ambient lighting';
+      
+      const currentPreset = preset || style;
+      if (currentPreset === 'dubai') presetStyle = 'ultra luxury Dubai penthouse balcony background, night city skyline, glass railing';
+      if (currentPreset === 'oldmoney') presetStyle = 'quiet luxury Italian villa estate garden background, old money aesthetic';
+      if (currentPreset === 'keynote') presetStyle = 'high-tech keynote speaker stage backdrop, dramatic spotlighting';
+
+      basePrompt = `Professional 8k executive studio portrait of ${personSubject}, ${presetStyle}, ${customPrompt || prompt || ''}, Vogue magazine cover style photography, photorealistic 8k render, masterpiece`;
     } else if (moduleType === 'web3') {
       basePrompt = `3D Pixar cyberpunk mascot for Web3 crypto project ${customPrompt || prompt || 'PEPE'}, glowing neon gold coin, 8k render`;
     }
