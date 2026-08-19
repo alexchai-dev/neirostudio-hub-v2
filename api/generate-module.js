@@ -222,7 +222,7 @@ export default async function handler(req, res) {
       if (currentPreset === 'oldmoney') presetStyle = 'quiet luxury Italian villa estate garden background, old money aesthetic';
       if (currentPreset === 'keynote') presetStyle = 'high-tech keynote speaker stage backdrop, dramatic spotlighting';
 
-      basePrompt = `Professional 8k executive studio portrait of ${personSubject}, ${presetStyle}, ${customPrompt || prompt || ''}, Vogue magazine cover style photography, photorealistic 8k render, masterpiece`;
+      basePrompt = `Professional 8k executive studio portrait of ${personSubject}, ${presetStyle}, ${customPrompt || prompt || ''}, centered headshot framing, person standing strictly in exact center of image, symmetrical composition, Vogue magazine cover style photography, photorealistic 8k render, masterpiece`;
     } else if (moduleType === 'web3') {
       basePrompt = `3D Pixar cyberpunk mascot for Web3 crypto project ${customPrompt || prompt || 'PEPE'}, glowing neon gold coin, 8k render`;
     }
