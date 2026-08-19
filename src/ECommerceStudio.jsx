@@ -396,7 +396,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
     const storageKey = `neiro_sub_claimed_${tgUser}`;
 
     if (localStorage.getItem(storageKey)) {
-      alert(lang === 'ru' ? "Вы уже получили одноразовый бонус за подписку!" : "Ви вже отримали одноразовий бонус за підписку!");
+      alert(lang === 'ru' ? "Вы уже получили одноразовый бонус за подписку!" : lang === 'ua' ? "Ви вже отримали одноразовий бонус за підписку!" : "You have already claimed your subscription bonus!");
       setIsSubscribedChannel(true);
       setIsUnlocked(true);
       setIsUnlockModalOpen(false);

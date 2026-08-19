@@ -373,7 +373,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
     const storageKey = `neiro_sub_claimed_${tgUser}`;
 
     if (localStorage.getItem(storageKey)) {
-      alert(lang === 'ru' ? "Вы уже получили одноразовый бонус за подписку!" : "Ви вже отримали одноразовий бонус за підписку!");
+      alert(lang === 'ru' ? "Вы уже получили одноразовый бонус за подписку!" : lang === 'ua' ? "Ви вже отримали одноразовий бонус за підписку!" : "You have already claimed your subscription bonus!");
       setIsSubscribedChannel(true);
       setIsUnlocked(true);
       setIsUnlockModalOpen(false);
@@ -527,23 +527,23 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
                   <div className="flex items-center gap-3 p-3 bg-slate-900/90 border border-cyan-500/40 rounded-xl">
                     <img src={userPhotoUrl} alt="Uploaded face" className="w-10 h-10 rounded-full object-cover border border-cyan-400 shadow-md" />
                     <div className="flex-1 text-[11px] text-slate-300">
-                      <p className="font-bold text-cyan-300">{lang === 'ru' ? "Ваше фото загружено" : "Ваше фото завантажено"}</p>
-                      <p className="text-[10px] text-slate-400">{lang === 'ru' ? "🔒 Обрабатывается локально в памяти" : "🔒 Обробляється локально у пам'яті"}</p>
+                      <p className="font-bold text-cyan-300">{lang === 'ru' ? "Ваше фото загружено" : lang === 'ua' ? "Ваше фото завантажено" : "Your photo uploaded"}</p>
+                      <p className="text-[10px] text-slate-400">{lang === 'ru' ? "🔒 Обрабатывается локально в памяти" : lang === 'ua' ? "🔒 Обробляється локально у пам'яті" : "🔒 Processed locally in memory"}</p>
                     </div>
                     <button
                       onClick={() => setUserPhotoUrl('')}
                       className="text-xs text-rose-400 hover:text-rose-300 font-bold px-2.5 py-1 bg-rose-950/40 rounded-lg border border-rose-500/30"
                     >
-                      {lang === 'ru' ? "Удалить" : "Видалити"}
+                      {lang === 'ru' ? "Удалить" : lang === 'ua' ? "Видалити" : "Delete"}
                     </button>
                   </div>
                 ) : (
                   <label className="flex flex-col items-center justify-center p-3.5 border-2 border-dashed border-slate-700/80 hover:border-cyan-500/60 rounded-xl bg-slate-900/50 cursor-pointer transition-all text-center">
                     <span className="text-xs text-cyan-400 font-bold mb-0.5">
-                      {lang === 'ru' ? "＋ Выбрать фото/селфи" : "＋ Обрати фото/селфі"}
+                      {lang === 'ru' ? "＋ Выбрать фото/селфи" : lang === 'ua' ? "＋ Обрати фото/селфі" : "＋ Upload photo/selfie"}
                     </span>
                     <span className="text-[10px] text-slate-400">
-                      {lang === 'ru' ? "🔒 Безопасно. Обработка в памяти браузера" : "🔒 Безпечно. Обробка у пам'яті браузера"}
+                      {lang === 'ru' ? "🔒 Безопасно. Обработка в памяти браузера" : lang === 'ua' ? "🔒 Безпечно. Обробка у пам'яті браузера" : "🔒 Secure. Processed in browser memory"}
                     </span>
                     <input type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
                   </label>

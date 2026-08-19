@@ -525,7 +525,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     const storageKey = `neiro_sub_claimed_${tgUser}`;
 
     if (localStorage.getItem(storageKey)) {
-      alert(lang === 'ru' ? "Вы уже получили одноразовый бонус за подписку!" : "Ви вже отримали одноразовий бонус за підписку!");
+      alert(lang === 'ru' ? "Вы уже получили одноразовый бонус за подписку!" : lang === 'ua' ? "Ви вже отримали одноразовий бонус за підписку!" : "You have already claimed your subscription bonus!");
       setIsSubscribedChannel(true);
       setIsUnlocked(true);
       setIsUnlockModalOpen(false);
@@ -547,13 +547,15 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     const refLink = `https://t.me/NeiroStudioAIBot?start=ref_${tgUserId}`;
     const shareText = lang === 'ru'
       ? `🔥 Генерируй 3D-обложки для YouTube за 1.5 секунды прямо в Telegram! Держи 3⚡ бесплатные энергии:`
-      : `🔥 Генеруй 3D-обкладинки для YouTube за 1.5 секунди прямо у Telegram! Тримай 3⚡ безкоштовні енергії:`;
+      : lang === 'ua'
+      ? `🔥 Генеруй 3D-обкладинки для YouTube за 1.5 секунди прямо у Telegram! Тримай 3⚡ безкоштовні енергії:`
+      : `🔥 Generate 3D YouTube covers in 1.5s inside Telegram! Get 3⚡ free energy:`;
 
     if (window.Telegram?.WebApp?.openTelegramLink) {
       window.Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent(shareText)}`);
     } else {
       navigator.clipboard.writeText(`${shareText}\n${refLink}`);
-      alert(lang === 'ru' ? "Реферальная ссылка скопирована в буфер!" : "Реферальне посилання скопійовано у буфер!");
+      alert(lang === 'ru' ? "Реферальная ссылка скопирована в буфер!" : lang === 'ua' ? "Реферальне посилання скопійовано у буфер!" : "Referral link copied to clipboard!");
     }
   };
 
@@ -856,7 +858,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                   className="w-full py-3 px-4 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 font-bold text-xs flex items-center justify-center gap-2 hover:bg-cyan-900/60"
                 >
                   <Flame className="w-4 h-4 text-cyan-400" />
-                  <span>{lang === 'ru' ? "👥 Запросить друга (+3 ⚡ Энергии)" : "👥 Запросити друга (+3 ⚡ Енергії)"}</span>
+                  <span>{lang === 'ru' ? "👥 Запросить друга (+3 ⚡ Энергии)" : lang === 'ua' ? "👥 Запросити друга (+3 ⚡ Енергії)" : "👥 Invite a friend (+3 ⚡ Energy)"}</span>
                 </button>
               </div>
             </div>
