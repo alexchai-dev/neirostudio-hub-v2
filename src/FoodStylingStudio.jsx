@@ -214,51 +214,53 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2GastroBadges = (ctx) => {
-    const badgesDict = {
-      chef: { text: t.badgeChef, bg: '#ea580c', textCol: '#ffffff' },
-      bestseller: { text: t.badgeBestseller, bg: '#dc2626', textCol: '#ffffff' },
-      vegan: { text: t.badgeVegan, bg: '#16a34a', textCol: '#ffffff' },
-      spicy: { text: t.badgeSpicy, bg: '#b91c1c', textCol: '#ffffff' }
-    };
+    if (selectedBadge !== 'none') {
+      const badgesDict = {
+        chef: { text: t.badgeChef, bg: '#ea580c', textCol: '#ffffff' },
+        bestseller: { text: t.badgeBestseller, bg: '#dc2626', textCol: '#ffffff' },
+        vegan: { text: t.badgeVegan, bg: '#16a34a', textCol: '#ffffff' },
+        spicy: { text: t.badgeSpicy, bg: '#b91c1c', textCol: '#ffffff' }
+      };
 
-    const currentBadge = badgesDict[selectedBadge] || badgesDict.chef;
+      const currentBadge = badgesDict[selectedBadge] || badgesDict.chef;
 
-    // Calculate Position Coordinates
-    let bx = 60;
-    let by = 60;
+      // Calculate Position Coordinates
+      let bx = 60;
+      let by = 60;
 
-    if (badgePosition === 'top-right') {
-      bx = 560;
-      by = 60;
-    } else if (badgePosition === 'bottom-left') {
-      bx = 60;
-      by = 820;
-    } else if (badgePosition === 'bottom-right') {
-      bx = 560;
-      by = 820;
+      if (badgePosition === 'top-right') {
+        bx = 560;
+        by = 60;
+      } else if (badgePosition === 'bottom-left') {
+        bx = 60;
+        by = 820;
+      } else if (badgePosition === 'bottom-right') {
+        bx = 560;
+        by = 820;
+      }
+
+      // 1. RENDER VECTOR GASTRO BADGE (LAYER 2)
+      ctx.save();
+      ctx.font = '800 30px "Plus Jakarta Sans", sans-serif';
+      ctx.textBaseline = 'top';
+
+      const badgeText = currentBadge.text;
+      const badgeWidth = ctx.measureText(badgeText).width + 36;
+      const badgeHeight = 52;
+
+      ctx.shadowColor = 'rgba(0,0,0,0.85)';
+      ctx.shadowBlur = 18;
+
+      ctx.fillStyle = currentBadge.bg;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, badgeWidth, badgeHeight, 14);
+      ctx.fill();
+
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = currentBadge.textCol;
+      ctx.fillText(badgeText, bx + 18, by + 10);
+      ctx.restore();
     }
-
-    // 1. RENDER VECTOR GASTRO BADGE (LAYER 2)
-    ctx.save();
-    ctx.font = '800 30px "Plus Jakarta Sans", sans-serif';
-    ctx.textBaseline = 'top';
-
-    const badgeText = currentBadge.text;
-    const badgeWidth = ctx.measureText(badgeText).width + 36;
-    const badgeHeight = 52;
-
-    ctx.shadowColor = 'rgba(0,0,0,0.85)';
-    ctx.shadowBlur = 18;
-
-    ctx.fillStyle = currentBadge.bg;
-    ctx.beginPath();
-    ctx.roundRect(bx, by, badgeWidth, badgeHeight, 14);
-    ctx.fill();
-
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = currentBadge.textCol;
-    ctx.fillText(badgeText, bx + 18, by + 10);
-    ctx.restore();
 
     // 2. RENDER SOLID CONTRAST VIGNETTE SPEC & PRICE TAG (QA REQUIREMENT FOR COMPLEX FOOD TEXTURES)
     if (specText.trim()) {
@@ -466,7 +468,10 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((pr) => (
                     <button
                       key={pr.id}
-                      onClick={() => setSelectedPreset(pr.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedPreset((prev) => (prev === pr.id ? 'none' : pr.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedPreset === pr.id
                           ? 'bg-orange-600/30 border-orange-500 text-orange-300'
@@ -507,7 +512,10 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((bd) => (
                     <button
                       key={bd.id}
-                      onClick={() => setSelectedBadge(bd.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedBadge((prev) => (prev === bd.id ? 'none' : bd.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedBadge === bd.id
                           ? 'bg-orange-600/30 border-orange-500 text-orange-300'

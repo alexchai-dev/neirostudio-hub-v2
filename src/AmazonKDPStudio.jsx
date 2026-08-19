@@ -439,7 +439,10 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((pr) => (
                     <button
                       key={pr.id}
-                      onClick={() => setSelectedPreset(pr.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedPreset((prev) => (prev === pr.id ? 'none' : pr.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedPreset === pr.id
                           ? 'bg-yellow-600/30 border-yellow-500 text-yellow-300'
@@ -480,7 +483,10 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((bd) => (
                     <button
                       key={bd.id}
-                      onClick={() => setSelectedBadge(bd.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedBadge((prev) => (prev === bd.id ? 'none' : bd.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedBadge === bd.id
                           ? 'bg-yellow-600/30 border-yellow-500 text-yellow-300'

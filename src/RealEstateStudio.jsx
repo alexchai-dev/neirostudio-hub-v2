@@ -214,14 +214,15 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2RealtyBadges = (ctx) => {
-    const badgesDict = {
-      staging: { text: t.badgeStaging, bg: '#0284c7', textCol: '#ffffff' },
-      sale: { text: t.badgeSale, bg: '#ef4444', textCol: '#ffffff' },
-      rent: { text: t.badgeRent, bg: '#10b981', textCol: '#ffffff' },
-      spec: { text: t.badgeSpec, bg: '#8b5cf6', textCol: '#ffffff' }
-    };
+    if (selectedBadge !== 'none') {
+      const badgesDict = {
+        staging: { text: t.badgeStaging, bg: '#0284c7', textCol: '#ffffff' },
+        sale: { text: t.badgeSale, bg: '#ef4444', textCol: '#ffffff' },
+        rent: { text: t.badgeRent, bg: '#10b981', textCol: '#ffffff' },
+        spec: { text: t.badgeSpec, bg: '#8b5cf6', textCol: '#ffffff' }
+      };
 
-    const currentBadge = badgesDict[selectedBadge] || badgesDict.staging;
+      const currentBadge = badgesDict[selectedBadge] || badgesDict.staging;
 
     // Calculate Coordinates based on Position
     let bx = 60;
@@ -259,6 +260,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
     ctx.fillStyle = currentBadge.textCol;
     ctx.fillText(badgeText, bx + 18, by + 10);
     ctx.restore();
+    }
 
     // 2. RENDER DYNAMIC PRICE TAG (AUTOMATIC DYNAMIC WIDTH CALCULATION FOR LONG PRICES)
     if (priceText.trim()) {
@@ -438,7 +440,10 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((rm) => (
                     <button
                       key={rm.id}
-                      onClick={() => setRoomType(rm.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setRoomType((prev) => (prev === rm.id ? 'none' : rm.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         roomType === rm.id
                           ? 'bg-indigo-600/30 border-indigo-500 text-indigo-300'
@@ -465,7 +470,10 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((pr) => (
                     <button
                       key={pr.id}
-                      onClick={() => setSelectedPreset(pr.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedPreset((prev) => (prev === pr.id ? 'none' : pr.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedPreset === pr.id
                           ? 'bg-indigo-600/30 border-indigo-500 text-indigo-300'
@@ -506,7 +514,10 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((bd) => (
                     <button
                       key={bd.id}
-                      onClick={() => setSelectedBadge(bd.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedBadge((prev) => (prev === bd.id ? 'none' : bd.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedBadge === bd.id
                           ? 'bg-indigo-600/30 border-indigo-500 text-indigo-300'

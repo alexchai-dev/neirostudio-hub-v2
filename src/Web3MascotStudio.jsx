@@ -210,54 +210,56 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2Web3Badges = (ctx) => {
-    const badgesDict = {
-      gem: { text: t.badgeGem, bg: '#c026d3', border: '#f0abfc', textCol: '#ffffff', shadow: '#d946ef' },
-      diamond: { text: t.badgeDiamond, bg: '#0284c7', border: '#38bdf8', textCol: '#ffffff', shadow: '#38bdf8' },
-      solana: { text: t.badgeSolana, bg: '#10b981', border: '#34d399', textCol: '#ffffff', shadow: '#34d399' },
-      dex: { text: t.badgeDex, bg: '#ea580c', border: '#fb923c', textCol: '#ffffff', shadow: '#fb923c' }
-    };
+    if (selectedBadge !== 'none') {
+      const badgesDict = {
+        gem: { text: t.badgeGem, bg: '#c026d3', border: '#f0abfc', textCol: '#ffffff', shadow: '#d946ef' },
+        diamond: { text: t.badgeDiamond, bg: '#0284c7', border: '#38bdf8', textCol: '#ffffff', shadow: '#38bdf8' },
+        solana: { text: t.badgeSolana, bg: '#10b981', border: '#34d399', textCol: '#ffffff', shadow: '#34d399' },
+        dex: { text: t.badgeDex, bg: '#ea580c', border: '#fb923c', textCol: '#ffffff', shadow: '#fb923c' }
+      };
 
-    const currentBadge = badgesDict[selectedBadge] || badgesDict.gem;
+      const currentBadge = badgesDict[selectedBadge] || badgesDict.gem;
 
-    // Calculate Badge Coordinates
-    ctx.save();
-    ctx.font = '900 32px "Plus Jakarta Sans", sans-serif';
-    ctx.textBaseline = 'top';
+      // Calculate Badge Coordinates
+      ctx.save();
+      ctx.font = '900 32px "Plus Jakarta Sans", sans-serif';
+      ctx.textBaseline = 'top';
 
-    const badgeText = currentBadge.text;
-    const badgeWidth = ctx.measureText(badgeText).width + 40;
-    const badgeHeight = 56;
+      const badgeText = currentBadge.text;
+      const badgeWidth = ctx.measureText(badgeText).width + 40;
+      const badgeHeight = 56;
 
-    let bx = (1000 - badgeWidth) / 2; // default bottom-center
-    let by = 820;
+      let bx = (1000 - badgeWidth) / 2; // default bottom-center
+      let by = 820;
 
-    if (badgePosition === 'top-center') {
-      by = 80;
-    } else if (badgePosition === 'top-left') {
-      bx = 60;
-      by = 80;
-    } else if (badgePosition === 'top-right') {
-      bx = 1000 - badgeWidth - 60;
-      by = 80;
+      if (badgePosition === 'top-center') {
+        by = 80;
+      } else if (badgePosition === 'top-left') {
+        bx = 60;
+        by = 80;
+      } else if (badgePosition === 'top-right') {
+        bx = 1000 - badgeWidth - 60;
+        by = 80;
+      }
+
+      // 1. RENDER VECTOR CRYPTO BADGE WITH NEON SHADOW GLOW (QA REQUIREMENT)
+      ctx.shadowColor = currentBadge.shadow;
+      ctx.shadowBlur = 22;
+
+      ctx.fillStyle = currentBadge.bg;
+      ctx.strokeStyle = currentBadge.border;
+      ctx.lineWidth = 3;
+
+      ctx.beginPath();
+      ctx.roundRect(bx, by, badgeWidth, badgeHeight, 16);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = currentBadge.textCol;
+      ctx.fillText(badgeText, bx + 20, by + 10);
+      ctx.restore();
     }
-
-    // 1. RENDER VECTOR CRYPTO BADGE WITH NEON SHADOW GLOW (QA REQUIREMENT)
-    ctx.shadowColor = currentBadge.shadow;
-    ctx.shadowBlur = 22;
-
-    ctx.fillStyle = currentBadge.bg;
-    ctx.strokeStyle = currentBadge.border;
-    ctx.lineWidth = 3;
-
-    ctx.beginPath();
-    ctx.roundRect(bx, by, badgeWidth, badgeHeight, 16);
-    ctx.fill();
-    ctx.stroke();
-
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = currentBadge.textCol;
-    ctx.fillText(badgeText, bx + 20, by + 11);
-    ctx.restore();
 
     // 2. RENDER DYNAMIC TICKER & MARKET CAP TAG (QA REQUIREMENT FOR DYNAMIC WIDTH)
     if (tickerText.trim()) {
@@ -470,7 +472,10 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((pr) => (
                     <button
                       key={pr.id}
-                      onClick={() => setSelectedPreset(pr.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedPreset((prev) => (prev === pr.id ? 'none' : pr.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedPreset === pr.id
                           ? 'bg-fuchsia-600/30 border-fuchsia-500 text-fuchsia-300'
@@ -511,7 +516,10 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((bd) => (
                     <button
                       key={bd.id}
-                      onClick={() => setSelectedBadge(bd.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedBadge((prev) => (prev === bd.id ? 'none' : bd.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedBadge === bd.id
                           ? 'bg-fuchsia-600/30 border-fuchsia-500 text-fuchsia-300'

@@ -436,7 +436,10 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((m) => (
                     <button
                       key={m.id}
-                      onClick={() => setMotif(m.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setMotif((prev) => (prev === m.id ? 'none' : m.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         motif === m.id
                           ? 'bg-purple-600/30 border-purple-500 text-purple-300'
@@ -463,7 +466,10 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((pr) => (
                     <button
                       key={pr.id}
-                      onClick={() => setSelectedPreset(pr.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedPreset((prev) => (prev === pr.id ? 'none' : pr.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedPreset === pr.id
                           ? 'bg-purple-600/30 border-purple-500 text-purple-300'
@@ -504,7 +510,10 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((bd) => (
                     <button
                       key={bd.id}
-                      onClick={() => setSelectedBadge(bd.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedBadge((prev) => (prev === bd.id ? 'none' : bd.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedBadge === bd.id
                           ? 'bg-purple-600/30 border-purple-500 text-purple-300'

@@ -201,57 +201,59 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2EComBadges = (ctx) => {
-    // Badges Data Dictionary
-    const badgesDict = {
-      hit: { text: t.badgeHit, bg: '#ef4444', textCol: '#ffffff' },
-      discount: { text: t.badgeDiscount, bg: '#f59e0b', textCol: '#000000' },
-      rating: { text: t.badgeRating, bg: '#10b981', textCol: '#ffffff' },
-      premium: { text: t.badgePremium, bg: '#8b5cf6', textCol: '#ffffff' },
-      shipping: { text: t.badgeShipping, bg: '#06b6d4', textCol: '#ffffff' }
-    };
+    if (selectedBadge !== 'none') {
+      // Badges Data Dictionary
+      const badgesDict = {
+        hit: { text: t.badgeHit, bg: '#ef4444', textCol: '#ffffff' },
+        discount: { text: t.badgeDiscount, bg: '#f59e0b', textCol: '#000000' },
+        rating: { text: t.badgeRating, bg: '#10b981', textCol: '#ffffff' },
+        premium: { text: t.badgePremium, bg: '#8b5cf6', textCol: '#ffffff' },
+        shipping: { text: t.badgeShipping, bg: '#06b6d4', textCol: '#ffffff' }
+      };
 
-    const currentBadge = badgesDict[selectedBadge] || badgesDict.hit;
+      const currentBadge = badgesDict[selectedBadge] || badgesDict.hit;
 
-    // Calculate Coordinates based on User-Selected Position (QA Recommendation)
-    let bx = 50;
-    let by = 50;
+      // Calculate Coordinates based on User-Selected Position (QA Recommendation)
+      let bx = 50;
+      let by = 50;
 
-    if (badgePosition === 'top-right') {
-      bx = 620;
-      by = 50;
-    } else if (badgePosition === 'bottom-left') {
-      bx = 50;
-      by = 830;
-    } else if (badgePosition === 'bottom-right') {
-      bx = 620;
-      by = 830;
+      if (badgePosition === 'top-right') {
+        bx = 620;
+        by = 50;
+      } else if (badgePosition === 'bottom-left') {
+        bx = 50;
+        by = 830;
+      } else if (badgePosition === 'bottom-right') {
+        bx = 620;
+        by = 830;
+      }
+
+      // 1. RENDER VECTOR INFOGRAPHIC BADGE (LAYER 2)
+      ctx.save();
+      ctx.font = '800 32px "Plus Jakarta Sans", sans-serif';
+      ctx.textBaseline = 'top';
+
+      const badgeText = currentBadge.text;
+      const badgeWidth = ctx.measureText(badgeText).width + 36;
+      const badgeHeight = 54;
+
+      // Drop Shadow
+      ctx.shadowColor = 'rgba(0,0,0,0.6)';
+      ctx.shadowBlur = 16;
+      ctx.shadowOffsetY = 6;
+
+      // Badge Round Rectangle
+      ctx.fillStyle = currentBadge.bg;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, badgeWidth, badgeHeight, 14);
+      ctx.fill();
+
+      // Badge Text
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = currentBadge.textCol;
+      ctx.fillText(badgeText, bx + 18, by + 10);
+      ctx.restore();
     }
-
-    // 1. RENDER VECTOR INFOGRAPHIC BADGE (LAYER 2)
-    ctx.save();
-    ctx.font = '800 32px "Plus Jakarta Sans", sans-serif';
-    ctx.textBaseline = 'top';
-
-    const badgeText = currentBadge.text;
-    const badgeWidth = ctx.measureText(badgeText).width + 36;
-    const badgeHeight = 54;
-
-    // Drop Shadow
-    ctx.shadowColor = 'rgba(0,0,0,0.6)';
-    ctx.shadowBlur = 16;
-    ctx.shadowOffsetY = 6;
-
-    // Badge Round Rectangle
-    ctx.fillStyle = currentBadge.bg;
-    ctx.beginPath();
-    ctx.roundRect(bx, by, badgeWidth, badgeHeight, 14);
-    ctx.fill();
-
-    // Badge Text
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = currentBadge.textCol;
-    ctx.fillText(badgeText, bx + 18, by + 10);
-    ctx.restore();
 
     // 2. RENDER PRICE TAG (IF ENTERED)
     if (priceText.trim()) {
@@ -476,7 +478,10 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((pr) => (
                     <button
                       key={pr.id}
-                      onClick={() => setSelectedPreset(pr.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedPreset((prev) => (prev === pr.id ? 'none' : pr.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedPreset === pr.id
                           ? 'bg-emerald-600/30 border-emerald-500 text-emerald-300'
@@ -503,7 +508,10 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((bd) => (
                     <button
                       key={bd.id}
-                      onClick={() => setSelectedBadge(bd.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedBadge((prev) => (prev === bd.id ? 'none' : bd.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedBadge === bd.id
                           ? 'bg-emerald-600/30 border-emerald-500 text-emerald-300'

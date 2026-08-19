@@ -409,7 +409,10 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
                   ].map((c) => (
                     <button
                       key={c.id}
-                      onClick={() => setCategory(c.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setCategory((prev) => (prev === c.id ? 'none' : c.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         category === c.id
                           ? 'bg-teal-600/30 border-teal-500 text-teal-300'
@@ -435,7 +438,10 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
                   ].map((pr) => (
                     <button
                       key={pr.id}
-                      onClick={() => setSelectedPreset(pr.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedPreset((prev) => (prev === pr.id ? 'none' : pr.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedPreset === pr.id
                           ? 'bg-teal-600/30 border-teal-500 text-teal-300'
@@ -476,7 +482,10 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
                   ].map((bd) => (
                     <button
                       key={bd.id}
-                      onClick={() => setSelectedBadge(bd.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedBadge((prev) => (prev === bd.id ? 'none' : bd.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedBadge === bd.id
                           ? 'bg-teal-600/30 border-teal-500 text-teal-300'

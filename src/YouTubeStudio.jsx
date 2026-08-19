@@ -661,7 +661,10 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((st) => (
                     <button
                       key={st.id}
-                      onClick={() => setSelectedStyle(st.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedStyle((prev) => (prev === st.id ? 'none' : st.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedStyle === st.id
                           ? 'bg-rose-600/30 border-rose-500 text-rose-300'
@@ -687,7 +690,10 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                   ].map((col) => (
                     <button
                       key={col.id}
-                      onClick={() => setSelectedColor(col.id)}
+                      onClick={() => {
+                        triggerHaptic('light');
+                        setSelectedColor((prev) => (prev === col.id ? 'none' : col.id));
+                      }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedColor === col.id
                           ? 'bg-amber-600/30 border-amber-500 text-amber-300'
