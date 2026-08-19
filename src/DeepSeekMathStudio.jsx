@@ -198,6 +198,7 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
   };
 
   const renderLayer2STEMBadges = (ctx) => {
+    if (selectedBadge === 'none') return;
     const badgesDict = {
       deepseek: { text: t.badgeDeepseek, bg: '#0d9488', textCol: '#ffffff' },
       nim: { text: t.badgeNim, bg: '#16a34a', textCol: '#ffffff' },

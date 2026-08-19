@@ -207,6 +207,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
   };
 
   const renderLayer2CopywriterBadges = (ctx) => {
+    if (selectedBadge === 'none') return;
     const badgesDict = {
       nemotron: { text: t.badgeNemotron, bg: '#7c3aed', textCol: '#ffffff' },
       aida: { text: t.badgeAida, bg: '#dc2626', textCol: '#ffffff' },

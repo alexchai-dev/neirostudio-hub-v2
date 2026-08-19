@@ -216,6 +216,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2TattooBadges = (ctx) => {
+    if (selectedBadge === 'none') return;
     const badgesDict = {
       stencil: { text: t.badgeStencil, bg: '#090d16', textCol: '#ffffff' },
       fineline: { text: t.badgeFineLine, bg: '#0284c7', textCol: '#ffffff' },

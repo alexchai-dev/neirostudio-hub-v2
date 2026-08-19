@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   try {
     // Extract module type from query or URL path or request body
     const moduleType = req.query.module || req.body.module || 'youtube-cover';
-    const { prompt, customPrompt, style, headline, badge, price, topic, problem, level, target, role, format, gender, preset } = req.body || {};
+    const { prompt, customPrompt, product, style, headline, badge, price, topic, problem, level, target, role, format, gender, preset } = req.body || {};
 
     const userTopic = topic || customPrompt || prompt || 'Запуск ИИ-сервиса NeiroStudio';
     const userTarget = target || 'Предприниматели, блогеры, фрилансеры';
@@ -211,7 +211,15 @@ export default async function handler(req, res) {
     } else if (moduleType === 'food') {
       basePrompt = `Mouthwatering macro studio food photography of ${customPrompt || prompt || 'gourmet burger'}, dark moody background, restaurant menu styling, Michelin star lighting 8k`;
     } else if (moduleType === 'ecommerce') {
-      basePrompt = `Professional e-commerce product photography of ${customPrompt || prompt || 'perfume bottle'} on dark obsidian stone pedestal, studio softbox lighting, 8k render`;
+      const currentPreset = preset || style;
+      let ecomBackground = 'dark obsidian stone pedestal, studio softbox lighting';
+      if (currentPreset === 'marble') ecomBackground = 'white Carrara marble podium with gold vein accents, bright clean studio lighting';
+      if (currentPreset === 'tropical') ecomBackground = 'natural wooden pedestal surrounded by fresh tropical palm leaves and morning dew, sunbeam lighting';
+      if (currentPreset === 'slate') ecomBackground = 'raw dark slate stone platform, moody luxury aesthetic';
+      if (currentPreset === 'neon') ecomBackground = 'glowing cyan neon cyber platform, reflective glass pedestal, cyberpunk studio lighting';
+
+      const targetProduct = product || customPrompt || prompt || 'luxury product bottle';
+      basePrompt = `Professional 8k commercial product studio photography of ${targetProduct}, placed on ${ecomBackground}, 8k render, photorealistic, advertising composition, masterpiece`;
     } else if (moduleType === 'avatar') {
       const isFemale = gender === 'female';
       const personSubject = isFemale ? 'beautiful elegant business woman executive, businesswoman' : 'handsome executive man, businessman in luxury suit';

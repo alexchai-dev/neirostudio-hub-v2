@@ -201,6 +201,7 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2PrintBadges = (ctx) => {
+    if (selectedBadge === 'none') return;
     const badgesDict = {
       diecut: { text: t.badgeDiecut, bg: '#0284c7', textCol: '#ffffff' },
       kdp: { text: t.badgeKdp, bg: '#090d16', textCol: '#ffffff' },
