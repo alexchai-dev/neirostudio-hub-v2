@@ -51,7 +51,7 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
   // Trilingual Dictionary
   const t = {
     ru: {
-      studioTitle: "DeepSeek Math & OCR Tutor",
+      studioTitle: "DeepSeek Математика & STEM",
       studioSub: "Пошаговое решение математических задач через ИИ",
       backHub: "В Хаб",
       categoryLabel: "1. Дисциплина & Предмет",
@@ -88,7 +88,7 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
-      studioTitle: "DeepSeek Math & OCR Tutor",
+      studioTitle: "DeepSeek Математика & STEM",
       studioSub: "Покрокове розв'язання математичних задач через ШІ",
       backHub: "До Хабу",
       categoryLabel: "1. Дисципліна & Предмет",
@@ -384,10 +384,6 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
       {/* MAIN CONTAINER */}
       <main className="max-w-5xl mx-auto px-4 pt-6">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-950/60 border border-teal-500/30 text-teal-400 text-xs font-medium mb-2">
-            <Flame className="w-3.5 h-3.5 text-teal-400" />
-            <span>DeepSeek Math Solver Engine</span>
-          </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
           </h2>

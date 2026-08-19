@@ -51,7 +51,7 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
   // Trilingual Dictionary
   const t = {
     ru: {
-      studioTitle: "Web3 & MemeCoin Mascot Pro",
+      studioTitle: "Web3 & Крипто Маскоты",
       studioSub: "Маскоты для криптопроектов и Web3 брендов",
       backHub: "В Хаб",
       characterLabel: "1. Персонаж маскота",
@@ -91,7 +91,7 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
-      studioTitle: "Web3 & MemeCoin Mascot Pro",
+      studioTitle: "Web3 & Крипто Маскоти",
       studioSub: "Маскоти для криптопроєктів та Web3 брендів",
       backHub: "До Хабу",
       characterLabel: "1. Персонаж маскота",
@@ -423,10 +423,6 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
       {/* MAIN CONTAINER */}
       <main className="max-w-5xl mx-auto px-4 pt-6">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-950/60 border border-fuchsia-500/30 text-fuchsia-400 text-xs font-medium mb-2">
-            <Flame className="w-3.5 h-3.5 text-fuchsia-400" />
-            <span>Web3 Mascot Character Engine</span>
-          </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
           </h2>

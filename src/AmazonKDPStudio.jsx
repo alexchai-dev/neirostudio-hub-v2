@@ -51,7 +51,7 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
   // Trilingual Dictionary
   const t = {
     ru: {
-      studioTitle: "Amazon KDP & Stickers Print AI",
+      studioTitle: "Печать Принтов & Стикеры AI",
       studioSub: "Стикеры и иллюстрации для Amazon KDP & Etsy",
       backHub: "В Хаб",
       categoryLabel: "1. Тематика иллюстраций",
@@ -89,7 +89,7 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
-      studioTitle: "Amazon KDP & Stickers Print AI",
+      studioTitle: "Друк Принтів & Стікери ШІ",
       studioSub: "Стікери та ілюстрації для Amazon KDP & Etsy",
       backHub: "До Хабу",
       categoryLabel: "1. Тематика ілюстрацій",
@@ -387,10 +387,6 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
       {/* MAIN CONTAINER */}
       <main className="max-w-5xl mx-auto px-4 pt-6">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-950/60 border border-yellow-500/30 text-yellow-400 text-xs font-medium mb-2">
-            <Flame className="w-3.5 h-3.5 text-yellow-400" />
-            <span>Print & Sticker Illustration Engine</span>
-          </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
           </h2>

@@ -51,7 +51,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
   // Trilingual Dictionary
   const t = {
     ru: {
-      studioTitle: "Tattoo Sketch AI Studio",
+      studioTitle: "Тату-Эскизы & Трансфер AI",
       studioSub: "Эскизы татуировок на чистом белом фоне под трансфер",
       backHub: "В Хаб",
       motifLabel: "1. Главный мотив эскиза",
@@ -94,7 +94,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
-      studioTitle: "Tattoo Sketch AI Studio",
+      studioTitle: "Тату-Ескізи & Трансфер ШІ",
       studioSub: "Ескізи татуювань на чистому білому тлі під трансфер",
       backHub: "До Хабу",
       motifLabel: "1. Головний мотив ескізу",
@@ -400,10 +400,6 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
       {/* MAIN CONTAINER */}
       <main className="max-w-5xl mx-auto px-4 pt-6">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/30 text-purple-400 text-xs font-medium mb-2">
-            <Flame className="w-3.5 h-3.5 text-purple-400" />
-            <span>Tattoo Sketch Engine</span>
-          </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
           </h2>

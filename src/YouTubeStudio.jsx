@@ -59,7 +59,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
   // Trilingual Dictionary
   const t = {
     ru: {
-      studioTitle: "YouTube 16:9 AI Studio",
+      studioTitle: "YouTube 16:9 Студия Обложек",
       studioSub: "Обложки для YouTube видео с выразительным текстом",
       backHub: "В Хаб",
       topicLabel: "1. Описание или тема видео",
@@ -96,7 +96,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       customTextInactiveDesc: "🚫 Текст отключен: генерируется чистая фоновая картинка без надписей"
     },
     ua: {
-      studioTitle: "YouTube 16:9 AI Studio",
+      studioTitle: "YouTube 16:9 Студія Обкладинок",
       studioSub: "Обкладинки для YouTube відео з виразним текстом",
       backHub: "До Хабу",
       topicLabel: "1. Опис або тема відео",
@@ -570,10 +570,6 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       <main className="max-w-5xl mx-auto px-4 pt-6">
 
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-950/60 border border-rose-500/30 text-rose-400 text-xs font-medium mb-2">
-            <Flame className="w-3.5 h-3.5 text-rose-400" />
-            <span>YouTube Cover Engine</span>
-          </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
           </h2>

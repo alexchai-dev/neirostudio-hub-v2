@@ -54,7 +54,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
   // Trilingual Dictionary
   const t = {
     ru: {
-      studioTitle: "AI Real Estate & Interior Staging",
+      studioTitle: "Стейджинг Недвижимости & Интерьер",
       studioSub: "Студийный виртуальный стейджинг недвижимости",
       backHub: "В Хаб",
       roomLabel: "1. Тип помещения",
@@ -94,7 +94,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
-      studioTitle: "AI Real Estate & Interior Staging",
+      studioTitle: "Стейджинг Нерухомості & Інтер'єр",
       studioSub: "Студійний віртуальний стейджинг нерухомості",
       backHub: "До Хабу",
       roomLabel: "1. Тип приміщення",
@@ -414,10 +414,6 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       {/* MAIN CONTAINER */}
       <main className="max-w-5xl mx-auto px-4 pt-6">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-400 text-xs font-medium mb-2">
-            <Flame className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Realty Interior Staging Engine</span>
-          </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
           </h2>

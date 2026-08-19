@@ -53,7 +53,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
   // Trilingual Dictionary
   const t = {
     ru: {
-      studioTitle: "E-Commerce Product Studio",
+      studioTitle: "E-Commerce Студия Товаров",
       studioSub: "Студийные фото карточек товаров с инфографикой",
       backHub: "В Хаб",
       productLabel: "1. Название или тип товара",
@@ -87,7 +87,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
-      studioTitle: "E-Commerce Product Studio",
+      studioTitle: "E-Commerce Студія Товарів",
       studioSub: "Студійні фото карток товарів з інфографікою",
       backHub: "До Хабу",
       productLabel: "1. Назва або тип товару",
@@ -434,10 +434,6 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       {/* MAIN CONTAINER */}
       <main className="max-w-5xl mx-auto px-4 pt-6">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-medium mb-2">
-            <Flame className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Studio E-Com Engine • Vector Infographics</span>
-          </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
           </h2>

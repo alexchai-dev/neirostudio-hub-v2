@@ -54,7 +54,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
   // Trilingual Dictionary
   const t = {
     ru: {
-      studioTitle: "NVIDIA Nemotron SMM Copywriter",
+      studioTitle: "Nemotron SMM Копирайтер",
       studioSub: "Вирусные тексты и посты для SMM от Nemotron AI",
       backHub: "В Хаб",
       categoryLabel: "1. Формат SMM контента",
@@ -93,7 +93,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       unlockedToast: "Текст скопирован в буфер обмена! Зачислено +3 ⚡!"
     },
     ua: {
-      studioTitle: "NVIDIA Nemotron SMM Copywriter",
+      studioTitle: "Nemotron SMM Копірайтер",
       studioSub: "Вірусні тексти та пости для SMM від Nemotron AI",
       backHub: "До Хабу",
       categoryLabel: "1. Формат SMM контенту",
@@ -432,10 +432,6 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       {/* MAIN CONTAINER */}
       <main className="max-w-5xl mx-auto px-4 pt-6">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/30 text-purple-400 text-xs font-medium mb-2">
-            <Flame className="w-3.5 h-3.5 text-purple-400" />
-            <span>Nemotron SMM Copywriting Engine</span>
-          </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
           </h2>

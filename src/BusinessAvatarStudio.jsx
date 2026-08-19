@@ -66,7 +66,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
   // Trilingual Dictionary
   const t = {
     ru: {
-      studioTitle: "Business Avatar Pro",
+      studioTitle: "Бизнес-Аватар Pro",
       studioSub: "Студийные деловые портреты с экспертными бейджами",
       backHub: "В Хаб",
       genderLabel: "1. Пол эксперта",
@@ -105,7 +105,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
-      studioTitle: "Business Avatar Pro",
+      studioTitle: "Бізнес-Аватар Pro",
       studioSub: "Студійні ділові портрети з експертними бейджами",
       backHub: "До Хабу",
       genderLabel: "1. Стать експерта",
@@ -432,10 +432,6 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       {/* MAIN CONTAINER */}
       <main className="max-w-5xl mx-auto px-4 pt-6">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 text-xs font-medium mb-2">
-            <Flame className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Executive Avatar Engine</span>
-          </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
           </h2>
