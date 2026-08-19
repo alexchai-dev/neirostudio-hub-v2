@@ -214,19 +214,10 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2RealtyBadges = (ctx) => {
-    if (selectedBadge !== 'none') {
-      const badgesDict = {
-        staging: { text: t.badgeStaging, bg: '#0284c7', textCol: '#ffffff' },
-        sale: { text: t.badgeSale, bg: '#ef4444', textCol: '#ffffff' },
-        rent: { text: t.badgeRent, bg: '#10b981', textCol: '#ffffff' },
-        spec: { text: t.badgeSpec, bg: '#8b5cf6', textCol: '#ffffff' }
-      };
-
-      const currentBadge = badgesDict[selectedBadge] || badgesDict.staging;
-
-    // Calculate Coordinates based on Position
     let bx = 60;
     let by = 60;
+    let badgeHeight = 52;
+    let badgeBg = '#0284c7';
 
     if (badgePosition === 'top-right') {
       bx = 820;
@@ -239,27 +230,38 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       by = 560;
     }
 
-    // 1. RENDER VECTOR REALTY BADGE (LAYER 2)
-    ctx.save();
-    ctx.font = '800 30px "Plus Jakarta Sans", sans-serif';
-    ctx.textBaseline = 'top';
+    if (selectedBadge !== 'none') {
+      const badgesDict = {
+        staging: { text: t.badgeStaging, bg: '#0284c7', textCol: '#ffffff' },
+        sale: { text: t.badgeSale, bg: '#ef4444', textCol: '#ffffff' },
+        rent: { text: t.badgeRent, bg: '#10b981', textCol: '#ffffff' },
+        spec: { text: t.badgeSpec, bg: '#8b5cf6', textCol: '#ffffff' }
+      };
 
-    const badgeText = currentBadge.text;
-    const badgeWidth = ctx.measureText(badgeText).width + 36;
-    const badgeHeight = 52;
+      const currentBadge = badgesDict[selectedBadge] || badgesDict.staging;
+      badgeBg = currentBadge.bg;
 
-    ctx.shadowColor = 'rgba(0,0,0,0.7)';
-    ctx.shadowBlur = 18;
+      // 1. RENDER VECTOR REALTY BADGE (LAYER 2)
+      ctx.save();
+      ctx.font = '800 30px "Plus Jakarta Sans", sans-serif';
+      ctx.textBaseline = 'top';
 
-    ctx.fillStyle = currentBadge.bg;
-    ctx.beginPath();
-    ctx.roundRect(bx, by, badgeWidth, badgeHeight, 14);
-    ctx.fill();
+      const badgeText = currentBadge.text;
+      const badgeWidth = ctx.measureText(badgeText).width + 36;
+      badgeHeight = 52;
 
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = currentBadge.textCol;
-    ctx.fillText(badgeText, bx + 18, by + 10);
-    ctx.restore();
+      ctx.shadowColor = 'rgba(0,0,0,0.7)';
+      ctx.shadowBlur = 18;
+
+      ctx.fillStyle = currentBadge.bg;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, badgeWidth, badgeHeight, 14);
+      ctx.fill();
+
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = currentBadge.textCol;
+      ctx.fillText(badgeText, bx + 18, by + 10);
+      ctx.restore();
     }
 
     // 2. RENDER DYNAMIC PRICE TAG (AUTOMATIC DYNAMIC WIDTH CALCULATION FOR LONG PRICES)
@@ -273,10 +275,10 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       const priceTextWidth = ctx.measureText(priceUpper).width;
       const priceBoxWidth = priceTextWidth + 38;
       const px = bx;
-      const py = by + badgeHeight + 12;
+      const py = selectedBadge !== 'none' ? by + badgeHeight + 12 : by;
 
       ctx.fillStyle = '#090d16';
-      ctx.strokeStyle = currentBadge.bg;
+      ctx.strokeStyle = badgeBg;
       ctx.lineWidth = 3;
       ctx.shadowColor = 'rgba(0,0,0,0.85)';
       ctx.shadowBlur = 14;

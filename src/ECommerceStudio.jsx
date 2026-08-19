@@ -201,6 +201,22 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2EComBadges = (ctx) => {
+    let bx = 50;
+    let by = 50;
+    let badgeHeight = 54;
+    let badgeBg = '#ef4444';
+
+    if (badgePosition === 'top-right') {
+      bx = 620;
+      by = 50;
+    } else if (badgePosition === 'bottom-left') {
+      bx = 50;
+      by = 830;
+    } else if (badgePosition === 'bottom-right') {
+      bx = 620;
+      by = 830;
+    }
+
     if (selectedBadge !== 'none') {
       // Badges Data Dictionary
       const badgesDict = {
@@ -212,21 +228,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       };
 
       const currentBadge = badgesDict[selectedBadge] || badgesDict.hit;
-
-      // Calculate Coordinates based on User-Selected Position (QA Recommendation)
-      let bx = 50;
-      let by = 50;
-
-      if (badgePosition === 'top-right') {
-        bx = 620;
-        by = 50;
-      } else if (badgePosition === 'bottom-left') {
-        bx = 50;
-        by = 830;
-      } else if (badgePosition === 'bottom-right') {
-        bx = 620;
-        by = 830;
-      }
+      badgeBg = currentBadge.bg;
 
       // 1. RENDER VECTOR INFOGRAPHIC BADGE (LAYER 2)
       ctx.save();
@@ -235,7 +237,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
 
       const badgeText = currentBadge.text;
       const badgeWidth = ctx.measureText(badgeText).width + 36;
-      const badgeHeight = 54;
+      badgeHeight = 54;
 
       // Drop Shadow
       ctx.shadowColor = 'rgba(0,0,0,0.6)';
@@ -264,11 +266,11 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       const priceUpper = priceText.toUpperCase();
       const priceWidth = ctx.measureText(priceUpper).width + 32;
       const px = bx;
-      const py = by + badgeHeight + 12;
+      const py = selectedBadge !== 'none' ? by + badgeHeight + 12 : by;
 
       // Dark Contrast Price Box
       ctx.fillStyle = '#090d16';
-      ctx.strokeStyle = currentBadge.bg;
+      ctx.strokeStyle = badgeBg;
       ctx.lineWidth = 3;
       ctx.shadowColor = 'rgba(0,0,0,0.8)';
       ctx.shadowBlur = 12;

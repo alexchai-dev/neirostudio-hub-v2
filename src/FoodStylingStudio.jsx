@@ -214,6 +214,22 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
   };
 
   const renderLayer2GastroBadges = (ctx) => {
+    let bx = 60;
+    let by = 60;
+    let badgeHeight = 52;
+    let badgeBg = '#ea580c';
+
+    if (badgePosition === 'top-right') {
+      bx = 560;
+      by = 60;
+    } else if (badgePosition === 'bottom-left') {
+      bx = 60;
+      by = 820;
+    } else if (badgePosition === 'bottom-right') {
+      bx = 560;
+      by = 820;
+    }
+
     if (selectedBadge !== 'none') {
       const badgesDict = {
         chef: { text: t.badgeChef, bg: '#ea580c', textCol: '#ffffff' },
@@ -223,21 +239,7 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
       };
 
       const currentBadge = badgesDict[selectedBadge] || badgesDict.chef;
-
-      // Calculate Position Coordinates
-      let bx = 60;
-      let by = 60;
-
-      if (badgePosition === 'top-right') {
-        bx = 560;
-        by = 60;
-      } else if (badgePosition === 'bottom-left') {
-        bx = 60;
-        by = 820;
-      } else if (badgePosition === 'bottom-right') {
-        bx = 560;
-        by = 820;
-      }
+      badgeBg = currentBadge.bg;
 
       // 1. RENDER VECTOR GASTRO BADGE (LAYER 2)
       ctx.save();
@@ -246,7 +248,7 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
 
       const badgeText = currentBadge.text;
       const badgeWidth = ctx.measureText(badgeText).width + 36;
-      const badgeHeight = 52;
+      badgeHeight = 52;
 
       ctx.shadowColor = 'rgba(0,0,0,0.85)';
       ctx.shadowBlur = 18;
@@ -272,11 +274,11 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
       const specTextWidth = ctx.measureText(specUpper).width;
       const specBoxWidth = specTextWidth + 38;
       const px = bx;
-      const py = by + badgeHeight + 12;
+      const py = selectedBadge !== 'none' ? by + badgeHeight + 12 : by;
 
       // Solid Dark Vignette Background (rgba(9,13,22,0.92)) so text never merges with food ingredients
       ctx.fillStyle = 'rgba(9, 13, 22, 0.92)';
-      ctx.strokeStyle = currentBadge.bg;
+      ctx.strokeStyle = badgeBg;
       ctx.lineWidth = 2.5;
       ctx.shadowColor = 'rgba(0,0,0,0.9)';
       ctx.shadowBlur = 16;
