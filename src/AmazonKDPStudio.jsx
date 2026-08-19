@@ -52,7 +52,7 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
   const t = {
     ru: {
       studioTitle: "Amazon KDP & Stickers Print AI",
-      studioSub: "Dual-Layer Print Engine • FLUX 1.0 8K + Die-Cut Контур & 300 DPI Specs",
+      studioSub: "Стикеры и иллюстрации для Amazon KDP & Etsy",
       backHub: "В Хаб",
       categoryLabel: "1. Тематика иллюстраций",
       catAnimals: "🐱 Милые животные",
@@ -60,11 +60,11 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
       catSpace: "🚀 Космос & Sci-Fi",
       catCafe: "☕ Кафе & Ретро",
       presetLabel: "2. Формат печати & стиль контура",
-      customPromptLabel: "3. Детали персонажа (необязательно)",
+      customPromptLabel: "3. Детали персонажа",
       customPromptPlaceholder: "Например: котик в очках, сакура, кофейная чашка...",
-      badgeLabel: "4. Статус-бейдж печати (Layer 2)",
-      positionLabel: "5. Позиционирование плашек (под легкий отрез)",
-      generateBtn: "Сгенерировать 8K Принт / Стикер",
+      badgeLabel: "4. Статус-бейдж печати",
+      positionLabel: "5. Расположение бейджа",
+      generateBtn: "Сгенерировать Принт / Стикер",
       presetSticker: "✂️ Cutout Sticker Pack",
       presetKdp: "📚 KDP Coloring Page",
       presetKawaii: "🐱 Kawaii Cute Vinyl",
@@ -78,17 +78,17 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
       posBottomLeft: "↙️ Снизу слева",
       posBottomRight: "↘️ Снизу справа",
       previewHeader: "Превью Принта (Live 1000x1000 Canvas)",
-      downloadBtn: "Скачать Принт 8K",
-      unlockBtn: "🎁 Снять Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Разблокировка 8K HD",
+      downloadBtn: "Скачать Принт",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка принта без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте печатный арт без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
       studioTitle: "Amazon KDP & Stickers Print AI",
-      studioSub: "Dual-Layer Print Engine • FLUX 1.0 8K + Die-Cut Контур & 300 DPI Specs",
+      studioSub: "Стікери та ілюстрації для Amazon KDP & Etsy",
       backHub: "До Хабу",
       categoryLabel: "1. Тематика ілюстрацій",
       catAnimals: "🐱 Милі тварини",
@@ -96,11 +96,11 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
       catSpace: "🚀 Космос & Sci-Fi",
       catCafe: "☕ Кафе & Ретро",
       presetLabel: "2. Формат друку & стиль контуру",
-      customPromptLabel: "3. Деталі персонажа (необов'язково)",
+      customPromptLabel: "3. Деталі персонажа",
       customPromptPlaceholder: "Наприклад: котик в окулярах, сакура, кавова чашка...",
-      badgeLabel: "4. Статус-бейдж друку (Layer 2)",
-      positionLabel: "5. Розташування плашок (під легкий відріз)",
-      generateBtn: "Згенерувати 8K Принт / Стікер",
+      badgeLabel: "4. Статус-бейдж друку",
+      positionLabel: "5. Розташування бейджа",
+      generateBtn: "Згенерувати Принт / Стікер",
       presetSticker: "✂️ Cutout Sticker Pack",
       presetKdp: "📚 KDP Coloring Page",
       presetKawaii: "🐱 Kawaii Cute Vinyl",
@@ -114,17 +114,17 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
       posBottomLeft: "↙️ Знизу ліворуч",
       posBottomRight: "↘️ Знизу праворуч",
       previewHeader: "Прев'ю Принту (Live 1000x1000 Canvas)",
-      downloadBtn: "Завантажити Принт 8K",
-      unlockBtn: "🎁 Зняти Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Розблокування 8K HD",
+      downloadBtn: "Завантажити Принт",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування принту без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте печатний арт без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
-      starsDealBtn: "⭐ Завантажити в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Завантажити за Telegram Stars",
       unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
     },
     en: {
       studioTitle: "Amazon KDP & Stickers Print AI",
-      studioSub: "Dual-Layer Print Engine • FLUX 1.0 8K + Die-Cut Contour & 300 DPI Specs",
+      studioSub: "Print & Sticker Illustration Engine",
       backHub: "To Hub",
       categoryLabel: "1. Illustration Theme",
       catAnimals: "🐱 Cute Animals",
@@ -272,7 +272,7 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
       ctx.save();
       ctx.font = '800 24px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = 'rgba(9, 13, 22, 0.45)';
-      ctx.fillText('NEIROSTUDIO PRINT PREVIEW • UNLOCK 8K', 50, 940);
+      ctx.fillText('NEIROSTUDIO PRINT PREVIEW', 50, 940);
       ctx.restore();
     }
   };
@@ -383,7 +383,7 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-950/60 border border-yellow-500/30 text-yellow-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-yellow-400" />
-            <span>Dual-Layer Print Engine • Die-Cut Contour & 300 DPI Specs</span>
+            <span>Print & Sticker Illustration Engine</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
@@ -550,7 +550,7 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-yellow-500/20 text-yellow-300 px-2 py-0.5 rounded-full font-bold uppercase border border-yellow-500/30">
-                  8K Print Canvas
+                  Print Canvas
                 </span>
               </div>
 
@@ -559,7 +559,7 @@ export default function AmazonKDPStudio({ onBackToHub, initialLang = 'ru' }) {
                 {isGenerating && (
                   <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center text-yellow-400 text-xs">
                     <RefreshCw className="w-8 h-8 animate-spin mb-2" />
-                    <span>Синтез FLUX 1.0 8K Print Art / Sticker...</span>
+                    <span>Синтез стикера...</span>
                   </div>
                 )}
               </div>

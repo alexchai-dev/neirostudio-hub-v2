@@ -55,21 +55,21 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
   const t = {
     ru: {
       studioTitle: "AI Real Estate & Interior Staging",
-      studioSub: "Dual-Layer Realty Engine • FLUX 1.0 8K + Риелторская Инфографика",
+      studioSub: "Студийный виртуальный стейджинг недвижимости",
       backHub: "В Хаб",
       roomLabel: "1. Тип помещения",
       roomLiving: "🛋️ Гостиная",
       roomBedroom: "🪟 Спальня",
       roomKitchen: "🍳 Кухня",
       roomOffice: "💻 Кабинет",
-      presetLabel: "2. Дизайн интерьера & атмосфера",
-      customPromptLabel: "3. Детали интерьера или вида (необязательно)",
+      presetLabel: "2. Дизайн интерьера",
+      customPromptLabel: "3. Детали интерьера или вида",
       customPromptPlaceholder: "Например: панорамный вид, камин, бежевые диваны...",
-      badgeLabel: "4. Бейдж статуса недвижимости (Layer 2)",
-      positionLabel: "5. Расположение бейджа (чтобы не перекрывать интерьер)",
-      priceLabel: "6. Стоимость объекта или аренда (авто-ширина плашки)",
+      badgeLabel: "4. Бейдж статуса недвижимости",
+      positionLabel: "5. Расположение бейджа",
+      priceLabel: "6. Стоимость объекта или аренда",
       pricePlaceholder: "Например: $1,250,000 или 25 000 ₴/мес",
-      generateBtn: "Сгенерировать 8K Стейджинг (16:9)",
+      generateBtn: "Сгенерировать Стейджинг",
       presetScandi: "🌿 Скандинавский",
       presetPenthouse: "🏙️ Пентхаус Люкс",
       presetJapandi: "🌾 Загородный Джапанди",
@@ -83,31 +83,31 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       posBottomLeft: "↙️ Снизу слева",
       posBottomRight: "↘️ Снизу справа",
       previewHeader: "Рендер Интерьера (Live 1280x720 Canvas)",
-      downloadBtn: "Скачать Рендер 8K",
-      unlockBtn: "🎁 Снять Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Разблокировка 8K HD",
+      downloadBtn: "Скачать Рендер",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка фото без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте фото интерьера без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
       studioTitle: "AI Real Estate & Interior Staging",
-      studioSub: "Dual-Layer Realty Engine • FLUX 1.0 8K + Ріелторська Інфографіка",
+      studioSub: "Студійний віртуальний стейджинг нерухомості",
       backHub: "До Хабу",
       roomLabel: "1. Тип приміщення",
       roomLiving: "🛋️ Вітальня",
       roomBedroom: "🪟 Спальня",
       roomKitchen: "🍳 Кухня",
       roomOffice: "💻 Кабінет",
-      presetLabel: "2. Дизайн інтер'єру & атмосфера",
-      customPromptLabel: "3. Деталі інтер'єру або виду (необов'язково)",
+      presetLabel: "2. Дизайн інтер'єру",
+      customPromptLabel: "3. Деталі інтер'єру або виду",
       customPromptPlaceholder: "Наприклад: панорамний вид, камін, бежеві дивани...",
-      badgeLabel: "4. Бейдж статусу нерухомості (Layer 2)",
-      positionLabel: "5. Розташування бейджа (щоб не перекривати інтер'єр)",
-      priceLabel: "6. Вартість об'єкта або оренда (авто-ширина плашки)",
+      badgeLabel: "4. Бейдж статусу нерухомості",
+      positionLabel: "5. Розташування бейджа",
+      priceLabel: "6. Вартість об'єкта або оренда",
       pricePlaceholder: "Наприклад: $1,250,000 або 25 000 ₴/міс",
-      generateBtn: "Згенерувати 8K Стейджинг (16:9)",
+      generateBtn: "Згенерувати Стейджинг",
       presetScandi: "🌿 Скандинавський",
       presetPenthouse: "🏙️ Пентхаус Люкс",
       presetJapandi: "🌾 Загородний Джапанді",
@@ -121,17 +121,17 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       posBottomLeft: "↙️ Знизу ліворуч",
       posBottomRight: "↘️ Знизу праворуч",
       previewHeader: "Рендер Інтер'єру (Live 1280x720 Canvas)",
-      downloadBtn: "Завантажити Рендер 8K",
-      unlockBtn: "🎁 Зняти Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Розблокування 8K HD",
+      downloadBtn: "Завантажити Рендер",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування фото без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте фото інтер'єру без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
-      starsDealBtn: "⭐ Завантажити в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Завантажити за Telegram Stars",
       unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
     },
     en: {
       studioTitle: "AI Real Estate & Interior Staging",
-      studioSub: "Dual-Layer Realty Engine • FLUX 1.0 8K + Property Infographics",
+      studioSub: "Virtual Interior Staging Engine",
       backHub: "To Hub",
       roomLabel: "1. Room Type",
       roomLiving: "🛋️ Living Room",
@@ -301,7 +301,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
       ctx.shadowBlur = 10;
-      ctx.fillText('NEIROSTUDIO REAL ESTATE PREVIEW • UNLOCK 8K', 60, 660);
+      ctx.fillText('NEIROSTUDIO REAL ESTATE PREVIEW', 60, 660);
       ctx.restore();
     }
   };
@@ -412,7 +412,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Dual-Layer Realty Engine • FLUX 1.0 8K + Dynamic Price Tag</span>
+            <span>Realty Interior Staging Engine</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
@@ -596,7 +596,7 @@ export default function RealEstateStudio({ onBackToHub, initialLang = 'ru' }) {
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-bold uppercase border border-indigo-500/30">
-                  16:9 8K Render
+                  16:9 Canvas
                 </span>
               </div>
 

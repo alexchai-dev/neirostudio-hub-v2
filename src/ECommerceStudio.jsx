@@ -54,20 +54,18 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
   const t = {
     ru: {
       studioTitle: "E-Commerce Product Studio",
-      studioSub: "Dual-Layer Engine • FLUX 1.0 8K + Векторная Инфографика",
+      studioSub: "Студийные фото карточек товаров с инфографикой",
       backHub: "В Хаб",
-      productLabel: "1. Название или тип товара (Layer 1 - FLUX 1.0)",
-      productPlaceholder: "Например: Флакон элитных духов, наушники, крем...",
-      presetLabel: "2. Студийный фон и атмосфера подиума",
-      badgeLabel: "3. Векторный бейдж инфографики (Layer 2)",
-      positionLabel: "4. Расположение бейджа (чтобы не перекрывать товар)",
+      productLabel: "1. Название или тип товара",
+      productPlaceholder: "Например: колечко женское с бриллиантом...",
+      presetLabel: "2. Студийный фон",
+      badgeLabel: "3. Векторный бейдж инфографики",
+      positionLabel: "4. Расположение бейджа",
       priceLabel: "5. Цена или предложение",
       pricePlaceholder: "Например: 999 ₴ или -30%",
-      generateBtn: "Сгенерировать Студийное Фото 8K",
+      generateBtn: "Сгенерировать Студийное Фото",
       presetMarble: "🏛️ Белый Мрамор",
       presetTropical: "🌿 Тропики & Оазис",
-      presetSlate: "🗿 Темный Сланец",
-      presetNeon: "⚡ Неоновая Студия",
       badgeHit: "🔥 ХИТ ПРОДАЖ",
       badgeDiscount: "💥 СКИДКА -50%",
       badgeRating: "⭐ 5.0 РЕЙТИНГ",
@@ -78,30 +76,28 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       posBottomLeft: "↙️ Снизу слева",
       posBottomRight: "↘️ Снизу справа",
       previewHeader: "Карточка Товара (Live 1000x1000 Canvas)",
-      downloadBtn: "Скачать Картку 8K",
-      unlockBtn: "🎁 Снять Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Разблокировка 8K HD",
+      downloadBtn: "Скачать Карточку",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка карточки без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте карточку без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
       studioTitle: "E-Commerce Product Studio",
-      studioSub: "Dual-Layer Engine • FLUX 1.0 8K + Векторна Інфографіка",
+      studioSub: "Студійні фото карток товарів з інфографікою",
       backHub: "До Хабу",
-      productLabel: "1. Назва або тип товару (Layer 1 - FLUX 1.0)",
-      productPlaceholder: "Наприклад: Флакон елітних парфумів, навушники, крем...",
-      presetLabel: "2. Студійний фон та атмосфера подіуму",
-      badgeLabel: "3. Векторний бейдж інфографіки (Layer 2)",
-      positionLabel: "4. Розташування бейджа (щоб не перекривати товар)",
+      productLabel: "1. Назва або тип товару",
+      productPlaceholder: "Наприклад: каблучка жіноча з діамантом...",
+      presetLabel: "2. Студійний фон",
+      badgeLabel: "3. Векторний бейдж інфографіки",
+      positionLabel: "4. Розташування бейджа",
       priceLabel: "5. Ціна або пропозиція",
       pricePlaceholder: "Наприклад: 999 ₴ або -30%",
-      generateBtn: "Згенерувати Студійне Фото 8K",
+      generateBtn: "Згенерувати Студійне Фото",
       presetMarble: "🏛️ Білий Мармур",
       presetTropical: "🌿 Тропіки & Оазис",
-      presetSlate: "🗿 Темний Сланець",
-      presetNeon: "⚡ Неонова Студія",
       badgeHit: "🔥 ХІТ ПРОДАЖІВ",
       badgeDiscount: "💥 ЗНИЖКА -50%",
       badgeRating: "⭐ 5.0 РЕЙТИНГ",
@@ -111,31 +107,29 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       posTopRight: "↗️ Зверху праворуч",
       posBottomLeft: "↙️ Знизу ліворуч",
       posBottomRight: "↘️ Знизу праворуч",
-      previewHeader: "Картка Товару (Live 1000x1000 Canvas)",
-      downloadBtn: "Завантажити Картку 8K",
-      unlockBtn: "🎁 Зняти Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Розблокування 8K HD",
+      previewHeader: "Картка Товара (Live 1000x1000 Canvas)",
+      downloadBtn: "Завантажити Картку",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування картки без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте картку без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
-      starsDealBtn: "⭐ Завантажити в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Завантажити за Telegram Stars",
       unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
     },
     en: {
       studioTitle: "E-Commerce Product Studio",
-      studioSub: "Dual-Layer Engine • FLUX 1.0 8K + Vector Infographics",
+      studioSub: "Studio Product Photos with Infographics",
       backHub: "To Hub",
-      productLabel: "1. Product Name or Item (Layer 1 - FLUX 1.0)",
-      productPlaceholder: "e.g. Luxury perfume bottle, wireless earbuds...",
-      presetLabel: "2. Studio Background & Podium Vibe",
-      badgeLabel: "3. Vector Infographic Badge (Layer 2)",
-      positionLabel: "4. Badge Position (prevents covering product)",
+      productLabel: "1. Product Name or Item",
+      productPlaceholder: "e.g. Diamond ring, luxury perfume...",
+      presetLabel: "2. Studio Background",
+      badgeLabel: "3. Vector Infographic Badge",
+      positionLabel: "4. Badge Position",
       priceLabel: "5. Price Tag or Offer",
       pricePlaceholder: "e.g. $49.99 or -30% OFF",
-      generateBtn: "Generate 8K Product Photo",
+      generateBtn: "Generate Studio Photo",
       presetMarble: "🏛️ White Marble",
       presetTropical: "🌿 Tropical Oasis",
-      presetSlate: "🗿 Dark Slate",
-      presetNeon: "⚡ Cyber Neon",
       badgeHit: "🔥 TOP SELLER",
       badgeDiscount: "💥 50% OFF SALE",
       badgeRating: "⭐ 5.0 RATING",
@@ -293,7 +287,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
       ctx.shadowBlur = 10;
-      ctx.fillText('NEIROSTUDIO E-COM PREVIEW • UNLOCK 8K', 50, 930);
+      ctx.fillText('NEIROSTUDIO E-COM PREVIEW', 50, 930);
       ctx.restore();
     }
   };
@@ -436,7 +430,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Dual-Layer E-Com Engine • FLUX 1.0 8K + Vector Infographics</span>
+            <span>Studio E-Com Engine • Vector Infographics</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
@@ -474,9 +468,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { id: 'marble', label: t.presetMarble },
-                    { id: 'tropical', label: t.presetTropical },
-                    { id: 'slate', label: t.presetSlate },
-                    { id: 'neon', label: t.presetNeon }
+                    { id: 'tropical', label: t.presetTropical }
                   ].map((pr) => (
                     <button
                       key={pr.id}
@@ -591,7 +583,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold uppercase border border-emerald-500/30">
-                  8K Studio Canvas
+                  Studio Canvas
                 </span>
               </div>
 
@@ -600,7 +592,7 @@ export default function ECommerceStudio({ onBackToHub, initialLang = 'ru' }) {
                 {isGenerating && (
                   <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center text-emerald-400 text-xs">
                     <RefreshCw className="w-8 h-8 animate-spin mb-2" />
-                    <span>Синтез FLUX 1.0 8K + Vector E-Com Badges...</span>
+                    <span>Синтез студийного фото...</span>
                   </div>
                 )}
               </div>

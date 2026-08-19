@@ -52,7 +52,7 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
   const t = {
     ru: {
       studioTitle: "DeepSeek Math & OCR Tutor",
-      studioSub: "Dual-Layer STEM Engine • DeepSeek-R1 Reasoning + NVIDIA NIM H100",
+      studioSub: "Пошаговое решение математических задач через ИИ",
       backHub: "В Хаб",
       categoryLabel: "1. Дисциплина & Предмет",
       catAlgebra: "🧮 Высшая Алгебра & Матананализ",
@@ -62,9 +62,9 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
       presetLabel: "2. Режим решения & вывод",
       customPromptLabel: "3. Математическое уравнение или задача",
       customPromptPlaceholder: "Например: ∫ x² • sin(x) dx  или  2x² + 5x - 3 = 0",
-      badgeLabel: "4. STEM Статус-бейдж (Layer 2)",
-      positionLabel: "5. Позиционирование плашек (под шпоры)",
-      generateBtn: "Решить через DeepSeek-R1 (0.4s)",
+      badgeLabel: "4. STEM Статус-бейдж",
+      positionLabel: "5. Расположение бейджа",
+      generateBtn: "Решить уравнение",
       presetProof: "🧠 Step-by-Step Proof",
       presetQuick: "⚡ Quick Solution",
       presetExam: "🎯 Exam Prep & Formula",
@@ -77,17 +77,17 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
       posBottomLeft: "↙️ Снизу слева",
       posBottomRight: "↘️ Снизу справа",
       previewHeader: "Превью Решения (Live 1000x1000 Canvas)",
-      downloadBtn: "Скачать Решение 8K",
-      unlockBtn: "🎁 Снять Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Разблокировка 8K HD",
+      downloadBtn: "Скачать Решение",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка решения без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте полное решение без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
       studioTitle: "DeepSeek Math & OCR Tutor",
-      studioSub: "Dual-Layer STEM Engine • DeepSeek-R1 Reasoning + NVIDIA NIM H100",
+      studioSub: "Покрокове розв'язання математичних задач через ШІ",
       backHub: "До Хабу",
       categoryLabel: "1. Дисципліна & Предмет",
       catAlgebra: "🧮 Вища Алгебра & Матаналіз",
@@ -97,9 +97,9 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
       presetLabel: "2. Режим розв'язання & вивід",
       customPromptLabel: "3. Математичне рівняння або задача",
       customPromptPlaceholder: "Наприклад: ∫ x² • sin(x) dx  або  2x² + 5x - 3 = 0",
-      badgeLabel: "4. STEM Статус-бейдж (Layer 2)",
-      positionLabel: "5. Розташування плашок (під шпори)",
-      generateBtn: "Розв'язати через DeepSeek-R1 (0.4s)",
+      badgeLabel: "4. STEM Статус-бейдж",
+      positionLabel: "5. Розташування бейджа",
+      generateBtn: "Розв'язати рівняння",
       presetProof: "🧠 Step-by-Step Proof",
       presetQuick: "⚡ Quick Solution",
       presetExam: "🎯 Exam Prep & Formula",
@@ -112,17 +112,17 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
       posBottomLeft: "↙️ Знизу ліворуч",
       posBottomRight: "↘️ Знизу праворуч",
       previewHeader: "Прев'ю Розв'язку (Live 1000x1000 Canvas)",
-      downloadBtn: "Завантажити Розв'язок 8K",
-      unlockBtn: "🎁 Зняти Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Розблокування 8K HD",
+      downloadBtn: "Завантажити Розв'язок",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування розв'язку без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте розв'язок без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
-      starsDealBtn: "⭐ Завантажити в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Завантажити за Telegram Stars",
       unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
     },
     en: {
       studioTitle: "DeepSeek Math & OCR Tutor",
-      studioSub: "Dual-Layer STEM Engine • DeepSeek-R1 Reasoning + NVIDIA NIM H100",
+      studioSub: "DeepSeek Math Solver Engine",
       backHub: "To Hub",
       categoryLabel: "1. Academic Field",
       catAlgebra: "🧮 Higher Algebra & Calculus",
@@ -269,7 +269,7 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
       ctx.save();
       ctx.font = '800 24px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
-      ctx.fillText('DEEPSEEK-R1 STEM PREVIEW • UNLOCK 8K', 50, 940);
+      ctx.fillText('DEEPSEEK-R1 STEM PREVIEW', 50, 940);
       ctx.restore();
     }
   };
@@ -380,7 +380,7 @@ export default function DeepSeekMathStudio({ onBackToHub, initialLang = 'ru' }) 
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-950/60 border border-teal-500/30 text-teal-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-teal-400" />
-            <span>Dual-Layer STEM Engine • DeepSeek-R1 Reasoning & Formula Tutor</span>
+            <span>DeepSeek Math Solver Engine</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}

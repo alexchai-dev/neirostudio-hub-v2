@@ -67,18 +67,18 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
   const t = {
     ru: {
       studioTitle: "Business Avatar Pro",
-      studioSub: "Dual-Layer Executive Engine • FLUX 1.0 8K + Экспертные Бейджи",
+      studioSub: "Студийные деловые портреты с экспертными бейджами",
       backHub: "В Хаб",
-      genderLabel: "1. Пол эксперта (Gender Selection)",
-      genderMale: "👨 Мужской (Male)",
-      genderFemale: "👩 Женский (Female)",
-      presetLabel: "2. Стиль делового портрета & локации",
-      customPromptLabel: "3. Детали внешности или костюма (необязательно)",
+      genderLabel: "1. Пол эксперта",
+      genderMale: "👨 Мужской",
+      genderFemale: "👩 Женский",
+      presetLabel: "2. Стиль портрета",
+      customPromptLabel: "3. Детали внешности или костюма",
       customPromptPlaceholder: "Например: очки, темный костюм, улыбка...",
-      badgeLabel: "4. Статус-бейдж эксперта (Layer 2)",
-      positionLabel: "5. Позиционирование бейджа (Safe Zone)",
-      circleMaskToggle: "⭕ Маска круга (Telegram/LinkedIn Crop)",
-      generateBtn: "Сгенерировать Деловые Портреты 8K",
+      badgeLabel: "4. Статус-бейдж эксперта",
+      positionLabel: "5. Расположение бейджа",
+      circleMaskToggle: "⭕ Круговая рамка Telegram/LinkedIn",
+      generateBtn: "Сгенерировать Деловые Портреты",
       presetForbes: "💼 Forbes Executive",
       presetDubai: "🏙️ Dubai Penthouse",
       presetOldMoney: "💎 Old Money Luxury",
@@ -88,34 +88,34 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       badgeKeynote: "🎙️ KEYNOTE SPEAKER",
       badgeExpert: "⭐ TOP EXPERT",
       badgeOldMoney: "💎 OLD MONEY LUXURY",
-      badgeNone: "🚫 Без бейджа (Чистый Портрет)",
+      badgeNone: "🚫 Без бейджа",
       posBottomCenter: "⬇️ Снизу по центру",
       posTopCenter: "⬆️ Сверху по центру",
       posTopLeft: "↖️ Сверху слева",
       posTopRight: "↗️ Сверху справа",
       previewHeader: "Превью Аватарки (Live 1000x1000 Canvas)",
-      downloadBtn: "Скачать Аватарку 8K",
-      unlockBtn: "🎁 Снять Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Разблокировка 8K HD",
+      downloadBtn: "Скачать Аватарку",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка аватарки без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте аватарку без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
       studioTitle: "Business Avatar Pro",
-      studioSub: "Dual-Layer Executive Engine • FLUX 1.0 8K + Експертні Бейджі",
+      studioSub: "Студійні ділові портрети з експертними бейджами",
       backHub: "До Хабу",
-      genderLabel: "1. Стать експерта (Gender Selection)",
-      genderMale: "👨 Чоловіча (Male)",
-      genderFemale: "👩 Жіноча (Female)",
-      presetLabel: "2. Стиль ділового портрета & локації",
-      customPromptLabel: "3. Деталі зовнішності або костюма (необов'язково)",
+      genderLabel: "1. Стать експерта",
+      genderMale: "👨 Чоловіча",
+      genderFemale: "👩 Жіноча",
+      presetLabel: "2. Стиль портрета",
+      customPromptLabel: "3. Деталі зовнішності або костюма",
       customPromptPlaceholder: "Наприклад: окуляри, темний костюм, посмішка...",
-      badgeLabel: "4. Статус-бейдж експерта (Layer 2)",
-      positionLabel: "5. Позиціонування бейджа (Safe Zone)",
-      circleMaskToggle: "⭕ Маска кола (Telegram/LinkedIn Crop)",
-      generateBtn: "Згенерувати Ділові Портрети 8K",
+      badgeLabel: "4. Статус-бейдж експерта",
+      positionLabel: "5. Розташування бейджа",
+      circleMaskToggle: "⭕ Кругова рамка Telegram/LinkedIn",
+      generateBtn: "Згенерувати Ділові Портрети",
       presetForbes: "💼 Forbes Executive",
       presetDubai: "🏙️ Dubai Penthouse",
       presetOldMoney: "💎 Old Money Luxury",
@@ -125,18 +125,18 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
       badgeKeynote: "🎙️ KEYNOTE SPEAKER",
       badgeExpert: "⭐ TOP EXPERT",
       badgeOldMoney: "💎 OLD MONEY LUXURY",
-      badgeNone: "🚫 Без бейджа (Чистий Портрет)",
+      badgeNone: "🚫 Без бейджа",
       posBottomCenter: "⬇️ Знизу по центру",
       posTopCenter: "⬆️ Зверху по центру",
       posTopLeft: "↖️ Зверху ліворуч",
       posTopRight: "↗️ Зверху праворуч",
       previewHeader: "Прев'ю Аватарки (Live 1000x1000 Canvas)",
-      downloadBtn: "Завантажити Аватарку 8K",
-      unlockBtn: "🎁 Зняти Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Розблокування 8K HD",
+      downloadBtn: "Завантажити Аватарку",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування аватарки без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте аватарку без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
-      starsDealBtn: "⭐ Завантажити в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Завантажити за Telegram Stars",
       unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
     },
     en: {
@@ -428,7 +428,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Dual-Layer Executive Engine • Circle Crop Safe Zone</span>
+            <span>Executive Avatar Engine</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
@@ -643,7 +643,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-bold uppercase border border-cyan-500/30">
-                  8K Executive Canvas
+                  Executive Canvas
                 </span>
               </div>
 
@@ -652,7 +652,7 @@ export default function BusinessAvatarStudio({ onBackToHub, initialLang = 'ru' }
                 {isGenerating && (
                   <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center text-cyan-400 text-xs">
                     <RefreshCw className="w-8 h-8 animate-spin mb-2" />
-                    <span>Синтез FLUX 1.0 8K Executive Portrait...</span>
+                    <span>Синтез делового портрета...</span>
                   </div>
                 )}
               </div>

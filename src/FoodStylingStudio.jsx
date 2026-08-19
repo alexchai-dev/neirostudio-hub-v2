@@ -53,7 +53,7 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
   const t = {
     ru: {
       studioTitle: "Food Menu Styling AI",
-      studioSub: "Dual-Layer Culinary Engine • FLUX 1.0 8K + Ресторанная Инфографика",
+      studioSub: "Студийная фуд-фотография и меню ресторанов",
       backHub: "В Хаб",
       categoryLabel: "1. Категория блюда",
       catBurgers: "🍔 Бургеры",
@@ -62,13 +62,13 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
       catSteak: "🥩 Стейки",
       catDesserts: "🍰 Десерты",
       presetLabel: "2. Кулинарный стиль & подача",
-      customPromptLabel: "3. Детали ингредиентов (необязательно)",
+      customPromptLabel: "3. Детали ингредиентов",
       customPromptPlaceholder: "Например: двойной бекон, микрозелень, пар...",
-      badgeLabel: "4. Гастрономический статус-бейдж (Layer 2)",
-      positionLabel: "5. Расположение бейджа (чтобы не закрывать блюдо)",
-      specLabel: "6. Вес, калории & цена (с высоким контрастом)",
+      badgeLabel: "4. Гастрономический бейдж",
+      positionLabel: "5. Расположение бейджа",
+      specLabel: "6. Вес, калории & цена",
       specPlaceholder: "Например: 380g • 520 kcal | 290 ₴",
-      generateBtn: "Сгенерировать 8K Фуд-Фотографию",
+      generateBtn: "Сгенерировать Фуд-Фотографию",
       presetMichelin: "⭐ Michelin Fine Dining",
       presetRustic: "🪵 Rustic Board",
       presetDark: "🔥 Dark Moody Gastro",
@@ -82,17 +82,17 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
       posBottomLeft: "↙️ Снизу слева",
       posBottomRight: "↘️ Снизу справа",
       previewHeader: "Превью Блюда (Live 1000x1000 Canvas)",
-      downloadBtn: "Скачать Фуд-Фото 8K",
-      unlockBtn: "🎁 Снять Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Разблокировка 8K HD",
+      downloadBtn: "Скачать Фуд-Фото",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка фото без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте фото блюда без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
       studioTitle: "Food Menu Styling AI",
-      studioSub: "Dual-Layer Culinary Engine • FLUX 1.0 8K + Ресторанна Інфографіка",
+      studioSub: "Студійна фуд-фотографія та меню ресторанів",
       backHub: "До Хабу",
       categoryLabel: "1. Категорія страви",
       catBurgers: "🍔 Бургери",
@@ -101,13 +101,13 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
       catSteak: "🥩 Стейки",
       catDesserts: "🍰 Десерти",
       presetLabel: "2. Кулінарний стиль & подача",
-      customPromptLabel: "3. Деталі інгредієнтів (необов'язково)",
+      customPromptLabel: "3. Деталі інгредієнтів",
       customPromptPlaceholder: "Наприклад: подвійний бекон, мікрозелень, пара...",
-      badgeLabel: "4. Гастрономічний статус-бейдж (Layer 2)",
-      positionLabel: "5. Розташування бейджа (щоб не закривати страву)",
-      specLabel: "6. Вага, калорії & ціна (з високим контрастом)",
+      badgeLabel: "4. Гастрономічний бейдж",
+      positionLabel: "5. Розташування бейджа",
+      specLabel: "6. Вага, калорії & ціна",
       specPlaceholder: "Наприклад: 380g • 520 kcal | 290 ₴",
-      generateBtn: "Згенерувати 8K Фуд-Фотографію",
+      generateBtn: "Згенерувати Фуд-Фотографію",
       presetMichelin: "⭐ Michelin Fine Dining",
       presetRustic: "🪵 Rustic Board",
       presetDark: "🔥 Dark Moody Gastro",
@@ -121,17 +121,17 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
       posBottomLeft: "↙️ Знизу ліворуч",
       posBottomRight: "↘️ Знизу праворуч",
       previewHeader: "Прев'ю Страви (Live 1000x1000 Canvas)",
-      downloadBtn: "Завантажити Фуд-Фото 8K",
-      unlockBtn: "🎁 Зняти Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Розблокування 8K HD",
+      downloadBtn: "Завантажити Фуд-Фото",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування фото без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте фото страви без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
-      starsDealBtn: "⭐ Завантажити в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Завантажити за Telegram Stars",
       unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
     },
     en: {
       studioTitle: "Food Menu Styling AI",
-      studioSub: "Dual-Layer Culinary Engine • FLUX 1.0 8K + Restaurant Infographics",
+      studioSub: "Food Styling & Restaurant Menu Engine",
       backHub: "To Hub",
       categoryLabel: "1. Dish Category",
       catBurgers: "🍔 Burgers",
@@ -301,7 +301,7 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
       ctx.shadowBlur = 10;
-      ctx.fillText('NEIROSTUDIO FOOD STYLING PREVIEW • UNLOCK 8K', 60, 940);
+      ctx.fillText('NEIROSTUDIO FOOD STYLING PREVIEW', 60, 940);
       ctx.restore();
     }
   };
@@ -412,7 +412,7 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-950/60 border border-orange-500/30 text-orange-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-orange-400" />
-            <span>Dual-Layer Culinary Engine • High Contrast Gastro Vignette</span>
+            <span>Food Styling Engine</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
@@ -594,7 +594,7 @@ export default function FoodStylingStudio({ onBackToHub, initialLang = 'ru' }) {
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-orange-500/20 text-orange-300 px-2 py-0.5 rounded-full font-bold uppercase border border-orange-500/30">
-                  8K Culinary Canvas
+                  Culinary Canvas
                 </span>
               </div>
 

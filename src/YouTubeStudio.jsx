@@ -60,17 +60,17 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
   const t = {
     ru: {
       studioTitle: "YouTube 16:9 AI Studio",
-      studioSub: "Dual-Layer Engine • FLUX 1.0 8K + Векторный Текст",
+      studioSub: "Обложки для YouTube видео с выразительным текстом",
       backHub: "В Хаб",
-      topicLabel: "1. Описание или тема видео (Layer 1 - FLUX 1.0)",
+      topicLabel: "1. Описание или тема видео",
       topicPlaceholder: "Например: Заработок на ИИ 2026, секреты успеха...",
-      mainTextLabel: "2. Главный заголовок (Layer 2 - Векторная Кириллица с переносом)",
+      mainTextLabel: "2. Главный заголовок",
       mainTextPlaceholder: "Текст на обложке (поддерживает длинные фразы)",
-      subTextLabel: "3. Подзаголовок / Плашка (Layer 2)",
+      subTextLabel: "3. Подзаголовок / Плашка",
       subTextPlaceholder: "Дополнительный текст или сумма",
       styleLabel: "4. Стиль фона и атмосферы",
       colorLabel: "5. Цветовая гамма текста",
-      generateBtn: "Сгенерировать Dual-Layer Обложку (16:9)",
+      generateBtn: "Сгенерировать Обложку (16:9)",
       viralStyle: "🔥 Кликбейт",
       cyberStyle: "🌆 Киберпанк",
       bizStyle: "💼 Forbes Бизнес",
@@ -81,27 +81,27 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       colFlame: "Огонь & Золото",
       colLime: "Салатовый Драйв",
       previewHeader: "Готовая Обложка (Live Canvas Preview)",
-      downloadBtn: "Скачать Обложку 16:9 HD",
-      unlockBtn: "🎁 Снять Вотермарку & Скачать 4K",
-      modalUnlockTitle: "Growth Hack: Разблокировка HD 4K",
+      downloadBtn: "Скачать Обложку",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка обложки без вотермарки",
       modalUnlockDesc: "Получите 3 бесплатные ⚡ генерации и скачайте обложку без вотермарки за 1 клик!",
       subscribeDealBtn: "📢 Подписаться на наш Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 4K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
       studioTitle: "YouTube 16:9 AI Studio",
-      studioSub: "Dual-Layer Engine • FLUX 1.0 8K + Векторний Текст",
+      studioSub: "Обкладинки для YouTube відео з виразним текстом",
       backHub: "До Хабу",
-      topicLabel: "1. Опис або тема відео (Layer 1 - FLUX 1.0)",
+      topicLabel: "1. Опис або тема відео",
       topicPlaceholder: "Наприклад: Заробіток на ШІ 2026, секрети успіху...",
-      mainTextLabel: "2. Головний заголовок (Layer 2 - Векторна Кирилиця з переносом)",
+      mainTextLabel: "2. Головний заголовок",
       mainTextPlaceholder: "Текст на обкладинці (підтримує довгі фрази)",
-      subTextLabel: "3. Підзаголовок / Плашка (Layer 2)",
+      subTextLabel: "3. Підзаголовок / Плашка",
       subTextPlaceholder: "Додатковий текст або сума",
       styleLabel: "4. Стиль фону та атмосфери",
       colorLabel: "5. Колірна гама тексту",
-      generateBtn: "Згенерувати Dual-Layer Обкладинку (16:9)",
+      generateBtn: "Згенерувати Обкладинку (16:9)",
       viralStyle: "🔥 Клікбейт",
       cyberStyle: "🌆 Кіберпанк",
       bizStyle: "💼 Forbes Бізнес",
@@ -112,12 +112,12 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       colFlame: "Вогонь & Золото",
       colLime: "Салатовий Драйв",
       previewHeader: "Готова Обкладинка (Live Canvas Preview)",
-      downloadBtn: "Завантажити Обкладинку 16:9 HD",
-      unlockBtn: "🎁 Зняти Вотермарку & Завантажити 4K",
-      modalUnlockTitle: "Growth Hack: Розблокування HD 4K",
+      downloadBtn: "Завантажити Обкладинку",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування обкладинки без вотермарки",
       modalUnlockDesc: "Отримайте 3 безкоштовні ⚡ генерації та завантажте обкладинку без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на наш Канал (+3 ⚡ Безкоштовно)",
-      starsDealBtn: "⭐ Завантажити в 4K за Telegram Stars",
+      starsDealBtn: "⭐ Завантажити за Telegram Stars",
       unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
     },
     en: {
@@ -205,7 +205,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
       ctx.shadowBlur = 10;
-      ctx.fillText('NEIROSTUDIO PREVIEW • UNLOCK FOR 4K', 70, 655);
+      ctx.fillText('NEIROSTUDIO PREVIEW', 70, 655);
       ctx.restore();
     }
   };
@@ -554,7 +554,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-950/60 border border-rose-500/30 text-rose-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-rose-400" />
-            <span>Dual-Layer Engine • Auto Multiline & Drop Shadow</span>
+            <span>YouTube Cover Engine • Vector Typography</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}

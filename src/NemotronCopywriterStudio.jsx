@@ -55,7 +55,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
   const t = {
     ru: {
       studioTitle: "NVIDIA Nemotron SMM Copywriter",
-      studioSub: "Dual-Layer Text Engine • Nemotron-70B LLM + AIDA & Viral Reels Hooks",
+      studioSub: "Вирусные тексты и посты для SMM от Nemotron AI",
       backHub: "В Хаб",
       categoryLabel: "1. Формат SMM контента",
       catPost: "🔥 Вирусный Telegram Пост",
@@ -65,9 +65,9 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       presetLabel: "2. Дизайн вирусной карточки",
       customPromptLabel: "3. Тема поста или оффер",
       customPromptPlaceholder: "Например: запуск курса по ИИ, скидки на одежду...",
-      badgeLabel: "4. SMM Статус-бейдж (Layer 2)",
+      badgeLabel: "4. SMM Статус-бейдж",
       positionLabel: "5. Позиционирование плашек",
-      generateBtn: "Сгенерировать Текст Nemotron-70B",
+      generateBtn: "Сгенерировать Текст",
       presetCyberpunk: "🚀 Cyberpunk Neon",
       presetMinimal: "🖤 Clean Minimal Dark",
       presetLuxury: "👑 Luxury Gold Gradient",
@@ -82,17 +82,17 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       posBottomRight: "↘️ Снизу справа",
       previewHeader: "Превью Текста & Карточки (Live 1000x1000 Canvas)",
       copyBtn: "📋 Скопировать Текст Поста",
-      downloadBtn: "Скачать Карточку 8K",
-      unlockBtn: "🎁 Снять Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Разблокировка 8K HD & Текста",
+      downloadBtn: "Скачать Карточку",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка текста без ограничений",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скопируйте вирусный текст без ограничений в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Текст скопирован в буфер обмена! Зачислено +3 ⚡!"
     },
     ua: {
       studioTitle: "NVIDIA Nemotron SMM Copywriter",
-      studioSub: "Dual-Layer Text Engine • Nemotron-70B LLM + AIDA & Viral Reels Hooks",
+      studioSub: "Вірусні тексти та пости для SMM від Nemotron AI",
       backHub: "До Хабу",
       categoryLabel: "1. Формат SMM контенту",
       catPost: "🔥 Вірусний Telegram Пост",
@@ -102,9 +102,9 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       presetLabel: "2. Дизайн вірусної картки",
       customPromptLabel: "3. Тема поста або офер",
       customPromptPlaceholder: "Наприклад: запуск курсу з ШІ, знижки на одяг...",
-      badgeLabel: "4. SMM Статус-бейдж (Layer 2)",
+      badgeLabel: "4. SMM Статус-бейдж",
       positionLabel: "5. Розташування плашок",
-      generateBtn: "Згенерувати Текст Nemotron-70B",
+      generateBtn: "Згенерувати Текст",
       presetCyberpunk: "🚀 Cyberpunk Neon",
       presetMinimal: "🖤 Clean Minimal Dark",
       presetLuxury: "👑 Luxury Gold Gradient",
@@ -119,12 +119,12 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       posBottomRight: "↘️ Знизу праворуч",
       previewHeader: "Прев'ю Тексту & Картки (Live 1000x1000 Canvas)",
       copyBtn: "📋 Скопіювати Текст Поста",
-      downloadBtn: "Завантажити Картку 8K",
-      unlockBtn: "🎁 Зняти Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Розблокування 8K HD & Тексту",
+      downloadBtn: "Завантажити Картку",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування тексту без обмежень",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та скопіюйте вірусний текст без обмежень в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
-      starsDealBtn: "⭐ Завантажити в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Завантажити за Telegram Stars",
       unlockedToast: "Текст скопійовано в буфер обміну! Нараховано +3 ⚡!"
     },
     en: {
@@ -278,7 +278,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       ctx.save();
       ctx.font = '800 24px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
-      ctx.fillText('NEMOTRON-70B SMM PREVIEW • UNLOCK 8K', 50, 940);
+      ctx.fillText('NEMOTRON SMM PREVIEW', 50, 940);
       ctx.restore();
     }
   };
@@ -428,7 +428,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/30 text-purple-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-purple-400" />
-            <span>Dual-Layer Text Engine • NVIDIA Nemotron-70B & AIDA Funnels</span>
+            <span>Nemotron SMM Copywriting Engine</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
@@ -620,7 +620,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
                 {isGenerating && (
                   <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center text-purple-400 text-xs">
                     <RefreshCw className="w-8 h-8 animate-spin mb-2" />
-                    <span>Синтез NVIDIA Nemotron-70B LLM...</span>
+                    <span>Синтез текста и карточки...</span>
                   </div>
                 )}
               </div>

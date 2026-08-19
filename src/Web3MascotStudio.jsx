@@ -52,7 +52,7 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
   const t = {
     ru: {
       studioTitle: "Web3 & MemeCoin Mascot Pro",
-      studioSub: "Dual-Layer Web3 Engine • FLUX 1.0 8K + Крипто-Инфографика & Тикер",
+      studioSub: "Маскоты для криптопроектов и Web3 брендов",
       backHub: "В Хаб",
       characterLabel: "1. Персонаж маскота",
       charPepe: "🚀 Bullish Pepe",
@@ -60,13 +60,13 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
       charCat: "🐱 Cyber Cat",
       charApe: "🦍 Diamond Ape",
       presetLabel: "2. Стиль графики & арта",
-      customPromptLabel: "3. Детали одежды или очков (необязательно)",
+      customPromptLabel: "3. Детали одежды или аксессуаров",
       customPromptPlaceholder: "Например: золотая цепь, лазерные глаза, кепка...",
-      badgeLabel: "4. Крипто статус-бейдж (Layer 2)",
+      badgeLabel: "4. Крипто статус-бейдж",
       positionLabel: "5. Позиционирование бейджа",
-      tickerLabel: "6. Тикер токена & Market Cap (с неоновым свечением)",
+      tickerLabel: "6. Тикер токена & Market Cap",
       tickerPlaceholder: "Например: $PEPE • MC: $1.2M",
-      generateBtn: "Сгенерировать 8K Web3 Маскота",
+      generateBtn: "Сгенерировать Web3 Маскота",
       presetPixar: "🎨 3D Pixar Vector",
       presetCyberpunk: "🌃 Cyberpunk Web3",
       presetAnime: "✨ Anime Chibi",
@@ -80,17 +80,17 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
       posTopLeft: "↖️ Сверху слева",
       posTopRight: "↗️ Сверху справа",
       previewHeader: "Превью Маскота (Live 1000x1000 Canvas)",
-      downloadBtn: "Скачать Маскота 8K",
-      unlockBtn: "🎁 Снять Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Разблокировка 8K HD",
+      downloadBtn: "Скачать Маскота",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка маскота без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте маскота без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
       studioTitle: "Web3 & MemeCoin Mascot Pro",
-      studioSub: "Dual-Layer Web3 Engine • FLUX 1.0 8K + Крипто-Інфографіка & Тікер",
+      studioSub: "Маскоти для криптопроєктів та Web3 брендів",
       backHub: "До Хабу",
       characterLabel: "1. Персонаж маскота",
       charPepe: "🚀 Bullish Pepe",
@@ -98,13 +98,13 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
       charCat: "🐱 Cyber Cat",
       charApe: "🦍 Diamond Ape",
       presetLabel: "2. Стиль графіки & арту",
-      customPromptLabel: "3. Деталі одягу або окулярів (необов'язково)",
+      customPromptLabel: "3. Деталі одягу або аксесуарів",
       customPromptPlaceholder: "Наприклад: золотий ланцюг, лазерні очі, кепка...",
-      badgeLabel: "4. Крипто статус-бейдж (Layer 2)",
+      badgeLabel: "4. Крипто статус-бейдж",
       positionLabel: "5. Позиціонування бейджа",
-      tickerLabel: "6. Тікер токена & Market Cap (з неоновим сяйвом)",
+      tickerLabel: "6. Тікер токена & Market Cap",
       tickerPlaceholder: "Наприклад: $PEPE • MC: $1.2M",
-      generateBtn: "Згенерувати 8K Web3 Маскота",
+      generateBtn: "Згенерувати Web3 Маскота",
       presetPixar: "🎨 3D Pixar Vector",
       presetCyberpunk: "🌃 Cyberpunk Web3",
       presetAnime: "✨ Anime Chibi",
@@ -118,17 +118,17 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
       posTopLeft: "↖️ Зверху ліворуч",
       posTopRight: "↗️ Зверху праворуч",
       previewHeader: "Прев'ю Маскота (Live 1000x1000 Canvas)",
-      downloadBtn: "Завантажити Маскота 8K",
-      unlockBtn: "🎁 Зняти Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Розблокування 8K HD",
+      downloadBtn: "Завантажити Маскота",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування маскота без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте маскота без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
-      starsDealBtn: "⭐ Завантажити в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Завантажити за Telegram Stars",
       unlockedToast: "Вотермарку знято! Нараховано +3 ⚡ генерації!"
     },
     en: {
       studioTitle: "Web3 & MemeCoin Mascot Pro",
-      studioSub: "Dual-Layer Web3 Engine • FLUX 1.0 8K + Crypto Infographics & Ticker",
+      studioSub: "Web3 & Crypto Character Engine",
       backHub: "To Hub",
       characterLabel: "1. Mascot Character",
       charPepe: "🚀 Bullish Pepe",
@@ -304,7 +304,7 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
       ctx.shadowBlur = 10;
-      ctx.fillText('NEIROSTUDIO WEB3 MASCOT PREVIEW • UNLOCK 8K', 60, 940);
+      ctx.fillText('NEIROSTUDIO WEB3 MASCOT PREVIEW', 60, 940);
       ctx.restore();
     }
   };
@@ -415,7 +415,7 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-950/60 border border-fuchsia-500/30 text-fuchsia-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-fuchsia-400" />
-            <span>Dual-Layer Web3 Engine • FLUX 1.0 8K + Neon Glow Badges</span>
+            <span>Web3 Mascot Character Engine</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
@@ -596,7 +596,7 @@ export default function Web3MascotStudio({ onBackToHub, initialLang = 'ru' }) {
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-fuchsia-500/20 text-fuchsia-300 px-2 py-0.5 rounded-full font-bold uppercase border border-fuchsia-500/30">
-                  8K Mascot Canvas
+                  Mascot Canvas
                 </span>
               </div>
 

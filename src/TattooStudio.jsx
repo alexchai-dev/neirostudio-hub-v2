@@ -52,7 +52,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
   const t = {
     ru: {
       studioTitle: "Tattoo Sketch AI Studio",
-      studioSub: "Dual-Layer Tattoo Engine • FLUX 1.0 8K + Чистый Белый Фон под Печать",
+      studioSub: "Эскизы татуировок на чистом белом фоне под трансфер",
       backHub: "В Хаб",
       motifLabel: "1. Главный мотив эскиза",
       motifDragon: "🐉 Дракон",
@@ -60,12 +60,12 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
       motifSkull: "💀 Череп & Роза",
       motifSword: "⚔️ Валькирия / Меч",
       presetLabel: "2. Стиль татуировки & графика",
-      customPromptLabel: "3. Детали узора или сакуры (необязательно)",
+      customPromptLabel: "3. Детали узора",
       customPromptPlaceholder: "Например: цветы сакуры, геометрия, волны...",
-      badgeLabel: "4. Статус-бейдж эскиза (Layer 2)",
-      placementLabel: "5. Зона нанесения (Placement Guide)",
-      positionLabel: "6. Расположение плашек (чтобы легко отрезать ножницами)",
-      generateBtn: "Сгенерировать 8K Тату-Эскиз",
+      badgeLabel: "4. Статус-бейдж эскиза",
+      placementLabel: "5. Зона нанесения",
+      positionLabel: "6. Расположение плашек",
+      generateBtn: "Сгенерировать Тату-Эскиз",
       presetFineLine: "🖋️ Fine Line & Blackwork",
       presetIrezumi: "🐉 Japanese Irezumi",
       presetCyber: "⚡ Cyber-Tribal",
@@ -74,26 +74,26 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
       badgeFineLine: "⚡ FINE LINE ART",
       badgeViral: "🔥 VIRAL DESIGN",
       badgeFlash: "👑 CUSTOM FLASH",
-      placeForearm: "📍 FOREARM (Предплечье)",
-      placeChest: "📍 CHEST (Грудь)",
-      placeBack: "📍 BACK (Спина)",
-      placeShoulder: "📍 SHOULDER (Плечо)",
+      placeForearm: "📍 FOREARM",
+      placeChest: "📍 CHEST",
+      placeBack: "📍 BACK",
+      placeShoulder: "📍 SHOULDER",
       posTopLeft: "↖️ Сверху слева",
       posTopRight: "↗️ Сверху справа",
       posBottomLeft: "↙️ Снизу слева",
       posBottomRight: "↘️ Снизу справа",
-      previewHeader: "Превью Эскиза (Live 1000x1000 Canvas)",
-      downloadBtn: "Скачать Эскиз 8K",
-      unlockBtn: "🎁 Снять Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Разблокировка 8K HD",
+      previewHeader: "Превью Эскиза",
+      downloadBtn: "Скачать Эскиз",
+      unlockBtn: "🎁 Снять Вотермарку",
+      modalUnlockTitle: "Разблокировка эскиза без вотермарки",
       modalUnlockDesc: "Получите +3 бесплатные ⚡ генерации и скачайте эскиз без вотермарки в 1 клик!",
       subscribeDealBtn: "📢 Подписаться на Канал (+3 ⚡ Бесплатно)",
-      starsDealBtn: "⭐ Скачать в 8K за Telegram Stars",
+      starsDealBtn: "⭐ Скачать за Telegram Stars",
       unlockedToast: "Вотермарка снята! Зачислено +3 ⚡ генерации!"
     },
     ua: {
       studioTitle: "Tattoo Sketch AI Studio",
-      studioSub: "Dual-Layer Tattoo Engine • FLUX 1.0 8K + Чисте Біле Тло під Друк",
+      studioSub: "Ескізи татуювань на чистому білому тлі під трансфер",
       backHub: "До Хабу",
       motifLabel: "1. Головний мотив ескізу",
       motifDragon: "🐉 Дракон",
@@ -101,12 +101,12 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
       motifSkull: "💀 Череп & Троянда",
       motifSword: "⚔️ Валькірія / Меч",
       presetLabel: "2. Стиль татуювання & графіка",
-      customPromptLabel: "3. Деталі візерунка або сакури (необов'язково)",
+      customPromptLabel: "3. Деталі візерунка",
       customPromptPlaceholder: "Наприклад: квіти сакури, геометрія, хвилі...",
-      badgeLabel: "4. Статус-бейдж ескізу (Layer 2)",
-      placementLabel: "5. Зона нанесення (Placement Guide)",
-      positionLabel: "6. Розташування плашок (щоб легко відрізати ножицями)",
-      generateBtn: "Згенерувати 8K Тату-Ескіз",
+      badgeLabel: "4. Статус-бейдж ескізу",
+      placementLabel: "5. Зона нанесення",
+      positionLabel: "6. Розташування плашок",
+      generateBtn: "Згенерувати Тату-Ескіз",
       presetFineLine: "🖋️ Fine Line & Blackwork",
       presetIrezumi: "🐉 Japanese Irezumi",
       presetCyber: "⚡ Cyber-Tribal",
@@ -115,18 +115,18 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
       badgeFineLine: "⚡ FINE LINE ART",
       badgeViral: "🔥 VIRAL DESIGN",
       badgeFlash: "👑 CUSTOM FLASH",
-      placeForearm: "📍 FOREARM (Передпліччя)",
-      placeChest: "📍 CHEST (Груди)",
-      placeBack: "📍 BACK (Спина)",
-      placeShoulder: "📍 SHOULDER (Плече)",
+      placeForearm: "📍 FOREARM",
+      placeChest: "📍 CHEST",
+      placeBack: "📍 BACK",
+      placeShoulder: "📍 SHOULDER",
       posTopLeft: "↖️ Зверху ліворуч",
       posTopRight: "↗️ Зверху праворуч",
       posBottomLeft: "↙️ Знизу ліворуч",
       posBottomRight: "↘️ Знизу праворуч",
-      previewHeader: "Прев'ю Ескізу (Live 1000x1000 Canvas)",
-      downloadBtn: "Завантажити Ескіз 8K",
-      unlockBtn: "🎁 Зняти Вотермарку & 8K HD",
-      modalUnlockTitle: "Growth Hack: Розблокування 8K HD",
+      previewHeader: "Прев'ю Ескізу",
+      downloadBtn: "Завантажити Ескіз",
+      unlockBtn: "🎁 Зняти Вотермарку",
+      modalUnlockTitle: "Розблокування ескізу без вотермарки",
       modalUnlockDesc: "Отримайте +3 безкоштовні ⚡ генерації та завантажте ескіз без вотермарки в 1 клік!",
       subscribeDealBtn: "📢 Підписатися на Канал (+3 ⚡ Безкоштовно)",
       starsDealBtn: "⭐ Завантажити в 8K за Telegram Stars",
@@ -407,7 +407,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/30 text-purple-400 text-xs font-medium mb-2">
             <Flame className="w-3.5 h-3.5 text-purple-400" />
-            <span>Dual-Layer Tattoo Engine • Pure White Background Stencil</span>
+            <span>Tattoo Sketch Engine</span>
           </div>
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}
@@ -604,7 +604,7 @@ export default function TattooStudio({ onBackToHub, initialLang = 'ru' }) {
                   <span>{t.previewHeader}</span>
                 </span>
                 <span className="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full font-bold uppercase border border-purple-500/30">
-                  8K Stencil Canvas
+                  Stencil Canvas
                 </span>
               </div>
 
