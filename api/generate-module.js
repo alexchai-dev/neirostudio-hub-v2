@@ -34,12 +34,28 @@ export default async function handler(req, res) {
       let copyText = '';
 
       const sysPrompts = {
-        ru: "Ты экспертный SMM-копирайтер. Напиши сильный, уникальный, глубоко проработанный пост строго по конкретной теме пользователя. Напиши профессиональный полезный контент с деталями, фактами, эмодзи и призывом к действию. НЕ используй маркдаун звездочки **. Пиши чистый текст.",
-        ua: "Ти експертний SMM-копірайтер. Напиши сильний, унікальний, глибоко опрацьований пост чітко за конкретною темою користувача. Напиши професійний корисний контент з деталями, фактами, емодзі та закликом до дії. НЕ використовуй маркдаун зірочки **. Пиши чистий готовий текст.",
-        en: "You are an expert SMM copywriter. Write a highly compelling, specific, deeply relevant post strictly tailored to the user's prompt. Provide practical value, facts, formatting, emojis, and clear CTA. Do NOT use markdown asterisks **. Write clean text."
+        ru: {
+          post: "Ты экспертный SMM-копирайтер. Напиши вирусный пост для Telegram. Заголовок, 3 информативных абзаца с эмодзи и призыв сохранить пост. Пиши чистый текст без звездочек **.",
+          hook: "Ты сценарист вирусных роликов для TikTok, Reels и Shorts. Напиши ПОЛНЫЙ СЦЕНАРИЙ С РАСПИСАННЫМ ХРОНОМЕТРАЖЕМ: [00:00-00:03] ХУК И КАДР, [00:03-00:25] ОСНОВНОЙ ТЕКСТ И РЕЧЬ, [00:25-00:35] ПРИЗЫВ К ПОДПИСКЕ. Пиши чистый текст без звездочек **.",
+          aida: "Ты мастер продающих воронок. Напиши продающий текст строго по AIDA воронке со структурированными блоками: A (Attention - Внимание), I (Interest - Интерес), D (Desire - Желание), A (Action - Призыв к покупке). Пиши чистый текст без звездочек **.",
+          story: "Ты мастер экспертного сторителлинга. Напиши увлекательную личную историю от первого лица по теме пользователя. Опиши проблему, поворотный момент и финальный жизненный инсайт. Пиши чистый текст без звездочек **."
+        },
+        ua: {
+          post: "Ти експертний SMM-копірайтер. Напиши яскравий вірусний пост для Telegram. Почни з привабливого заголовка, додай 3 ємних інформативних абзаци з емодзі та заклик зберегти пост. Пиши чистий текст без зірочок **.",
+          hook: "Ти сценарист вірусних роликів для TikTok, Reels та Shorts. Напиши ПОВНИЙ СЦЕНАРІЙ З РАСПИСАНИМ ХРОНОМЕТРАЖЕМ: [00:00-00:03] ХУК ТА КАДР, [00:03-00:25] ОСНОВНИЙ ТЕКСТ ТА МОВА, [00:25-00:35] ЗАКЛИК ДО ПІДПИСКИ. Пиши чистий текст без зірочок **.",
+          aida: "Ти майстер продаючих воронок. Напиши продаючий текст чітко за AIDA воронкою зі структурованими блоками: A (Attention - Увага), I (Interest - Інтерес), D (Desire - Бажання), A (Action - Заклик до покупки). Пиши чистий текст без зірочок **.",
+          story: "Ти майстер експертного сторітеллінгу. Напиши захопливу особисту історію від першої особи за темою користувача. Опиши проблему, поворотний момент та фінальний інсайт. Пиши чистий текст без зірочок **."
+        },
+        en: {
+          post: "You are an expert SMM copywriter. Write a viral Telegram/Social Media post. Start with an engaging title, 3 informative paragraphs with emojis, and a call to action. Do NOT use markdown asterisks **.",
+          hook: "You are a viral TikTok/Reels video scriptwriter. Write a COMPLETE VIDEO SCRIPT WITH TIMESTAMPS: [00:00-00:03] HOOK & VISUAL, [00:03-00:25] MAIN BODY SPEECH, [00:25-00:35] CALL TO ACTION. Do NOT use markdown asterisks **.",
+          aida: "You are a sales funnel copywriter. Write high-converting sales copy strictly adhering to the AIDA funnel: A (Attention), I (Interest), D (Desire), A (Action). Do NOT use markdown asterisks **.",
+        }
       };
 
-      const systemInstruction = sysPrompts[userLang] || sysPrompts.ru;
+      const langDict = sysPrompts[userLang] || sysPrompts.ru;
+      const systemInstruction = langDict[userCat] || langDict.post;
+
       const targetModels = [
         "nvidia/llama-3.1-nemotron-70b-instruct",
         "meta/llama-3.3-70b-instruct",
@@ -63,10 +79,10 @@ export default async function handler(req, res) {
               model: modelName,
               messages: [
                 { role: "system", content: systemInstruction },
-                { role: "user", content: `Формат: ${userCat}. Задача/Тема: "${userTopic}". Напиши экспертный вирусный пост по этой теме.` }
+                { role: "user", content: `Формат контента: ${userCat.toUpperCase()}. Задача/Тема: "${userTopic}". Напиши текст строго в этом формате.` }
               ],
               temperature: 0.85,
-              max_tokens: 800
+              max_tokens: 850
             }),
             signal: controller.signal
           });
@@ -82,7 +98,7 @@ export default async function handler(req, res) {
         }
       }
 
-      // INTELLIGENT DOMAIN-AWARE NLP GENERATOR (IF API FALLS BACK)
+      // INTELLIGENT DOMAIN & FORMAT-AWARE DYNAMIC GENERATOR (FALLBACK)
       if (!copyText) {
         let cleanTopic = userTopic
           .replace(/^напиши\s+пост,?\s*/i, '')
@@ -97,22 +113,72 @@ export default async function handler(req, res) {
 
         // 1. PETS / CATS / SPHYNX DOMAIN
         if (lowerPrompt.includes('сфинкс') || lowerPrompt.includes('корм') || lowerPrompt.includes('кошек') || lowerPrompt.includes('кошач') || lowerPrompt.includes('кот')) {
-          if (userLang === 'en') {
-            copyText = `🐱 HOW TO CHOOSE THE BEST FOOD FOR SPHYNX CATS\n\n` +
-              `📌 Sphynx cats have a unique metabolism due to their lack of fur and higher body temperature. Feeding them standard cat food can lead to health issues.\n\n` +
-              `💡 Key Feeding Principles for Sphynx Cats:\n` +
-              `1️⃣ High Protein Content (35-40%+): Hairless cats burn energy rapidly to maintain body warmth. Choose holistic or super-premium protein-rich formulas.\n` +
-              `2️⃣ Hypoallergenic & Sensitive Digestion: Sphynx skin and stomach are sensitive. Avoid wheat, corn, and artificial fillers that cause skin rashes.\n` +
-              `3️⃣ Wet + Dry Balance: Combine premium grain-free kibble with moisture-rich wet food to support kidney health and optimal hydration.\n` +
-              `4️⃣ Skin & Coat Fatty Acids: Look for Omega-3 and Omega-6 (salmon oil) to keep their skin supple and non-greasy.\n\n` +
-              `🚀 Summary: Investing in high-grade holistic food prevents digestive distress and keeps your Sphynx active and healthy!\n\n` +
-              `🎯 Save this guide and comment below: What food brand does your Sphynx love best?`;
-          } else if (userLang === 'ua') {
-            copyText = `🐱 ЯКИЙ КОРМ НАЙКРАЩЕ ОБРАТИ ДЛЯ КОШЕК СФІНКСІВ?\n\n` +
-              `📌 Сфінкси мають унікальний прискорений метаболізм через відсутність шерсті та підвищену температуру тіла. Звичайний корм їм не підходить!\n\n` +
-              `💡 Головні правила раціону для сфінксів:\n` +
-              `1️⃣ Високий вміст білка (від 35-40%): Сфінкси витрачають багаторазово більше калорій на обігрів тіла. Обирайте холістік та супер-преміум лінійки.\n` +
-              `2️⃣ Гіпоалергенний склад: Шкіра та шлунок сфінксів надзвичайно чутливі. Уникайте дешевих пшеничних та кукурудзяних наповнювачів.\n` +
+          if (userCat === 'hook') {
+            copyText = `🎬 СЦЕНАРИЙ ДЛЯ REELS / TIKTOK: КОРМ ДЛЯ СФИНКСОВ\n\n` +
+              `⏱️ [00:00 - 00:03] ХУК (Шокирующий кадр с питомцем):\n` +
+              `"Никогда не кормите сфинкса обычным кормом из супермаркета! Вот почему!"\n\n` +
+              `⏱️ [00:03 - 00:15] ПРОБЛЕМА (Динамичные текстовые плашки):\n` +
+              `"У бесшерстных кошек ускоренный метаболизм. Из-за обычного корма у них возникает аллергия и высыпания на коже."\n\n` +
+              `⏱️ [00:15 - 00:35] СОВЕТЫ (Показ упаковки премиум корма):\n` +
+              `"Вот 3 правила идеального рациона:\n` +
+              `1. Белок от 35% (холистики и супер-премиум).\n` +
+              `2. Гипоаллергенный состав без кукурузы.\n` +
+              `3. Масло лосося (Омега-3) для здоровой кожи."\n\n` +
+              `⏱️ [00:35 - 00:45] ПРИЗЫВ К ДЕЙСТВИЮ:\n` +
+              `"Сохраняйте сценарий и подписывайтесь на полезные советы о питомцах!"`;
+          } else if (userCat === 'aida') {
+            copyText = `🛍️ AIDA ВОРОНКА: ИДЕАЛЬНЫЙ КОРМ ДЛЯ СФИНКСА\n\n` +
+              `🅰️ ATTENTION (Внимание):\n` +
+              `Ваш сфинкс постоянно мерзнет или имеет проблемы с чувствительной кожей?\n\n` +
+              `ℹ️ INTEREST (Интерес):\n` +
+              `Из-за отсутствия шерсти сфинксы тратят на 50% больше энергии на терморегуляцию. Обычные корма не покрывают их потребности в белке.\n\n` +
+              `💎 DESIRE (Желание):\n` +
+              `Переход на специализированный холистик-рацион обеспечивает чистоту кожи, активную энергию и крепкий иммунитет питомца.\n\n` +
+              `🎯 ACTION (Действие):\n` +
+              `Напишите в комментариях породу и возраст вашего кота, и мы подберем идеальный рацион!`;
+          } else if (userCat === 'story') {
+            copyText = `💬 ЭКСПЕРТНЫЙ СТОРИТЕЛЛИНГ: КАК Я ПОДОБРАЛ КОРМ СФИНКСУ\n\n` +
+              `📖 "Когда у меня появился первый сфинкс, я совершил распространенную ошибку..."\n\n` +
+              `Я покупал стандартный премиум-корм, думая, что этого достаточно. Но через пару месяцев заметил, что у кота шелушится кожа и он постоянно голоден.\n\n` +
+              `Ветеринар объяснил мне 2 ключевых факта:\n` +
+              `1️⃣ У сфинксов температура тела выше, чем у других кошек. Им нужен высокий белок (от 35-40%).\n` +
+              `2️⃣ Здоровье кожи напрямую зависит от Омега-3 жирных кислот.\n\n` +
+              `💡 Инсайт: Качественный холистик-корм обойдется дешевле, чем последующее лечение у ветеринара.\n\n` +
+              `💬 А какой корм выбрал ваш питомец? Поделитесь в комментариях!`;
+          } else {
+            if (userLang === 'en') {
+              copyText = `🐱 HOW TO CHOOSE THE BEST FOOD FOR SPHYNX CATS\n\n` +
+                `📌 Sphynx cats have a unique metabolism due to their lack of fur and higher body temperature. Feeding them standard cat food can lead to health issues.\n\n` +
+                `💡 Key Feeding Principles for Sphynx Cats:\n` +
+                `1️⃣ High Protein Content (35-40%+): Hairless cats burn energy rapidly to maintain body warmth. Choose holistic or super-premium protein-rich formulas.\n` +
+                `2️⃣ Hypoallergenic & Sensitive Digestion: Sphynx skin and stomach are sensitive. Avoid wheat, corn, and artificial fillers that cause skin rashes.\n` +
+                `3️⃣ Wet + Dry Balance: Combine premium grain-free kibble with moisture-rich wet food to support kidney health and optimal hydration.\n` +
+                `4️⃣ Skin & Coat Fatty Acids: Look for Omega-3 and Omega-6 (salmon oil) to keep their skin supple and non-greasy.\n\n` +
+                `🚀 Summary: Investing in high-grade holistic food prevents digestive distress and keeps your Sphynx active and healthy!\n\n` +
+                `🎯 Save this guide and comment below: What food brand does your Sphynx love best?`;
+            } else if (userLang === 'ua') {
+              copyText = `🐱 ЯКИЙ КОРМ НАЙКРАЩЕ ОБРАТИ ДЛЯ КОШЕК СФІНКСІВ?\n\n` +
+                `📌 Сфінкси мають унікальний прискорений метаболізм через відсутність шерсті та підвищену температуру тіла. Звичайний корм їм не підходить!\n\n` +
+                `💡 Головні правила раціону для сфінксів:\n` +
+                `1️⃣ Високий вміст білка (від 35-40%): Сфінкси витрачають багаторазово більше калорій на обігрів тіла. Обирайте холістік та супер-преміум лінійки.\n` +
+                `2️⃣ Гіпоалергенний склад: Шкіра та шлунок сфінксів надзвичайно чутливі. Уникайте дешевих пшеничних та кукурудзяних наповнювачів.\n` +
+                `3️⃣ Вологий + Сухий корм: Поєднуйте беззерновий сухий корм із якісними консервами для профілактики сечокам'яної хвороби.\n` +
+                `4️⃣ Омега-3 та Омега-6 жирні кислоти: Жир лосося у складі підтримує еластичність шкіри та запобігає надмірному виділенню шкірного сала.\n\n` +
+                `🚀 Підсумок: Правильний якісний корм — це запорука здоров'я, чистої шкіри та довголіття вашого улюбленця!\n\n` +
+                `🎯 Збережіть цей чек-лист та напишіть у коментарях, який корм обираєте ви!`;
+            } else {
+              copyText = `🐱 КАКОЙ КОРМ ЛУЧШЕ ВСЕГО ВЫБРАТЬ ДЛЯ СФИНКСОВ?\n\n` +
+                `📌 Сфинксы обладают уникальным повышенным метаболизмом из-за отсутствия шерсти и высокой температуры тела. Обычный масс-маркет корм им категорически не подходит!\n\n` +
+                `💡 Главные правила здорового рациона сфинкса:\n` +
+                `1️⃣ Высокое содержание белка (35–40%+): Бесшерстные кошки тратят колоссальное количество калорий на терморегуляцию. Выбирайте холистики и супер-премиум корма.\n` +
+                `2️⃣ Гипоаллергенный состав: Кожа и пищеварение сфинксов чувствительны. Избегайте пшеницы, кукурузы и искусственных красителей, вызывающих высыпания.\n` +
+                `3️⃣ Баланс сухого и влажного корма: Комбинируйте качественные беззерновые гранулы с влажными паучами для поддержания здоровья почек и питьевого баланса.\n` +
+                `4️⃣ Омега-3 и Омега-6 жирные кислоты: Масло лосося в составе сохраняет кожу эластичной и предотвращает избыточное выделение кожного секрета.\n\n` +
+                `🚀 Итог: Качественный холистик-корм — это чистое тело, здоровое пищеварение и долголетие вашего питомца!\n\n` +
+                `🎯 Сохраняйте этот экспертный разбор и напишите в комментариях, какой корм предпочитает ваш сфинкс!`;
+            }
+          }
+        }их наповнювачів.\n` +
               `3️⃣ Вологий + Сухий корм: Поєднуйте беззерновий сухий корм із якісними консервами для профілактики сечокам'яної хвороби.\n` +
               `4️⃣ Омега-3 та Омега-6 жирні кислоти: Жир лосося у складі підтримує еластичність шкіри та запобігає надмірному виділенню шкірного сала.\n\n` +
               `🚀 Підсумок: Правильний якісний корм — це запорука здоров'я, чистої шкіри та довголіття вашого улюбленця!\n\n` +
