@@ -1,3 +1,6 @@
+// Global In-Memory Fast Response Cache for LLM prompts (50ms cache return)
+const llmCacheMap = new Map();
+
 export default async function handler(req, res) {
   // CORS & Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,6 +28,12 @@ export default async function handler(req, res) {
     const userFormat = format || 'Пост для Telegram з AIDA-воронкою';
 
     if (moduleType === 'copywriter') {
+      const cacheKey = `copywriter_${userTopic.toLowerCase().trim()}_${userTarget.toLowerCase().trim()}`;
+      if (llmCacheMap.has(cacheKey)) {
+        console.log('⚡ Returning 50ms In-Memory Cached Copywriter response');
+        return res.status(200).json({ ok: true, success: true, ...llmCacheMap.get(cacheKey), cached: true });
+      }
+
       let copyText = '';
 
       // Try NVIDIA NIM API with 4.5s fast timeout to prevent Vercel Hobby 10s gateway timeout
@@ -85,12 +94,19 @@ export default async function handler(req, res) {
       const randomSeed = Math.floor(Math.random() * 999999);
       const imageUrl = `https://image.pollinations.ai/prompt/${bgPrompt}?width=1280&height=720&seed=${randomSeed}&nologo=true`;
 
-      return res.status(200).json({
-        ok: true,
-        success: true,
+      const responsePayload = {
         copyText,
         imageUrl,
         seed: randomSeed,
+      };
+
+      if (llmCacheMap.size > 200) llmCacheMap.clear();
+      llmCacheMap.set(cacheKey, responsePayload);
+
+      return res.status(200).json({
+        ok: true,
+        success: true,
+        ...responsePayload,
         timestamp: new Date().toISOString()
       });
     }
@@ -98,6 +114,12 @@ export default async function handler(req, res) {
     if (moduleType === 'deepseek') {
       const mathProblem = problem || customPrompt || prompt || '2x + 5 = 15';
       const mathLevel = level || 'Університет / ЗНО';
+
+      const cacheKey = `deepseek_${mathProblem.toLowerCase().trim()}_${mathLevel.toLowerCase().trim()}`;
+      if (llmCacheMap.has(cacheKey)) {
+        console.log('⚡ Returning 50ms In-Memory Cached DeepSeek response');
+        return res.status(200).json({ ok: true, success: true, ...llmCacheMap.get(cacheKey), cached: true });
+      }
 
       let solutionText = '';
       try {
@@ -156,12 +178,19 @@ export default async function handler(req, res) {
       const randomSeed = Math.floor(Math.random() * 999999);
       const imageUrl = `https://image.pollinations.ai/prompt/${bgPrompt}?width=1280&height=720&seed=${randomSeed}&nologo=true`;
 
-      return res.status(200).json({
-        ok: true,
-        success: true,
+      const responsePayload = {
         solutionText,
         imageUrl,
         seed: randomSeed,
+      };
+
+      if (llmCacheMap.size > 200) llmCacheMap.clear();
+      llmCacheMap.set(cacheKey, responsePayload);
+
+      return res.status(200).json({
+        ok: true,
+        success: true,
+        ...responsePayload,
         timestamp: new Date().toISOString()
       });
     }
