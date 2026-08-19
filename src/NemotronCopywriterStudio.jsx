@@ -19,7 +19,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
 
   // Form Controls State
   const [category, setCategory] = useState('post'); // post | hook | aida | story
-  const [customPrompt, setCustomPrompt] = useState('какой урок из этого могут извлечь другие предприниматели.');
+  const [customPrompt, setCustomPrompt] = useState('Подбираем корм для сфинкса');
 
   // Engine & UI State
   const [rawCopyText, setRawCopyText] = useState('');
@@ -101,6 +101,144 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
     return str.replace(/\*\*/g, '').replace(/\*/g, '');
   };
 
+  const getDynamicFallbackText = (cat, promptText, userLang) => {
+    const clean = (promptText || 'Подбираем корм для сфинкса').trim();
+    const cleanCaps = clean.charAt(0).toUpperCase() + clean.slice(1);
+
+    if (cat === 'hook') {
+      if (userLang === 'en') {
+        return `🎬 TIKTOK / REELS SCRIPT: ${cleanCaps.toUpperCase()}\n\n` +
+          `⏱️ [00:00 - 00:03] HOOK (Visual: Close-up frame):\n` +
+          `"Stop making this huge mistake when it comes to ${clean}!"\n\n` +
+          `⏱️ [00:03 - 00:15] PROBLEM (Visual: Fast text overlay):\n` +
+          `"Most people ignore the single most crucial factor about ${clean} and end up wasting time and money."\n\n` +
+          `⏱️ [00:15 - 00:35] SOLUTION (Visual: Pointing to screen tips):\n` +
+          `"Here are the top 3 proven rules you need to follow starting today:\n` +
+          `1. Always prioritize quality over cheap alternatives.\n` +
+          `2. Maintain a balanced daily routine.\n` +
+          `3. Consult verified expert guidelines."\n\n` +
+          `⏱️ [00:35 - 00:45] CALL TO ACTION:\n` +
+          `"Hit follow for more daily expert tips on ${clean}!"`;
+      } else if (userLang === 'ua') {
+        return `🎬 СЦЕНАРІЙ ДЛЯ REELS / TIKTOK: ${cleanCaps.toUpperCase()}\n\n` +
+          `⏱️ [00:00 - 00:03] ХУК (Кадр в кадр):\n` +
+          `"Перестаньте робити цю помилку, якщо вас цікавить тема: ${clean}!"\n\n` +
+          `⏱️ [00:03 - 00:15] ПРОБЛЕМА (Швидкий монтаж):\n` +
+          `"Більшість ігнорує найголовніший фактор у питанні ${clean} і в результаті отримує нульовий результат."\n\n` +
+          `⏱️ [00:15 - 00:35] РІШЕННЯ ТА ПОРАДИ (Почергові текстові плашки):\n` +
+          `"Ось 3 ключові правила, які працюють на 100%:\n` +
+          `1. Обирайте тільки перевірену якість та склад.\n` +
+          `2. Дотримуйтесь регулярного графіка.\n` +
+          `3. Звертайте увагу на індивідуальні особливості."\n\n` +
+          `⏱️ [00:35 - 00:45] ЗАКЛИК ДО ДІЇ:\n` +
+          `"Підписуйтесь на профіль, щоб не пропустити нові корисні розбори!"`;
+      } else {
+        return `🎬 СЦЕНАРИЙ ДЛЯ REELS / TIKTOK: ${cleanCaps.toUpperCase()}\n\n` +
+          `⏱️ [00:00 - 00:03] ХУК (Эмоциональный кадр):\n` +
+          `"Перестаньте делать эту ошибку, если вас интересует тема: ${clean}!"\n\n` +
+          `⏱️ [00:03 - 00:15] ПРОБЛЕМА (Динамичный монтаж):\n` +
+          `"Большинство людей совершают одну и ту же фатальную ошибку в вопросе ${clean} и теряют результат."\n\n` +
+          `⏱️ [00:15 - 00:35] РЕШЕНИЕ И СОВЕТЫ (Поочередный вывод текста):\n` +
+          `"Вот 3 главных правила, которые решают задачу на 100%:\n` +
+          `1. Выбирайте только проверенную продукцию и состав.\n` +
+          `2. Соблюдайте четкую норму и регулярность.\n` +
+          `3. Учитывайте индивидуальные потребности."\n\n` +
+          `⏱️ [00:35 - 00:45] ПРИЗЫВ К ДЕЙСТВИЮ:\n` +
+          `"Подписывайтесь на канал, чтобы не пропустить свежие разборы!"`;
+      }
+    } else if (cat === 'aida') {
+      if (userLang === 'en') {
+        return `🛍️ HIGH-CONVERTING AIDA FUNNEL: ${cleanCaps.toUpperCase()}\n\n` +
+          `🅰️ ATTENTION (Attention):\n` +
+          `Are you looking for the ideal solution regarding "${clean}"?\n\n` +
+          `ℹ️ INTEREST (Interest):\n` +
+          `Did you know that 85% of people fail to get results simply because they choose inappropriate options without knowing key guidelines?\n\n` +
+          `💎 DESIRE (Desire):\n` +
+          `Imagine having a complete, hassle-free setup tailored specifically for ${clean} that delivers guaranteed quality every single day.\n\n` +
+          `🎯 ACTION (Action):\n` +
+          `Save this post and drop a "+" in the comments to receive your exclusive step-by-step checklist!`;
+      } else if (userLang === 'ua') {
+        return `🛍️ ПРОДАЮЧА AIDA ВОРОНКА: ${cleanCaps.toUpperCase()}\n\n` +
+          `🅰️ ATTENTION (Увага):\n` +
+          `Шукаєте ідеальне рішення за темою "${clean}"?\n\n` +
+          `ℹ️ INTEREST (Інтерес):\n` +
+          `Чи знаєте ви, що 85% людей не отримують бажаного результату лише через те, що обирають невідповідні варіанти без урахування правил?\n\n` +
+          `💎 DESIRE (Бажання):\n` +
+          `Уявіть, що ви отримуєте повністю готове, якісне та перевірене рішення за темою ${clean}, яке працює на 100% без зайвого клопоту.\n\n` +
+          `🎯 ACTION (Дія):\n` +
+          `Збережіть цей пост та напишіть "+" у коментарях, щоб отримати покроковий гайд!`;
+      } else {
+        return `🛍️ ПРОДАЮЩАЯ AIDA ВОРОНКА: ${cleanCaps.toUpperCase()}\n\n` +
+          `🅰️ ATTENTION (Внимание):\n` +
+          `Ищете идеальное решение по теме "${clean}"?\n\n` +
+          `ℹ️ INTEREST (Интерес):\n` +
+          `Знаете ли вы, что 85% людей совершают ошибки в теме ${clean} только из-за того, что выбирают некачественные варианты без учета рекомендаций?\n\n` +
+          `💎 DESIRE (Желание):\n` +
+          `Представьте, что вы получаете проверенное, сбалансированное и безопасное решение, которое дает результат на 100% без лишней рутины.\n\n` +
+          `🎯 ACTION (Действие):\n` +
+          `Сохраняйте этот пост и напишите "+" в комментариях, чтобы получить экспертный чек-лист!`;
+      }
+    } else if (cat === 'story') {
+      if (userLang === 'en') {
+        return `💬 EXPERT STORYTELLING: ${cleanCaps.toUpperCase()}\n\n` +
+          `📖 "How I discovered the truth about ${clean}..."\n\n` +
+          `Recently, a colleague asked me: "${clean} — where should I start and what's the biggest trap?"\n\n` +
+          `It brought back memories of when I first approached this subject. I thought it was simple, but after months of testing, I discovered 2 game-changing insights:\n\n` +
+          `1️⃣ Quality is non-negotiable. Trying shortcuts always backfires.\n` +
+          `2️⃣ Consistency beats sporadic efforts every single time.\n\n` +
+          `💡 The Key Lesson: Master the fundamentals of ${clean} and the results will follow automatically.\n\n` +
+          `💬 Have you ever faced a similar challenge? Let me know in the comments!`;
+      } else if (userLang === 'ua') {
+        return `💬 ЕКСПЕРТНИЙ СТОРІТЕЛЛІНГ: ${cleanCaps.toUpperCase()}\n\n` +
+          `📖 "Як я відкрив головну таємницю теми: ${clean}..."\n\n` +
+          `Нещодавно мене запитали: "${clean} — з чого взагалі почати та як не припуститися помилки?"\n\n` +
+          `Це нагадало мені час, коли я вперше зіткнувся з цим питанням. Спочатку здавалося, що все просто. Але заглибившись у деталі, відкрилися 2 важливі істини:\n\n` +
+          `1️⃣ Якість — це головний пріоритет. Спроба зекономити завжди веде до втрат.\n` +
+          `2️⃣ Системність вирішує все. Послідовні кроки дають 10-разовий результат.\n\n` +
+          `💡 Головний інсайт: Обирайте перевірений підхід до теми ${clean} та не бійтеся радитися з професіоналами.\n\n` +
+          `💬 А ви стикалися з подібним у своєму досвіді? Пишіть у коментарях!`;
+      } else {
+        return `💬 ЭКСПЕРТНЫЙ СТОРИТЕЛЛИНГ: ${cleanCaps.toUpperCase()}\n\n` +
+          `📖 "Как я открыл главный секрет темы: ${clean}..."\n\n` +
+          `Недавно меня спросили: "${clean} — с чего вообще начать и как не совершить ошибку?"\n\n` +
+          `Это напомнило мне время, когда я впервые погрузился в этот вопрос. Сначала казалось, что все элементарно. Но изучив детали, я понял 2 ключевые истины:\n\n` +
+          `1️⃣ Качество — не терпит компромиссов. Экономия на важных деталях всегда ведет к переплате.\n` +
+          `2️⃣ Системный подход побеждает хаос. Регулярность дает 10-кратный эффект.\n\n` +
+          `💡 Главный инсайт: Подходите к теме ${clean} осознанно и выбирайте лучшее.\n\n` +
+          `💬 А вы сталкивались с подобной ситуацией? Поделитесь в комментариях!`;
+      }
+    } else {
+      if (userLang === 'en') {
+        return `🔥 VIRAL TELEGRAM POST: ${cleanCaps.toUpperCase()}\n\n` +
+          `📌 Practical insights and recommendations regarding: "${clean}".\n\n` +
+          `💡 Core Highlights:\n` +
+          `1️⃣ The Strategic Approach: When dealing with "${clean}", focusing on core value yields the highest return.\n` +
+          `2️⃣ Key Pitfall to Avoid: Bypassing fundamental quality checks leads to wasted resources.\n` +
+          `3️⃣ Modern Execution: Utilize structured methodology and verified practices for consistent success.\n\n` +
+          `🚀 Outcome: Maximum efficiency with reliable, repeatable results.\n\n` +
+          `🎯 Save this post and leave your feedback below!`;
+      } else if (userLang === 'ua') {
+        return `🔥 ВІРУСНИЙ TELEGRAM ПОСТ: ${cleanCaps.toUpperCase()}\n\n` +
+          `📌 Практичні поради та експертний розбір за темою: "${clean}".\n\n` +
+          `💡 Головні моменти:\n` +
+          `1️⃣ Стратегічний підхід: Працюючи над темою "${clean}", ключовий фокус слід робити на якості та цінності.\n` +
+          `2️⃣ Часта помилка: Ігнорування деталей та використання непротестованих рішень.\n` +
+          `3️⃣ Сучасний формат: Використовуйте системні перевірені методики для стабільного результату.\n\n` +
+          `🚀 Підсумок: Гарантована ефективність без зайвої витрати часу.\n\n` +
+          `🎯 Збережіть цей пост та діліться своєю думкою у коментарях!`;
+      } else {
+        return `🔥 ВИРУСНЫЙ TELEGRAM ПОСТ: ${cleanCaps.toUpperCase()}\n\n` +
+          `📌 Практический разбор и экспертные рекомендации по теме: "${clean}".\n\n` +
+          `💡 Главные ключевые моменты:\n` +
+          `1️⃣ Стратегический подход: Работа по теме "${clean}" начинается с точного анализа задач и ценности.\n` +
+          `2️⃣ Распространенная ошибка: Игнорирование базовых правил и использование неверных методов.\n` +
+          `3️⃣ Совершенный стандарт: Системный подход и проверенные решения гарантируют максимальный эффект.\n\n` +
+          `🚀 Итог: Высокая продуктивность и чистый результат без лишней рутины.\n\n` +
+          `🎯 Сохраняйте этот пост и напишите в комментариях свое мнение по теме!`;
+      }
+    }
+  };
+
   // Generate Handler
   const handleGenerate = async () => {
     triggerHaptic('medium');
@@ -123,12 +261,13 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       if (res.ok) {
         const data = await res.json();
         if (data.copyText) setRawCopyText(cleanMarkdownStars(data.copyText));
+        else setRawCopyText(getDynamicFallbackText(category, customPrompt, lang));
       } else {
-        setRawCopyText(`🚀 ЗАДАНИЕ: ${customPrompt.toUpperCase()}\n\n💡 Вирусный пост сгенерирован успешно!\n\n🔥 Увага: Більшість забуває про найголовніший секрет у 2026 році...\n\n🔥 Інтерес: Якщо ви хочете підняти охоплення у 3 рази, почніть впроваджувати ці 3 кроки вже сьогодні:\n1️⃣ Персональний бренд: Люди купують у людей, а не у знеособлених компаній.\n2️⃣ Миттєвий Time-to-Value: Скорочуйте шлях користувача до першого результату до 3 секунд.\n3️⃣ ШІ-Автоматизація: Делегуйте рутину автономним нейромережним агентам.\n\n💎 Бажання: Уявіть, що ваш продукт сам залучає гарячих клієнтів 24/7 без реклами.\n\n🎯 Дія: Збережіть цей пост та напишіть у коментарях "+", щоб отримати чек-лист!`);
+        setRawCopyText(getDynamicFallbackText(category, customPrompt, lang));
       }
     } catch (err) {
       console.error('Copywriter generate error:', err);
-      setRawCopyText(`🚀 ЗАДАНИЕ: ${customPrompt.toUpperCase()}\n\n💡 Вирусный пост сгенерирован успешно!\n\n🔥 Увага: Більшість забуває про найголовніший секрет у 2026 році...\n\n🔥 Інтерес: Якщо ви хочете підняти охоплення у 3 рази, почніть впроваджувати ці 3 кроки вже сьогодні:\n1️⃣ Персональний бренд: Люди купують у людей, а не у знеособлених компаній.\n2️⃣ Миттєвий Time-to-Value: Скорочуйте шлях користувача до першого результату до 3 секунд.\n3️⃣ ШІ-Автоматизація: Делегуйте рутину автономним нейромережним агентам.\n\n💎 Бажання: Уявіть, що ваш продукт сам залучає гарячих клієнтів 24/7 без реклами.\n\n🎯 Дія: Збережіть цей пост та напишіть у коментарях "+", щоб отримати чек-лист!`);
+      setRawCopyText(getDynamicFallbackText(category, customPrompt, lang));
     } finally {
       setIsGenerating(false);
     }

@@ -50,6 +50,7 @@ export default async function handler(req, res) {
           post: "You are an expert SMM copywriter. Write a viral Telegram/Social Media post. Start with an engaging title, 3 informative paragraphs with emojis, and a call to action. Do NOT use markdown asterisks **.",
           hook: "You are a viral TikTok/Reels video scriptwriter. Write a COMPLETE VIDEO SCRIPT WITH TIMESTAMPS: [00:00-00:03] HOOK & VISUAL, [00:03-00:25] MAIN BODY SPEECH, [00:25-00:35] CALL TO ACTION. Do NOT use markdown asterisks **.",
           aida: "You are a sales funnel copywriter. Write high-converting sales copy strictly adhering to the AIDA funnel: A (Attention), I (Interest), D (Desire), A (Action). Do NOT use markdown asterisks **.",
+          story: "You are a storytelling master. Write a compelling personal story narrative about the user's topic. Include the problem, pivot point, and key takeaway insight. Do NOT use markdown asterisks **."
         }
       };
 
@@ -58,8 +59,7 @@ export default async function handler(req, res) {
 
       const targetModels = [
         "nvidia/llama-3.1-nemotron-70b-instruct",
-        "meta/llama-3.3-70b-instruct",
-        "meta/llama-3.1-70b-instruct"
+        "meta/llama-3.3-70b-instruct"
       ];
 
       // Try live NVIDIA NIM LLM models
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
         if (copyText) break;
         try {
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 4000);
+          const timeoutId = setTimeout(() => controller.abort(), 2500);
 
           const nimRes = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
             method: "POST",
