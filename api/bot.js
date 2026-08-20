@@ -17,11 +17,11 @@ export default async function handler(req, res) {
     const startParam = paramMatch ? paramMatch[1] : '';
 
     if (text.startsWith('/start')) {
-      let welcomeText = `🎬 <b>Добро пожаловать в YouTube 16:9 Thumbnail AI Studio!</b>\n\n` +
-        `Создавай вирусные 1280x720 обложки с Dual-Layer Engine (FLUX 1.0 8K + Векторный текст без галлюцинаций) за 10 секунд!\n\n` +
+      let welcomeText = `🎨 <b>Добро пожаловать в NeiroStudio AI Hub!</b>\n\n` +
+        `Мультимодальная 10-в-1 ИИ-Студия в Telegram.\n\n` +
         `🎁 <b>Приветственный бонус:</b> Вам зачислено <b>5 ⚡ бесплатных генераций</b>!\n` +
         `📢 <b>Бонус за подписку:</b> Подпишитесь на наш канал и получите ещё <b>+3 ⚡ и снятие вотермарки</b>!\n\n` +
-        `Нажмите кнопку ниже, чтобы сгенерировать идеальную 16:9 обложку 👇`;
+        `Нажмите кнопку ниже, чтобы открыть ИИ-Студию 👇`;
 
       let targetAppUrl = 'https://neirostudio-hub-v2.vercel.app?start=hub_youtube';
       if (startParam === 'hub_ecommerce') {
