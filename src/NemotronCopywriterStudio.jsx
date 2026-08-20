@@ -287,12 +287,12 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-100 pb-20">
       {/* HEADER BAR */}
-      <header className="sticky top-0 z-30 bg-[#07090e]/85 backdrop-blur-xl border-b border-slate-800/80 px-4 py-3">
+      <header className="sticky top-0 z-30 bg-[#07090e]/85 backdrop-blur-xl border-b border-slate-800/80 px-3.5 sm:px-6 py-2.5 sm:py-3">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             <button
               onClick={() => { triggerHaptic('light'); onBackToHub(); }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all"
             >
               <ArrowLeft className="w-4 h-4 text-purple-400" />
               <span>{t.backHub}</span>
@@ -308,8 +308,8 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-slate-900 border border-amber-500/30 text-amber-400 text-xs font-semibold">
               <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
               <span>{userEnergy} ⚡</span>
             </div>
@@ -326,7 +326,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
       </header>
 
       {/* MAIN CONTAINER */}
-      <main className="max-w-5xl mx-auto px-4 pt-6">
+      <main className="max-w-5xl mx-auto px-3.5 sm:px-6 pt-5 sm:pt-6 pb-16">
         <div className="text-center mb-6">
           <h2 className="text-xl sm:text-3xl font-extrabold text-white">
             {t.studioTitle}

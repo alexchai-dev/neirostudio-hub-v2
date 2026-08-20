@@ -498,28 +498,28 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-100 pb-20">
       {/* HEADER BAR */}
-      <header className="sticky top-0 z-30 bg-[#07090e]/85 backdrop-blur-xl border-b border-slate-800/80 px-4 py-3">
+      <header className="sticky top-0 z-30 bg-[#07090e]/85 backdrop-blur-xl border-b border-slate-800/80 px-3.5 sm:px-6 py-2.5 sm:py-3">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-500 p-[1px]">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-500 p-[1px]">
               <div className="w-full h-full bg-[#090d16] rounded-[11px] flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-cyan-400" />
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
               </div>
             </div>
             <div>
-              <h1 className="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
+              <h1 className="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
                 {t.hubTitle}
               </h1>
-              <span className="text-[10px] font-semibold text-cyan-400 tracking-wider uppercase block -mt-1">
+              <span className="text-[9px] sm:text-[10px] font-semibold text-cyan-400 tracking-wider uppercase block -mt-1">
                 {t.badgeText}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => { triggerHaptic('light'); setIsStarsModalOpen(true); }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/30 text-amber-400 hover:border-amber-500/60 transition-all text-xs font-semibold"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/30 text-amber-400 hover:border-amber-500/60 transition-all text-xs font-semibold"
             >
               <Zap className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
               <span>{userEnergy} / 5</span>
@@ -528,7 +528,7 @@ export default function App() {
 
             <button
               onClick={() => { triggerHaptic('light'); setIsLangModalOpen(true); }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all"
             >
               <Globe className="w-3.5 h-3.5 text-cyan-400" />
               <span className="uppercase">{lang}</span>
@@ -538,22 +538,22 @@ export default function App() {
       </header>
 
       {/* MAIN CONTENT */}
-      <main className="max-w-6xl mx-auto px-4 pt-8">
-        <div className="text-center mb-6">
+      <main className="max-w-6xl mx-auto px-3.5 sm:px-6 pt-5 sm:pt-8 pb-16">
+        <div className="text-center mb-5 sm:mb-8">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/40 border border-cyan-500/20 text-cyan-400 text-[10px] sm:text-xs font-medium mb-2 shadow-sm">
             <Flame className="w-3 h-3 text-cyan-400 shrink-0" />
             <span>{t.heroBadge}</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-xl sm:text-4xl font-extrabold text-white tracking-tight">
             {t.heroTitle}
           </h2>
-          <p className="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto mt-2 leading-relaxed">
+          <p className="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto mt-1.5 sm:mt-2 leading-relaxed">
             {t.heroSubtitle}
           </p>
         </div>
 
         {/* CATEGORY FILTER TABS */}
-        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-8 px-2">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 px-1">
           {[
             { id: 'all', label: t.catAll },
             { id: 'popular', label: t.catPopular },
@@ -564,7 +564,7 @@ export default function App() {
             <button
               key={cat.id}
               onClick={() => { triggerHaptic('light'); setActiveCategoryFilter(cat.id); }}
-              className={`px-3.5 py-1.5 rounded-xl border text-xs font-medium whitespace-nowrap transition-all ${
+              className={`px-3 sm:px-3.5 py-1.5 rounded-xl border text-xs font-medium whitespace-nowrap transition-all ${
                 activeCategoryFilter === cat.id
                   ? 'bg-cyan-600/20 border-cyan-500 text-cyan-300 shadow-md shadow-cyan-950/30'
                   : 'bg-slate-900/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
@@ -576,7 +576,7 @@ export default function App() {
         </div>
 
         {/* 10 MODULES GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-5">
           {filteredModules.map((mod) => {
             const IconComp = mod.icon;
             const isLive = mod.status === 'live';
@@ -584,7 +584,7 @@ export default function App() {
             return (
               <div
                 key={mod.id}
-                className={`glass-card rounded-2xl p-5 border ${mod.borderGlow} relative overflow-hidden flex flex-col justify-between group transition-all duration-300`}
+                className={`glass-card rounded-2xl p-4 sm:p-5 border ${mod.borderGlow} relative overflow-hidden flex flex-col justify-between group transition-all duration-300`}
               >
                 <div className={`absolute top-0 right-0 w-36 h-36 ${mod.bgGlow} rounded-full blur-2xl group-hover:scale-125 transition-all pointer-events-none`} />
 
