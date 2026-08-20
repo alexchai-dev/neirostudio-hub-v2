@@ -298,12 +298,13 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
     ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, 1280, 720);
 
-    const colors = {
+    const colorMap = {
       yellow: { primary: '#ffee58', secondary: '#ffd600', glow: 'rgba(255, 214, 0, 0.95)', badgeBg: '#f59e0b' },
       cyan: { primary: '#00e5ff', secondary: '#00b0ff', glow: 'rgba(0, 229, 255, 0.95)', badgeBg: '#0284c7' },
       flame: { primary: '#ff5252', secondary: '#ff1744', glow: 'rgba(255, 23, 68, 0.95)', badgeBg: '#dc2626' },
       lime: { primary: '#b2ff59', secondary: '#76ff03', glow: 'rgba(118, 255, 3, 0.95)', badgeBg: '#65a30d' }
-    }[selectedColor] || colors.yellow;
+    };
+    const colors = colorMap[selectedColor] || colorMap.yellow;
 
     ctx.textBaseline = 'top';
 
@@ -618,38 +619,6 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
           <div className="lg:col-span-5 space-y-4">
             <div className="glass-card rounded-2xl p-4 border border-slate-800 space-y-4">
 
-              {/* CUSTOM TEXT TOGGLE SELECTOR */}
-              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-3">
-                <label className="block text-xs font-bold text-white mb-2 flex items-center justify-between">
-                  <span>{t.customTextLabel}</span>
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
-                    isCustomTextActive
-                      ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
-                      : 'bg-slate-800 text-slate-400 border-slate-700'
-                  }`}>
-                    {isCustomTextActive ? (lang === 'ru' ? 'ВКЛЮЧЕН' : lang === 'ua' ? 'УВІМКНЕНО' : 'ACTIVE') : (lang === 'ru' ? 'ОТЖАТ' : lang === 'ua' ? 'ВІДЖАТО' : 'OFF')}
-                  </span>
-                </label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    triggerHaptic('medium');
-                    setIsCustomTextActive((prev) => !prev);
-                  }}
-                  className={`w-full py-2.5 px-3 rounded-xl font-extrabold text-xs flex items-center justify-center gap-2 transition-all border ${
-                    isCustomTextActive
-                      ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/30 ring-1 ring-cyan-400 border-cyan-400'
-                      : 'bg-slate-950 hover:bg-slate-800 text-slate-400 border-slate-800'
-                  }`}
-                >
-                  <Type className={`w-4 h-4 ${isCustomTextActive ? 'text-cyan-300' : 'text-slate-500'}`} />
-                  <span>{isCustomTextActive ? t.customTextActive : t.customTextInactive}</span>
-                </button>
-                <p className="text-[10px] text-slate-400 mt-2 px-1 leading-tight">
-                  {isCustomTextActive ? t.customTextActiveDesc : t.customTextInactiveDesc}
-                </p>
-              </div>
-
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">
                   {t.topicLabel}
@@ -663,34 +632,30 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                 />
               </div>
 
-              <div className={`transition-opacity duration-200 space-y-4 ${!isCustomTextActive ? 'opacity-50' : 'opacity-100'}`}>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center justify-between">
-                    <span>{t.mainTextLabel}</span>
-                    {!isCustomTextActive && <span className="text-[10px] text-amber-400 font-normal">({lang === 'ru' ? 'Отжато' : lang === 'ua' ? 'Віджато' : 'Disabled'})</span>}
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={mainText}
-                    onChange={(e) => setMainText(e.target.value)}
-                    placeholder={t.mainTextPlaceholder}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-bold"
-                  />
-                </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  {t.mainTextLabel}
+                </label>
+                <textarea
+                  rows={2}
+                  value={mainText}
+                  onChange={(e) => setMainText(e.target.value)}
+                  placeholder={t.mainTextPlaceholder}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-bold"
+                />
+              </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center justify-between">
-                    <span>{t.subTextLabel}</span>
-                    {!isCustomTextActive && <span className="text-[10px] text-amber-400 font-normal">({lang === 'ru' ? 'Отжато' : lang === 'ua' ? 'Віджато' : 'Disabled'})</span>}
-                  </label>
-                  <input
-                    type="text"
-                    value={subText}
-                    onChange={(e) => setSubText(e.target.value)}
-                    placeholder={t.subTextPlaceholder}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-semibold"
-                  />
-                </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  {t.subTextLabel}
+                </label>
+                <input
+                  type="text"
+                  value={subText}
+                  onChange={(e) => setSubText(e.target.value)}
+                  placeholder={t.subTextPlaceholder}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-rose-500 font-semibold"
+                />
               </div>
 
               <div>
@@ -708,7 +673,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                       key={st.id}
                       onClick={() => {
                         triggerHaptic('light');
-                        setSelectedStyle((prev) => (prev === st.id ? 'none' : st.id));
+                        setSelectedStyle((prev) => (prev === st.id ? 'viral' : st.id));
                       }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedStyle === st.id
@@ -737,7 +702,7 @@ export default function YouTubeStudio({ onBackToHub, initialLang = 'ru' }) {
                       key={col.id}
                       onClick={() => {
                         triggerHaptic('light');
-                        setSelectedColor((prev) => (prev === col.id ? 'none' : col.id));
+                        setSelectedColor((prev) => (prev === col.id ? 'yellow' : col.id));
                       }}
                       className={`py-2 px-2 rounded-lg border text-center font-medium text-xs transition-all ${
                         selectedColor === col.id
