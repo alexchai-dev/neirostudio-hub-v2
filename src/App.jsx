@@ -119,7 +119,7 @@ export default function App() {
     ru: {
       hubTitle: "NeiroStudio AI",
       badgeText: "LAUNCHPAD 3.0",
-      heroBadge: "Официальный ИИ-Маркетплейс • Telegram App Store Model",
+      heroBadge: "Официальный ИИ-Маркетплейс",
       heroTitle: "Центр Управления ИИ-Ботами",
       heroSubtitle: "Выберите узкопрофильный нейроинструмент. Прямой запуск внутри Telegram без сложных настроек.",
       catAll: "Все инструменты",
@@ -182,7 +182,7 @@ export default function App() {
     ua: {
       hubTitle: "NeiroStudio AI",
       badgeText: "LAUNCHPAD 3.0",
-      heroBadge: "Офіційний ШІ-Маркетплейс • Telegram App Store Model",
+      heroBadge: "Офіційний ШІ-Маркетплейс",
       heroTitle: "Центр Управління ШІ-Ботами",
       heroSubtitle: "Оберіть вузькопрофільний нейроінструмент. Прямий запуск всередині Telegram без складних налаштувань.",
       catAll: "Усі інструменти",
@@ -245,7 +245,7 @@ export default function App() {
     en: {
       hubTitle: "NeiroStudio AI",
       badgeText: "LAUNCHPAD 3.0",
-      heroBadge: "Official AI Marketplace • Telegram App Store Model",
+      heroBadge: "Official AI Marketplace",
       heroTitle: "AI Bots Control Hub",
       heroSubtitle: "Select a specialized AI tool. Direct launch inside Telegram with zero complex setup.",
       catAll: "All Tools",
@@ -539,9 +539,9 @@ export default function App() {
 
       {/* MAIN CONTENT */}
       <main className="max-w-6xl mx-auto px-4 pt-8">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 text-xs font-medium mb-3 shadow-lg shadow-cyan-950/40">
-            <Flame className="w-3.5 h-3.5 text-cyan-400" />
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/40 border border-cyan-500/20 text-cyan-400 text-[10px] sm:text-xs font-medium mb-2 shadow-sm">
+            <Flame className="w-3 h-3 text-cyan-400 shrink-0" />
             <span>{t.heroBadge}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
