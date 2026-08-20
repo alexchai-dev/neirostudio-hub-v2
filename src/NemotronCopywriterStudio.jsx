@@ -418,7 +418,7 @@ export default function NemotronCopywriterStudio({ onBackToHub, initialLang = 'r
                 {isGenerating ? (
                   <div className="flex flex-col items-center justify-center h-64 text-purple-400 text-xs space-y-2">
                     <RefreshCw className="w-6 h-6 animate-spin" />
-                    <span>ИИ Nemotron генерирует вирусный текст...</span>
+                    <span>ИИ генерирует вирусный текст...</span>
                   </div>
                 ) : (
                   rawCopyText || '🚀 Введите тему или задание слева и нажмите "Сгенерировать Текст".'

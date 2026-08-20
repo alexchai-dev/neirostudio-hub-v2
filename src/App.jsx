@@ -151,7 +151,7 @@ export default function App() {
       mod3Sub: "Элитные ИИ-портреты эксперта в стилях Руководитель, Пентхаус Дубай, Old Money и Спикер.",
       mod3Tag: "Деловой Портрет • Замена Лица",
 
-      mod4Title: "Nemotron SMM Копирайтер",
+      mod4Title: "SMM Копирайтер",
       mod4Sub: "Генерация вирусных постов для Telegram, продающих AIDA-воронок и сценариев Reels/TikTok.",
       mod4Tag: "SMM Копирайтинг • Вирусный Текст",
 
@@ -214,10 +214,10 @@ export default function App() {
       mod3Sub: "Елітні ШІ-портрети експерта у стилях Керівник, Пентхаус Дубай, Old Money та Спікер.",
       mod3Tag: "Діловий Портрет • Заміна Обличчя",
 
-      mod4Title: "Nemotron SMM Копірайтер",
+      mod4Title: "SMM Копірайтер",
       mod4Sub: "Генерація вірусних постів для Telegram, продаючих AIDA-воронок та сценаріїв Reels/TikTok.",
       mod4Tag: "SMM Копірайтинг • Вірусний Текст",
-
+ 
       mod5Title: "Дизайн Нерухомості & Стейджинг",
       mod5Sub: "Віртуальний стейджинг порожніх приміщень та дизайн інтер'єрів для ріелторів та забудовників.",
       mod5Tag: "Дизайн Інтер'єру • Стейджинг",
@@ -277,7 +277,7 @@ export default function App() {
       mod3Sub: "Executive AI portraits for business experts in Dubai Penthouse, Old Money & Speaker styles.",
       mod3Tag: "Business Portrait • Face Swap",
 
-      mod4Title: "Nemotron SMM Copywriter",
+      mod4Title: "SMM Copywriter",
       mod4Sub: "Generate viral Telegram posts, high-converting AIDA funnels, and TikTok/Reels video scripts.",
       mod4Tag: "SMM Copywriting • Viral Content",
 
@@ -454,21 +454,6 @@ export default function App() {
       sub: t.mod7Sub,
       tag: t.mod7Tag,
       action: () => setCurrentView('tattoo')
-    },
-    {
-      id: 'web3',
-      category: 'media',
-      isPopular: true,
-      status: 'live',
-      icon: Rocket,
-      iconColor: 'text-fuchsia-400',
-      bgGlow: 'bg-fuchsia-500/10',
-      borderGlow: 'border-fuchsia-500/30 hover:border-fuchsia-500/60',
-      btnColor: 'bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500 shadow-fuchsia-950/50',
-      title: t.mod8Title,
-      sub: t.mod8Sub,
-      tag: t.mod8Tag,
-      action: () => setCurrentView('web3')
     },
     {
       id: 'amazon',
@@ -723,7 +708,7 @@ export default function App() {
               <p>NeiroStudio AI Hub operates in full compliance with Telegram WebApp Guidelines. We do not harvest, store, or sell user personal data, chat logs, or financial credentials.</p>
               
               <h4 className="font-bold text-cyan-400 text-xs">2. AI Content Generation</h4>
-              <p>Generative image models (FLUX 1.0) and LLMs (NVIDIA NIM Nemotron-70B, DeepSeek-R1) synthesize content on-demand based on user inputs. Users retain ownership of created promotional materials, covers, and copy text.</p>
+              <p>Generative image models (FLUX 1.0) and LLMs (NVIDIA NIM Llama-3, DeepSeek-R1) synthesize content on-demand based on user inputs. Users retain ownership of created promotional materials, covers, and copy text.</p>
 
               <h4 className="font-bold text-cyan-400 text-xs">3. Energy & Telegram Stars Payments</h4>
               <p>Initial free energies (5 ⚡) are granted upon registration. Additional energies purchased via Telegram Stars (⭐) are non-refundable digital utility tokens spent directly on neural inference workloads.</p>
