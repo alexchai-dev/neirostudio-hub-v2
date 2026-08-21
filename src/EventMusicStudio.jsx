@@ -143,15 +143,12 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
           }
         }
 
-        // Safety fallback if polling reaches 30 attempts (~90s)
-        if (pollCount >= 30) {
+        // Safety timeout if polling reaches 40 attempts (~120s)
+        if (pollCount >= 40) {
           clearInterval(pollingIntervalRef.current);
-          setMusicProgress(100);
-          const fallbackUrl = "/audio/celebration.mp3";
-          setGeneratedAudioUrl(fallbackUrl);
           setIsGeneratingMusic(false);
+          setAudioError('Таймаут генерації пісні. Будь ласка, спробуйте ще раз.');
           localStorage.removeItem('neiro_active_music_task');
-          triggerHaptic('heavy');
         }
       } catch (err) {
         console.log('Polling error:', err);

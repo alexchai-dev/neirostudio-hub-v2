@@ -92,34 +92,10 @@ export default async function handler(req, res) {
     }
   }
 
-  // Fallback ONLY after 90 seconds or if no FAL_KEY / falRequestId
-  const taskAge = task ? (Date.now() - task.createdAt) : 90000;
-
-  if (!task || !task.falRequestId || taskAge >= 90000) {
-    const selectedVocal = task?.vocal || 'female';
-    const selectedLang = task?.lang || 'ua';
-
-    let celebrationAudioUrl = "/audio/celebration.mp3"; // Ukrainian Female Voice (Polina)
-
-    if (selectedLang === 'ua') {
-      celebrationAudioUrl = selectedVocal === 'male' ? "/audio/ua_male.mp3" : "/audio/celebration.mp3";
-    } else if (selectedLang === 'ru') {
-      celebrationAudioUrl = "/audio/ru_female.mp3";
-    } else if (selectedLang === 'en') {
-      celebrationAudioUrl = "/audio/en_female.mp3";
-    }
-
-    return res.status(200).json({
-      ok: true,
-      status: 'completed',
-      audioUrl: celebrationAudioUrl
-    });
-  }
-
-  const progressVal = Math.min(Math.floor((taskAge / 45000) * 90) + 10, 95);
+  // Return processing status if task is waiting
   return res.status(200).json({
     ok: true,
     status: 'processing',
-    progress: progressVal
+    progress: 45
   });
 }
