@@ -143,13 +143,7 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
         if (pollCount >= 4) {
           clearInterval(pollingIntervalRef.current);
           setMusicProgress(100);
-          const cleanLyrics = (lyricsText || 'З днем народження вітаємо')
-            .replace(/\[.*?\]/g, '')
-            .replace(/\(.*?\)/g, '')
-            .replace(/\n+/g, '. ')
-            .trim().substring(0, 190);
-          const langCode = lang === 'ua' ? 'uk' : (lang === 'en' ? 'en' : 'ru');
-          const fallbackUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${langCode}&client=tw-ob&q=${encodeURIComponent(cleanLyrics)}`;
+          const fallbackUrl = "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a74e50.mp3?filename=happy-birthday-to-you-110097.mp3";
           setGeneratedAudioUrl(fallbackUrl);
           setIsGeneratingMusic(false);
           localStorage.removeItem('neiro_active_music_task');
@@ -837,9 +831,11 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
 
                   <audio
                     ref={audioRef}
-                    src={generatedAudioUrl}
+                    src={generatedAudioUrl.startsWith('/api/') ? generatedAudioUrl : `/api/download-audio?url=${encodeURIComponent(generatedAudioUrl)}`}
                     onEnded={() => setIsPlaying(false)}
+                    onError={(e) => console.log('Audio playback error:', e)}
                     className="hidden"
+                    preload="auto"
                   />
                 </div>
 
