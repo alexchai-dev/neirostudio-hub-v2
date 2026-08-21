@@ -33,6 +33,12 @@
    * Защита от взлома через консоль (HMAC-SHA256 валидация `initData` на бекенде).
    * Защита от спама (Rate Limiting).
 
+6. **Модуль №10 — «AI Event Audio Studio» (Музыкальный Бот):**
+   * 4-Шаговый Пошаговый Wizard (Повод 🎁 -> Вокал 🎤 -> Жанр 🎵 -> Текст ✍️ & Музыка ⚡).
+   * Интеграция Fal.ai Audio Engine с нативной отметкой `(spoken intro: "NeiroStudio Audio")`.
+   * Устойчивая асинхронная Polling-архитектура с восстановлением тасок из `localStorage` при смахнувшемся TWA.
+   * Плеер Obsidian Glassmorphism с эквалайзером, волновой спектрограммой, прямым скачиванием MP3 (`/api/download-audio`) и Telegram Share.
+
 ---
 
 ## 🎯 План Запуска Маркетинга и Монетизации (Next Steps):

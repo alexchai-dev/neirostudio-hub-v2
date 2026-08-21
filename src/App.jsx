@@ -17,7 +17,8 @@ import {
   CheckCircle2,
   X,
   Flame,
-  ArrowUpRight
+  ArrowUpRight,
+  Music
 } from 'lucide-react';
 import YouTubeStudio from './YouTubeStudio';
 import ECommerceStudio from './ECommerceStudio';
@@ -29,6 +30,7 @@ import TattooStudio from './TattooStudio';
 import AmazonKDPStudio from './AmazonKDPStudio';
 import DeepSeekMathStudio from './DeepSeekMathStudio';
 import NemotronCopywriterStudio from './NemotronCopywriterStudio';
+import EventMusicStudio from './EventMusicStudio';
 
 export default function App() {
   // View Router State ('hub' | 'youtube' | 'ecommerce' | 'avatar' | 'realestate' | 'food' | 'web3' | 'tattoo' | 'amazon' | 'deepseek' | 'copywriter')
@@ -64,6 +66,9 @@ export default function App() {
       }
       if (search.includes('start=hub_copywriter') || search.includes('start=hub_voice') || window.location.pathname.includes('copywriter')) {
         return 'copywriter';
+      }
+      if (search.includes('start=hub_music') || window.location.pathname.includes('music')) {
+        return 'music';
       }
     } catch (e) {}
     return 'hub';
@@ -177,7 +182,11 @@ export default function App() {
 
       mod10Title: "DeepSeek Математика & STEM",
       mod10Sub: "Мгновенное пошаговое решение задач по высшей математике, физике и коду по фото.",
-      mod10Tag: "Решение Задач • Пошаговый Репетитор"
+      mod10Tag: "Решение Задач • Пошаговый Репетитор",
+
+      modMusicTitle: "AI Event Audio Studio",
+      modMusicSub: "Создание эксклюзивных песен и музыкальных треков для ведущих, аниматоров и праздников.",
+      modMusicTag: "Музыкальный Бот • Песни на Заказ"
     },
     ua: {
       hubTitle: "NeiroStudio AI",
@@ -240,7 +249,11 @@ export default function App() {
 
       mod10Title: "DeepSeek Математика & STEM",
       mod10Sub: "Миттєве покрокове розв'язання задач з вищої математики, фізики та кодингу по фото.",
-      mod10Tag: "Розв'язання Задач • Покроковий Репетитор"
+      mod10Tag: "Розв'язання Задач • Покроковий Репетитор",
+
+      modMusicTitle: "AI Event Audio Studio",
+      modMusicSub: "Створення ексклюзивних пісень та музичних треків для ведучих, аніматорів та свят.",
+      modMusicTag: "Музичний Бот • Пісні на Замовлення"
     },
     en: {
       hubTitle: "NeiroStudio AI",
@@ -303,7 +316,11 @@ export default function App() {
 
       mod10Title: "DeepSeek Math & STEM Tutor",
       mod10Sub: "Instant step-by-step problem solver for advanced math, physics, and programming from photo.",
-      mod10Tag: "Math Solver • Step-by-Step Tutor"
+      mod10Tag: "Math Solver • Step-by-Step Tutor",
+
+      modMusicTitle: "AI Event Audio Studio",
+      modMusicSub: "Personalized songs and custom music generator for wedding hosts, party animators & events.",
+      modMusicTag: "AI Music Maker • Event Audio"
     }
   }[lang] || t.ru;
 
@@ -348,8 +365,27 @@ export default function App() {
     return <NemotronCopywriterStudio onBackToHub={() => setCurrentView('hub')} initialLang={lang} />;
   }
 
-  // 10 MODULES DATA ARRAY (ALL 10 ARE NOW 100% LIVE!)
+  if (currentView === 'music') {
+    return <EventMusicStudio onBackToHub={() => setCurrentView('hub')} initialLang={lang} />;
+  }
+
+  // 10+ MODULES DATA ARRAY (ALL LIVE!)
   const modules = [
+    {
+      id: 'music',
+      category: 'media',
+      isPopular: true,
+      status: 'live',
+      icon: Music,
+      iconColor: 'text-cyan-400',
+      bgGlow: 'bg-cyan-500/10',
+      borderGlow: 'border-cyan-500/40 hover:border-cyan-400',
+      btnColor: 'bg-gradient-to-r from-cyan-500 via-teal-500 to-purple-600 hover:brightness-110 shadow-cyan-950/50',
+      title: t.modMusicTitle,
+      sub: t.modMusicSub,
+      tag: t.modMusicTag,
+      action: () => setCurrentView('music')
+    },
     {
       id: 'youtube',
       category: 'media',
