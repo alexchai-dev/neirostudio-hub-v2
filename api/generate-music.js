@@ -68,9 +68,16 @@ export default async function handler(req, res) {
         "https://queue.fal.run/fal-ai/minimax/music-3"
       ];
 
-      const refAudio = (vocal === 'male')
-        ? "https://neirostudio-hub-v2.vercel.app/audio/vocal_ua_m.mp3"
-        : "https://neirostudio-hub-v2.vercel.app/audio/love.mp3";
+      let refAudio = "https://neirostudio-hub-v2.vercel.app/audio/vocal_ua_f.mp3";
+      if (lang === 'ua') {
+        refAudio = (vocal === 'male')
+          ? "https://neirostudio-hub-v2.vercel.app/audio/vocal_ua_m.mp3"
+          : "https://neirostudio-hub-v2.vercel.app/audio/vocal_ua_f.mp3";
+      } else if (lang === 'ru') {
+        refAudio = "https://neirostudio-hub-v2.vercel.app/audio/vocal_ru_f.mp3";
+      } else if (lang === 'en') {
+        refAudio = "https://neirostudio-hub-v2.vercel.app/audio/vocal_en_f.mp3";
+      }
 
       for (const endpoint of endpointsToTry) {
         try {
