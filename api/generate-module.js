@@ -124,9 +124,8 @@ export default async function handler(req, res) {
             copyText = `[Intro]\n(Праздничная веселая музыка)\n\n[Verse 1]\nСегодня особый день и праздник,\nСобрались друзья, и смех, и радость!\n${cleanTopic} — день волшебный и яркий,\nУлыбки, поздравления и подарки!\n\n[Chorus]\nС днем рождения поздравляем!\nСчастья, радости желаем!\nПусть сбываются мечты,\nПраздник света и красоты!\n\n[Verse 2]\nПусть каждый миг приносит вдохновение,\nОтличное у всех настроение!\nТанец, смех и громкое "Ура!",\nПраздновать пришла пора!\n\n[Outro]\nС днем рождения! Поздравляем!`;
           }
         }
-
         // 1. PETS / CATS / SPHYNX DOMAIN
-        if (lowerPrompt.includes('сфинкс') || lowerPrompt.includes('корм') || lowerPrompt.includes('кошек') || lowerPrompt.includes('кошач') || lowerPrompt.includes('кот')) {
+        else if (lowerPrompt.includes('сфинкс') || lowerPrompt.includes('корм') || lowerPrompt.includes('кошек') || lowerPrompt.includes('кошач') || lowerPrompt.includes('кот')) {
           if (userCat === 'hook') {
             copyText = `🎬 СЦЕНАРИЙ ДЛЯ REELS / TIKTOK: КОРМ ДЛЯ СФИНКСОВ\n\n` +
               `⏱️ [00:00 - 00:03] ХУК (Шокирующий кадр с питомцем):\n` +
