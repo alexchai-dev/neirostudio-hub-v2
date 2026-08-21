@@ -70,7 +70,7 @@ export default async function handler(req, res) {
         if (copyText) break;
         try {
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 2500);
+          const timeoutId = setTimeout(() => controller.abort(), 6000);
 
           const nimRes = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
             method: "POST",
@@ -113,6 +113,17 @@ export default async function handler(req, res) {
         if (!cleanTopic) cleanTopic = userTopic;
         const topicCaps = cleanTopic.charAt(0).toUpperCase() + cleanTopic.slice(1);
         const lowerPrompt = userTopic.toLowerCase();
+
+        // 0. SONG LYRICS SPECIFIC FALLBACK
+        if (userCat === 'song') {
+          if (userLang === 'ua') {
+            copyText = `[Intro]\n(Яскрава святкова музика)\n\n[Verse 1]\nСьогодні особливий день і свято,\nЗібралися ми, щоб привітати!\n${cleanTopic} — день чудовий і яскравий,\nХай буде настрій радісний, цікавий!\n\n[Chorus]\nЗ днем народження вітаєм!\nЩастя й радості бажаєм!\nХай збуваються всі мрії,\nСвітла, сонця та надії!\n\n[Verse 2]\nХай посмішка цвіте щодня у тебе,\nІ сяє мирне волошкове небо!\nСюрпризи, подарунки та пісні,\nХай будуть найкращі ці дні!\n\n[Outro]\nЗ днем народження! Ура!`;
+          } else if (userLang === 'en') {
+            copyText = `[Intro]\n(Upbeat music starting)\n\n[Verse 1]\nToday is a special day to celebrate,\nGather around, let's open the gate!\n${cleanTopic} is here, let's cheer out loud,\nMaking everyone happy and proud!\n\n[Chorus]\nHappy Birthday, let's sing together!\nWishing you joy and bright warm weather!\nMay all your dreams come shining true,\nThis special song is just for you!\n\n[Verse 2]\nLaughter and smiles all around today,\nFun and presents along the way!\nKeep on dancing, keep on singing high,\nUnderneath the sparkling summer sky!\n\n[Outro]\nHappy Birthday! Party time!`;
+          } else {
+            copyText = `[Intro]\n(Праздничная веселая музыка)\n\n[Verse 1]\nСегодня особый день и праздник,\nСобрались друзья, и смех, и радость!\n${cleanTopic} — день волшебный и яркий,\nУлыбки, поздравления и подарки!\n\n[Chorus]\nС днем рождения поздравляем!\nСчастья, радости желаем!\nПусть сбываются мечты,\nПраздник света и красоты!\n\n[Verse 2]\nПусть каждый миг приносит вдохновение,\nОтличное у всех настроение!\nТанец, смех и громкое "Ура!",\nПраздновать пришла пора!\n\n[Outro]\nС днем рождения! Поздравляем!`;
+          }
+        }
 
         // 1. PETS / CATS / SPHYNX DOMAIN
         if (lowerPrompt.includes('сфинкс') || lowerPrompt.includes('корм') || lowerPrompt.includes('кошек') || lowerPrompt.includes('кошач') || lowerPrompt.includes('кот')) {

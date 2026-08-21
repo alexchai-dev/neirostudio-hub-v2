@@ -334,13 +334,23 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
 
       if (response.ok) {
         const data = await response.json();
-        if (data.text) {
-          setLyricsText(data.text);
+        const textResult = data.text || data.copyText || data.result;
+        if (textResult) {
+          setLyricsText(textResult);
           triggerHaptic('heavy');
+        } else {
+          throw new Error('Empty AI response');
         }
+      } else {
+        throw new Error('Response not OK');
       }
     } catch (err) {
       console.log('Lyrics generation error:', err);
+      // Client-side fallback song template
+      const fallbackLyrics = lang === 'ua'
+        ? `[Verse 1]\nСьогодні особливе свято й день!\nЛунає тисяча веселих пісень!\n${songTopic}\nХапай придарки, посмішки й тепло!\n\n[Chorus]\nЗ днем народження вітаєм!\nЩастя й радості бажаєм!\nХай збуваються всі мрії,\nСвітла, сонця та надії!\n\n[Verse 2]\nХай посмішка цвіте щодня у тебе,\nІ сяє мирне волошкове небо!\n\n[Outro]\nВітаємо!`
+        : `[Verse 1]\nСегодня особый и праздничный день!\nПоем мы сотни веселых песен!\n${songTopic}\nВстречай подарки, улыбки, тепло!\n\n[Chorus]\nС днем рождения поздравляем!\nСчастья, радости желаем!\nПусть сбываются мечты,\nПраздник света и красоты!\n\n[Verse 2]\nПусть каждый миг приносит вдохновение,\nОтличное у всех настроение!\n\n[Outro]\nПоздравляем!`;
+      setLyricsText(fallbackLyrics);
     } finally {
       setIsGeneratingLyrics(false);
     }
