@@ -326,9 +326,9 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           module: 'copywriter',
-          category: 'post',
+          category: 'song',
           lang,
-          topic: `Напиши рифмованный текст песни для события: "${eventName}". Вокал: ${selectedVocal}. Жанр: ${genreName}. Детали от заказчика: "${songTopic}". Обязательно структурируй текст тегами [Intro], [Verse 1], [Pre-Chorus], [Chorus], [Verse 2], [Bridge], [Outro]. Не используй звездочки **.`
+          topic: `Напиши веселый рифмованный текст песни для праздника: "${eventName}". Вокал: ${selectedVocal}. Жанр: ${genreName}. Имена и детали: "${songTopic}". Напиши под каждым тегом [Verse 1], [Chorus], [Verse 2] по 4 рифмованные строки.`
         })
       });
 

@@ -22,8 +22,17 @@ export default async function handler(req, res) {
     const taskId = `music_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
     const FAL_KEY = process.env.FAL_KEY || process.env.FAL_API_KEY;
 
+    // Clean and format lyrics with safeguard for empty tags
+    let formattedLyrics = lyrics ? lyrics.trim() : '';
+    const linesWithoutTags = formattedLyrics.replace(/\[.*?\]/g, '').trim();
+
+    if (!linesWithoutTags || linesWithoutTags.length < 10) {
+      const topicText = prompt || 'Праздник и радость!';
+      formattedLyrics = `[Verse 1]\nС днем рождения поздравляем!\nСчастья, радости желаем!\n${topicText}\n\n[Chorus]\nПусть сбываются мечты,\nПраздник света и красоты!`;
+    }
+
     // Structured Prompt with Watermark Spoken Tag
-    const watermarkLyrics = lyrics ? `[Intro] (spoken intro: "NeiroStudio Audio")\n${lyrics}` : lyrics;
+    const watermarkLyrics = `[Intro] (spoken intro: "NeiroStudio Audio")\n${formattedLyrics}`;
     const stylePrompt = `${genre || 'Pop'} music, ${vocal || 'female'} vocal, ${event || 'party'} theme. Bright production, high quality, melodic.`;
 
     // Save initial task state
