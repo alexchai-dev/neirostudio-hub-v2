@@ -35,30 +35,43 @@ export default async function handler(req, res) {
       if (falStatusRes.ok) {
         const falStatus = await falStatusRes.json();
         console.log(`Fal Status Poll for ${falRequestId}:`, falStatus.status);
+        const statusStr = (falStatus.status || '').toUpperCase();
 
-        if (falStatus.status === 'COMPLETED') {
+        if (statusStr === 'COMPLETED' || statusStr === 'OK' || statusStr === 'SUCCESS') {
           const resultRes = await fetch(`${baseEndpoint}/requests/${falRequestId}`, {
             headers: { "Authorization": authHeader }
           });
           if (resultRes.ok) {
             const resultData = await resultRes.json();
-            const audioUrl = resultData.audio?.url || resultData.audio_url || resultData.output?.url || resultData.audio_file?.url;
+            console.log('Fal Result Data:', JSON.stringify(resultData));
+            const audioUrl = resultData.audio?.url || 
+                             resultData.audio_url || 
+                             resultData.output?.url || 
+                             resultData.audio_file?.url ||
+                             resultData.audio?.file_url ||
+                             (typeof resultData.audio === 'string' ? resultData.audio : null);
             if (audioUrl) {
               return res.status(200).json({ ok: true, status: 'completed', audioUrl });
             }
           }
-        } else if (falStatus.status === 'IN_PROGRESS' || falStatus.status === 'IN_QUEUE') {
-          const taskAge = task ? (Date.now() - task.createdAt) : 15000;
-          const progressCalc = Math.min(Math.floor((taskAge / 45000) * 90) + 10, 95);
-          return res.status(200).json({
-            ok: true,
-            status: 'processing',
-            progress: progressCalc
-          });
         }
+        
+        // Return processing for all non-completed Fal queue states (IN_PROGRESS, IN_QUEUE, PENDING, QUEUED)
+        return res.status(200).json({
+          ok: true,
+          status: 'processing',
+          progress: 50,
+          falStatus: falStatus.status
+        });
       } else {
         const statusErrText = await falStatusRes.text();
         console.log(`Fal Status Poll Error (${falStatusRes.status}):`, statusErrText);
+        return res.status(200).json({
+          ok: true,
+          status: 'processing',
+          progress: 30,
+          falError: statusErrText
+        });
       }
     } catch (err) {
       console.log('Fal Status Polling Error:', err);
