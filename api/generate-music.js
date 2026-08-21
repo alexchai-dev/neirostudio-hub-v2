@@ -32,23 +32,18 @@ export default async function handler(req, res) {
     }
 
     // Dual-Prompt Engineering for MiniMax Music 3.0
-    // 1. Style Prompt: Genre, Vocal, Tempo, Instruments, Mood
+    // 1. Style Prompt: Genre, Vocal, Tempo, Instruments, Mood, Vocal Triggers (melodic singing, vocal harmony, clear pitch)
     const genreStyle = genre && genre !== 'custom' ? genre : 'Pop';
-    const vocalStyle = vocal && vocal !== 'ai' ? `${vocal} vocal` : 'female vocal';
+    const vocalStyle = vocal && vocal !== 'ai' ? `${vocal} lead vocal` : 'female lead vocal';
     const eventTheme = event || 'celebration';
-    const stylePrompt = `${genreStyle} music, ${vocalStyle}, ${eventTheme} theme, upbeat pop synth beat, bright production, energetic, joyful, 128 BPM, high fidelity studio recording.`;
+    const stylePrompt = `${genreStyle} music, ${vocalStyle}, melodic singing, vocal harmony, clear pitch, sung vocals, ${eventTheme} theme, upbeat pop synth beat, bright production, energetic, joyful, 128 BPM, high fidelity studio recording.`;
 
-    // 2. Lyrics Prompt: Structured Tags ([intro], [verse], [chorus], [outro])
+    // 2. Lyrics Prompt: Structured Tags ([Verse 1], [Chorus], [Verse 2], [Outro])
     const hasStructuralTags = /\[(verse|chorus|intro|outro|bridge|pre-chorus)\]/i.test(formattedLyrics);
 
     if (!hasStructuralTags) {
       const topicContent = prompt || 'Свято та веселощі!';
-      formattedLyrics = `[intro]\n(bright synth beat intro)\n\n[verse]\n${formattedLyrics || topicContent}\n\n[chorus]\nЗ днем народження вітаємо!\nЩастя й радості бажаємо!\nХай збуваються всі мрії!\n\n[outro]\n(music fade out)`;
-    } else {
-      // Ensure intro tag exists for MiniMax 3.0 structure
-      if (!/\[intro\]/i.test(formattedLyrics)) {
-        formattedLyrics = `[intro]\n(upbeat intro)\n\n${formattedLyrics}`;
-      }
+      formattedLyrics = `[Verse 1]\n${formattedLyrics || topicContent}\n\n[Chorus]\nЗ днем народження вітаємо!\nЩастя й радості бажаємо!\nХай збуваються всі мрії!\n\n[Outro]\nВітаємо!`;
     }
 
     // Save initial task state with dual prompt details
