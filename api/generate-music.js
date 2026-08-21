@@ -32,11 +32,11 @@ export default async function handler(req, res) {
     }
 
     // Dual-Prompt Engineering for MiniMax Music 3.0
-    // 1. Style Prompt: Genre, Vocal, Tempo, Instruments, Mood, Vocal Triggers (melodic singing, vocal harmony, clear pitch)
+    // 1. Style Prompt: Genre, Vocal, Tempo, Instruments, Mood, Vocal Triggers (Eurovision pop, powerful emotional singing, high notes)
     const genreStyle = genre && genre !== 'custom' ? genre : 'Pop';
     const vocalStyle = vocal && vocal !== 'ai' ? `${vocal} lead vocal` : 'female lead vocal';
     const eventTheme = event || 'celebration';
-    const stylePrompt = `${genreStyle} music, ${vocalStyle}, melodic singing, vocal harmony, clear pitch, sung vocals, ${eventTheme} theme, upbeat pop synth beat, bright production, energetic, joyful, 128 BPM, high fidelity studio recording.`;
+    const stylePrompt = `${genreStyle} Eurovision pop, ${vocalStyle}, powerful emotional singing, clear melodic pitch, high notes, ${eventTheme} theme, upbeat pop synth beat, bright production, energetic, joyful, 128 BPM, high fidelity studio recording.`;
 
     // 2. Lyrics Prompt: Structured Tags ([Verse 1], [Chorus], [Verse 2], [Outro])
     const hasStructuralTags = /\[(verse|chorus|intro|outro|bridge|pre-chorus)\]/i.test(formattedLyrics);
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
       falRequestId: null
     });
 
-    // Submit request to Fal.ai Queue (MiniMax Music 3.0)
+    // Submit request to Fal.ai Queue (MiniMax Music 3.0 in Pure Text-to-Music Mode)
     if (FAL_KEY) {
       const cleanFalKey = FAL_KEY.trim().replace(/^["']|["']$/g, '');
       const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : (cleanFalKey.startsWith("Bearer ") ? cleanFalKey : `Key ${cleanFalKey}`);
@@ -68,10 +68,6 @@ export default async function handler(req, res) {
         "https://queue.fal.run/fal-ai/minimax-music",
         "https://queue.fal.run/fal-ai/minimax/music-3"
       ];
-
-      const refAudio = (vocal === 'male') 
-        ? "https://neirostudio-hub-v2.vercel.app/audio/ua_male.mp3" 
-        : "https://neirostudio-hub-v2.vercel.app/audio/celebration_mixed.mp3";
 
       for (const endpoint of endpointsToTry) {
         try {
@@ -83,8 +79,7 @@ export default async function handler(req, res) {
             },
             body: JSON.stringify({
               prompt: stylePrompt,
-              lyrics: formattedLyrics,
-              reference_audio_url: refAudio
+              lyrics: formattedLyrics
             })
           });
 
