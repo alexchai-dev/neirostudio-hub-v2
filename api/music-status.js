@@ -63,7 +63,12 @@ export default async function handler(req, res) {
             const audioUrl = findAudioUrl(resultData);
             if (audioUrl) {
               return res.status(200).json({ ok: true, status: 'completed', audioUrl, rawResult: resultData });
+            } else {
+              return res.status(200).json({ ok: true, status: 'completed_no_audio', rawResult: resultData });
             }
+          } else {
+            const resultErr = await resultRes.text();
+            return res.status(200).json({ ok: true, status: 'result_fetch_failed', resultStatus: resultRes.status, resultErr });
           }
         }
         
