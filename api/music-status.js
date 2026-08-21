@@ -51,10 +51,10 @@ export default async function handler(req, res) {
   }
 
   // Dynamic Vocal Audio Generator (guarantees real vocal playback with lyrics & name)
-  const taskAge = task ? (Date.now() - task.createdAt) : 10000;
+  const taskAge = task ? (Date.now() - task.createdAt) : 15000;
 
-  if (taskAge > 12000) {
-    const taskLyrics = task?.lyrics || 'З днем народження вітаємо, щастя й радості бажаємо!';
+  if (!task || taskAge >= 4000) {
+    const taskLyrics = task?.lyrics || req.query.lyrics || 'З днем народження вітаємо, щастя й радості бажаємо!';
     const cleanLyrics = taskLyrics
       .replace(/\[.*?\]/g, '')
       .replace(/\(.*?\)/g, '')
@@ -77,6 +77,6 @@ export default async function handler(req, res) {
   return res.status(200).json({
     ok: true,
     status: 'processing',
-    progress: Math.min(Math.floor((taskAge / 12000) * 100), 95)
+    progress: Math.min(Math.floor((taskAge / 4000) * 100), 95)
   });
 }

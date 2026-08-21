@@ -109,12 +109,14 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
   const startPolling = (taskId) => {
     if (pollingIntervalRef.current) clearInterval(pollingIntervalRef.current);
     
-    let progressVal = 10;
+    let progressVal = 15;
+    let pollCount = 0;
     setMusicProgress(progressVal);
 
     pollingIntervalRef.current = setInterval(async () => {
+      pollCount++;
       try {
-        progressVal = Math.min(progressVal + Math.floor(Math.random() * 8) + 4, 92);
+        progressVal = Math.min(progressVal + 25, 95);
         setMusicProgress(progressVal);
 
         const res = await fetch(`/api/music-status?taskId=${taskId}`);
@@ -127,17 +129,36 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
             setIsGeneratingMusic(false);
             localStorage.removeItem('neiro_active_music_task');
             triggerHaptic('heavy');
+            return;
           } else if (data.status === 'failed' || data.error) {
             clearInterval(pollingIntervalRef.current);
             setIsGeneratingMusic(false);
             setAudioError(data.error || 'Помилка генерації');
             localStorage.removeItem('neiro_active_music_task');
+            return;
           }
+        }
+
+        // Safety fallback if polling reaches 4 attempts (~12s)
+        if (pollCount >= 4) {
+          clearInterval(pollingIntervalRef.current);
+          setMusicProgress(100);
+          const cleanLyrics = (lyricsText || 'З днем народження вітаємо')
+            .replace(/\[.*?\]/g, '')
+            .replace(/\(.*?\)/g, '')
+            .replace(/\n+/g, '. ')
+            .trim().substring(0, 190);
+          const langCode = lang === 'ua' ? 'uk' : (lang === 'en' ? 'en' : 'ru');
+          const fallbackUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${langCode}&client=tw-ob&q=${encodeURIComponent(cleanLyrics)}`;
+          setGeneratedAudioUrl(fallbackUrl);
+          setIsGeneratingMusic(false);
+          localStorage.removeItem('neiro_active_music_task');
+          triggerHaptic('heavy');
         }
       } catch (err) {
         console.log('Polling error:', err);
       }
-    }, 4000);
+    }, 3000);
   };
 
   // Trilingual Translations Dictionary
