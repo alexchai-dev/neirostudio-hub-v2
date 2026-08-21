@@ -51,14 +51,22 @@ export default async function handler(req, res) {
     }
   }
 
-  // Self-Hosted Produced Vocal Celebration Songs (Happy Birthday / Love Vocals)
+  // Self-Hosted Produced Vocal Songs matched to Language & Vocal Choice
   const taskAge = task ? (Date.now() - task.createdAt) : 15000;
 
   if (!task || taskAge >= 3000) {
-    const selectedEvent = task?.event || 'birthday';
-    const celebrationAudioUrl = (selectedEvent === 'wedding' || selectedEvent === 'confession')
-      ? "/audio/love.mp3"
-      : "/audio/celebration.mp3";
+    const selectedVocal = task?.vocal || 'female';
+    const selectedLang = task?.lang || 'ua';
+
+    let celebrationAudioUrl = "/audio/celebration.mp3"; // Ukrainian Female Voice (Polina)
+
+    if (selectedLang === 'ua') {
+      celebrationAudioUrl = selectedVocal === 'male' ? "/audio/ua_male.mp3" : "/audio/celebration.mp3";
+    } else if (selectedLang === 'ru') {
+      celebrationAudioUrl = "/audio/ru_female.mp3";
+    } else if (selectedLang === 'en') {
+      celebrationAudioUrl = "/audio/en_female.mp3";
+    }
 
     return res.status(200).json({
       ok: true,
