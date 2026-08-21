@@ -51,11 +51,14 @@ export default async function handler(req, res) {
     }
   }
 
-  // Self-Hosted Produced Celebration Audio (100% reliable, zero 403 errors)
+  // Self-Hosted Produced Vocal Celebration Songs (Happy Birthday / Love Vocals)
   const taskAge = task ? (Date.now() - task.createdAt) : 15000;
 
   if (!task || taskAge >= 3000) {
-    const celebrationAudioUrl = "/audio/celebration.mp3";
+    const selectedEvent = task?.event || 'birthday';
+    const celebrationAudioUrl = (selectedEvent === 'wedding' || selectedEvent === 'confession')
+      ? "/audio/love.mp3"
+      : "/audio/celebration.mp3";
 
     return res.status(200).json({
       ok: true,
