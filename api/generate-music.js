@@ -35,22 +35,29 @@ export default async function handler(req, res) {
     const watermarkLyrics = `[Intro] (spoken intro: "NeiroStudio Audio")\n${formattedLyrics}`;
     const stylePrompt = `${genre || 'Pop'} music, ${vocal || 'female'} vocal, ${event || 'party'} theme. Bright production, high quality, melodic.`;
 
-    // Save initial task state
+    // Save initial task state with lyrics and details
     global._neiroMusicTasks.set(taskId, {
       id: taskId,
       status: 'processing',
       createdAt: Date.now(),
       prompt: stylePrompt,
+      lyrics: formattedLyrics,
+      lang: lang || 'ua',
+      vocal: vocal || 'female',
+      genre: genre || 'pop',
       falRequestId: null
     });
 
     // If FAL_KEY is available, trigger Fal Audio API queue
     if (FAL_KEY) {
       try {
+        const cleanFalKey = FAL_KEY.trim();
+        const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
+
         const falRes = await fetch("https://queue.fal.run/fal-ai/minimax/music", {
           method: "POST",
           headers: {
-            "Authorization": `Key ${FAL_KEY}`,
+            "Authorization": authHeader,
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
@@ -62,10 +69,9 @@ export default async function handler(req, res) {
         if (falRes.ok) {
           const falData = await falRes.json();
           const falRequestId = falData.request_id;
+          const currentTask = global._neiroMusicTasks.get(taskId) || {};
           global._neiroMusicTasks.set(taskId, {
-            id: taskId,
-            status: 'processing',
-            createdAt: Date.now(),
+            ...currentTask,
             falRequestId
           });
         }

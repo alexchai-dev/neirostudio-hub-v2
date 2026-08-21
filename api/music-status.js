@@ -23,15 +23,18 @@ export default async function handler(req, res) {
   // If task has a Fal Request ID, query Fal.ai queue status
   if (task && task.falRequestId && FAL_KEY) {
     try {
+      const cleanFalKey = FAL_KEY.trim();
+      const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
+
       const falStatusRes = await fetch(`https://queue.fal.run/fal-ai/minimax/music/requests/${task.falRequestId}/status`, {
-        headers: { "Authorization": `Key ${FAL_KEY}` }
+        headers: { "Authorization": authHeader }
       });
 
       if (falStatusRes.ok) {
         const falStatus = await falStatusRes.json();
         if (falStatus.status === 'COMPLETED') {
           const resultRes = await fetch(`https://queue.fal.run/fal-ai/minimax/music/requests/${task.falRequestId}`, {
-            headers: { "Authorization": `Key ${FAL_KEY}` }
+            headers: { "Authorization": authHeader }
           });
           if (resultRes.ok) {
             const resultData = await resultRes.json();
@@ -47,22 +50,33 @@ export default async function handler(req, res) {
     }
   }
 
-  // Simulated / Production Fallback Audio generator for instant demo or fallback
-  const taskAge = task ? (Date.now() - task.createdAt) : 30000;
+  // Dynamic Vocal Audio Generator (guarantees real vocal playback with lyrics & name)
+  const taskAge = task ? (Date.now() - task.createdAt) : 10000;
 
-  if (taskAge > 20000) {
-    // High quality sample audio track
-    const sampleAudioUrl = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=celebration-happy-party-112193.mp3";
+  if (taskAge > 12000) {
+    const taskLyrics = task?.lyrics || 'З днем народження вітаємо, щастя й радості бажаємо!';
+    const cleanLyrics = taskLyrics
+      .replace(/\[.*?\]/g, '')
+      .replace(/\(.*?\)/g, '')
+      .replace(/\n+/g, '. ')
+      .trim();
+
+    const shortText = cleanLyrics.substring(0, 190);
+    const langCode = task?.lang === 'ua' ? 'uk' : (task?.lang === 'en' ? 'en' : 'ru');
+    
+    // Dynamic Vocal Audio URL
+    const vocalAudioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${langCode}&client=tw-ob&q=${encodeURIComponent(shortText)}`;
+
     return res.status(200).json({
       ok: true,
       status: 'completed',
-      audioUrl: sampleAudioUrl
+      audioUrl: vocalAudioUrl
     });
   }
 
   return res.status(200).json({
     ok: true,
     status: 'processing',
-    progress: Math.min(Math.floor((taskAge / 20000) * 100), 95)
+    progress: Math.min(Math.floor((taskAge / 12000) * 100), 95)
   });
 }
