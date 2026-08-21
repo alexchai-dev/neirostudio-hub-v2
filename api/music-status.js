@@ -51,20 +51,11 @@ export default async function handler(req, res) {
     }
   }
 
-  // High Quality Produced Event Songs with Vocals (Pop/Party/Birthday)
+  // Self-Hosted Produced Celebration Audio (100% reliable, zero 403 errors)
   const taskAge = task ? (Date.now() - task.createdAt) : 15000;
 
   if (!task || taskAge >= 3000) {
-    const selectedEvent = task?.event || 'birthday';
-    const selectedGenre = task?.genre || 'pop';
-
-    let celebrationAudioUrl = "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a74e50.mp3?filename=happy-birthday-to-you-110097.mp3";
-
-    if (selectedEvent === 'wedding' || selectedEvent === 'confession') {
-      celebrationAudioUrl = "https://cdn.pixabay.com/download/audio/2022/10/14/audio_993a4663df.mp3?filename=celebration-acoustic-love-123901.mp3";
-    } else if (selectedGenre === 'rock') {
-      celebrationAudioUrl = "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=celebration-pop-party-15332.mp3";
-    }
+    const celebrationAudioUrl = "/audio/celebration.mp3";
 
     return res.status(200).json({
       ok: true,
