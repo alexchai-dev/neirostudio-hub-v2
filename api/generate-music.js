@@ -79,7 +79,8 @@ export default async function handler(req, res) {
             },
             body: JSON.stringify({
               prompt: stylePrompt,
-              lyrics: formattedLyrics
+              lyrics: formattedLyrics,
+              reference_audio_url: "https://neirostudio-hub-v2.vercel.app/audio/celebration.mp3"
             })
           });
 
