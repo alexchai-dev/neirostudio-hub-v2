@@ -328,7 +328,10 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
           module: 'copywriter',
           category: 'song',
           lang,
-          topic: `Напиши веселый рифмованный текст песни для праздника: "${eventName}". Вокал: ${selectedVocal}. Жанр: ${genreName}. Имена и детали: "${songTopic}". Напиши под каждым тегом [Verse 1], [Chorus], [Verse 2] по 4 рифмованные строки.`
+          topic: songTopic,
+          event: eventName,
+          vocal: selectedVocal,
+          genre: genreName
         })
       });
 

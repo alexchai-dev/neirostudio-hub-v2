@@ -72,6 +72,10 @@ export default async function handler(req, res) {
           const controller = new AbortController();
           const timeoutId = setTimeout(() => controller.abort(), 6000);
 
+          const userMessageContent = userCat === 'song'
+            ? `Напиши красивую весёлую песню на языке ${userLang}. Событие: "${req.body.event || ''}". Жанр: "${req.body.genre || ''}". Вокал: "${req.body.vocal || ''}". Имя и подробности: "${userTopic}". Обязательно вставь имя и детали в стихи! Под каждым тегом [Verse 1], [Chorus], [Verse 2] напиши по 4 рифмованные строки.`
+            : `Формат контента: ${userCat.toUpperCase()}. Задача/Тема: "${userTopic}". Напиши текст строго в этом формате.`;
+
           const nimRes = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -82,7 +86,7 @@ export default async function handler(req, res) {
               model: modelName,
               messages: [
                 { role: "system", content: systemInstruction },
-                { role: "user", content: `Формат контента: ${userCat.toUpperCase()}. Задача/Тема: "${userTopic}". Напиши текст строго в этом формате.` }
+                { role: "user", content: userMessageContent }
               ],
               temperature: 0.85,
               max_tokens: 850
@@ -117,11 +121,11 @@ export default async function handler(req, res) {
         // 0. SONG LYRICS SPECIFIC FALLBACK
         if (userCat === 'song') {
           if (userLang === 'ua') {
-            copyText = `[Intro]\n(Яскрава святкова музика)\n\n[Verse 1]\nСьогодні особливий день і свято,\nЗібралися ми, щоб привітати!\n${cleanTopic} — день чудовий і яскравий,\nХай буде настрій радісний, цікавий!\n\n[Chorus]\nЗ днем народження вітаєм!\nЩастя й радості бажаєм!\nХай збуваються всі мрії,\nСвітла, сонця та надії!\n\n[Verse 2]\nХай посмішка цвіте щодня у тебе,\nІ сяє мирне волошкове небо!\nСюрпризи, подарунки та пісні,\nХай будуть найкращі ці дні!\n\n[Outro]\nЗ днем народження! Ура!`;
+            copyText = `[Intro]\n(Яскрава святкова музика)\n\n[Verse 1]\nСьогодні особливий день і свято,\nЗібралися ми зі святом привітати!\n${cleanTopic} — це просто супер-клас,\nХай буде настрій радісний у нас!\n\n[Chorus]\nЗ днем народження вітаємо!\nЩастя, радості та посмішок бажаємо!\nХай збуваються усі найкращі мрії,\nСвітла, сонця, радості й надії!\n\n[Verse 2]\nХай посмішка цвіте щодня у тебе,\nІ сяє мирне волошкове небо!\nСюрпризи, подарунки та пісні,\nХай будуть найкращі ці святкові дні!\n\n[Outro]\nЗ днем народження! Ура!`;
           } else if (userLang === 'en') {
-            copyText = `[Intro]\n(Upbeat music starting)\n\n[Verse 1]\nToday is a special day to celebrate,\nGather around, let's open the gate!\n${cleanTopic} is here, let's cheer out loud,\nMaking everyone happy and proud!\n\n[Chorus]\nHappy Birthday, let's sing together!\nWishing you joy and bright warm weather!\nMay all your dreams come shining true,\nThis special song is just for you!\n\n[Verse 2]\nLaughter and smiles all around today,\nFun and presents along the way!\nKeep on dancing, keep on singing high,\nUnderneath the sparkling summer sky!\n\n[Outro]\nHappy Birthday! Party time!`;
+            copyText = `[Intro]\n(Upbeat celebratory music)\n\n[Verse 1]\nToday is a special day to celebrate,\nGather around, let's open up the gate!\n${cleanTopic} is here, let's cheer out loud,\nMaking everyone happy and proud!\n\n[Chorus]\nHappy Birthday, let's sing together!\nWishing you joy and bright warm weather!\nMay all your dreams come shining true,\nThis special song is just for you!\n\n[Verse 2]\nLaughter and smiles all around today,\nFun and presents along the way!\nKeep on dancing, keep on singing high,\nUnderneath the sparkling summer sky!\n\n[Outro]\nHappy Birthday! Party time!`;
           } else {
-            copyText = `[Intro]\n(Праздничная веселая музыка)\n\n[Verse 1]\nСегодня особый день и праздник,\nСобрались друзья, и смех, и радость!\n${cleanTopic} — день волшебный и яркий,\nУлыбки, поздравления и подарки!\n\n[Chorus]\nС днем рождения поздравляем!\nСчастья, радости желаем!\nПусть сбываются мечты,\nПраздник света и красоты!\n\n[Verse 2]\nПусть каждый миг приносит вдохновение,\nОтличное у всех настроение!\nТанец, смех и громкое "Ура!",\nПраздновать пришла пора!\n\n[Outro]\nС днем рождения! Поздравляем!`;
+            copyText = `[Intro]\n(Праздничная веселая музыка)\n\n[Verse 1]\nСегодня особый день и праздник,\nСобрались друзья, и смех, и радость!\n${cleanTopic} — волшебный день у нас,\nУлыбки, поздравления и супер-класс!\n\n[Chorus]\nС днем рождения поздравляем!\nСчастья, радости и смеха желаем!\nПусть сбываются все яркие мечты,\nПраздник света, радости и красоты!\n\n[Verse 2]\nПусть каждый миг приносит вдохновение,\nОтличное у всех настроение!\nТанец, смех и громкое "Ура!",\nПраздновать пришла пора!\n\n[Outro]\nС днем рождения! Поздравляем!`;
           }
         }
         // 1. PETS / CATS / SPHYNX DOMAIN
