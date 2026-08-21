@@ -50,33 +50,48 @@ export default async function handler(req, res) {
 
     // If FAL_KEY is available, trigger Fal Audio API queue
     if (FAL_KEY) {
-      try {
-        const cleanFalKey = FAL_KEY.trim();
-        const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
+      const cleanFalKey = FAL_KEY.trim();
+      const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
 
-        const falRes = await fetch("https://queue.fal.run/fal-ai/minimax/music", {
-          method: "POST",
-          headers: {
-            "Authorization": authHeader,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            prompt: stylePrompt,
-            lyrics: watermarkLyrics || prompt || "NeiroStudio celebration song"
-          })
-        });
+      const endpointsToTry = [
+        "https://queue.fal.run/fal-ai/minimax-music",
+        "https://queue.fal.run/fal-ai/minimax/music"
+      ];
 
-        if (falRes.ok) {
-          const falData = await falRes.json();
-          const falRequestId = falData.request_id;
-          const currentTask = global._neiroMusicTasks.get(taskId) || {};
-          global._neiroMusicTasks.set(taskId, {
-            ...currentTask,
-            falRequestId
+      for (const endpoint of endpointsToTry) {
+        try {
+          const falRes = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Authorization": authHeader,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              prompt: stylePrompt,
+              lyrics: watermarkLyrics || prompt || "NeiroStudio celebration song"
+            })
           });
+
+          if (falRes.ok) {
+            const falData = await falRes.json();
+            const falRequestId = falData.request_id;
+            if (falRequestId) {
+              const currentTask = global._neiroMusicTasks.get(taskId) || {};
+              global._neiroMusicTasks.set(taskId, {
+                ...currentTask,
+                falRequestId,
+                falEndpoint: endpoint
+              });
+              console.log('Fal Music Queue successfully created:', falRequestId, endpoint);
+              break;
+            }
+          } else {
+            const errText = await falRes.text();
+            console.log(`Fal endpoint ${endpoint} failed (${falRes.status}):`, errText);
+          }
+        } catch (falErr) {
+          console.log(`Fal Audio trigger error on ${endpoint}:`, falErr.message);
         }
-      } catch (falErr) {
-        console.log('Fal Audio trigger error:', falErr);
       }
     }
 

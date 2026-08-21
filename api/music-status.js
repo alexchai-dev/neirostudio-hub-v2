@@ -25,20 +25,21 @@ export default async function handler(req, res) {
     try {
       const cleanFalKey = FAL_KEY.trim();
       const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
+      const baseEndpoint = task.falEndpoint || "https://queue.fal.run/fal-ai/minimax-music";
 
-      const falStatusRes = await fetch(`https://queue.fal.run/fal-ai/minimax/music/requests/${task.falRequestId}/status`, {
+      const falStatusRes = await fetch(`${baseEndpoint}/requests/${task.falRequestId}/status`, {
         headers: { "Authorization": authHeader }
       });
 
       if (falStatusRes.ok) {
         const falStatus = await falStatusRes.json();
         if (falStatus.status === 'COMPLETED') {
-          const resultRes = await fetch(`https://queue.fal.run/fal-ai/minimax/music/requests/${task.falRequestId}`, {
+          const resultRes = await fetch(`${baseEndpoint}/requests/${task.falRequestId}`, {
             headers: { "Authorization": authHeader }
           });
           if (resultRes.ok) {
             const resultData = await resultRes.json();
-            const audioUrl = resultData.audio?.url || resultData.audio_url || resultData.output?.url;
+            const audioUrl = resultData.audio?.url || resultData.audio_url || resultData.output?.url || resultData.audio_file?.url;
             if (audioUrl) {
               return res.status(200).json({ ok: true, status: 'completed', audioUrl });
             }
