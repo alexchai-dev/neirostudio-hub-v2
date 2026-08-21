@@ -11,8 +11,9 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const taskId = req.query.taskId || req.body.taskId;
-  const falRequestId = req.query.falRequestId || req.body.falRequestId || task?.falRequestId;
+  const taskId = req.query.taskId || req.body?.taskId;
+  const task = taskId ? global._neiroMusicTasks.get(taskId) : null;
+  const falRequestId = req.query.falRequestId || req.body?.falRequestId || task?.falRequestId;
 
   if (!taskId && !falRequestId) {
     return res.status(400).json({ ok: false, error: 'Missing taskId or falRequestId' });
