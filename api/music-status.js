@@ -44,14 +44,25 @@ export default async function handler(req, res) {
           if (resultRes.ok) {
             const resultData = await resultRes.json();
             console.log('Fal Result Data:', JSON.stringify(resultData));
-            const audioUrl = resultData.audio?.url || 
-                             resultData.audio_url || 
-                             resultData.output?.url || 
-                             resultData.audio_file?.url ||
-                             resultData.audio?.file_url ||
-                             (typeof resultData.audio === 'string' ? resultData.audio : null);
+
+            const findAudioUrl = (obj) => {
+              if (!obj) return null;
+              if (typeof obj === 'string' && (obj.startsWith('http://') || obj.startsWith('https://'))) return obj;
+              if (typeof obj === 'object') {
+                if (obj.url && typeof obj.url === 'string' && (obj.url.startsWith('http://') || obj.url.startsWith('https://'))) return obj.url;
+                if (obj.audio_url && typeof obj.audio_url === 'string') return obj.audio_url;
+                if (obj.file_url && typeof obj.file_url === 'string') return obj.file_url;
+                for (const k of Object.keys(obj)) {
+                  const res = findAudioUrl(obj[k]);
+                  if (res) return res;
+                }
+              }
+              return null;
+            };
+
+            const audioUrl = findAudioUrl(resultData);
             if (audioUrl) {
-              return res.status(200).json({ ok: true, status: 'completed', audioUrl });
+              return res.status(200).json({ ok: true, status: 'completed', audioUrl, rawResult: resultData });
             }
           }
         }
