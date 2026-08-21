@@ -12,31 +12,31 @@ export default async function handler(req, res) {
   }
 
   const taskId = req.query.taskId || req.body.taskId;
+  const falRequestId = req.query.falRequestId || req.body.falRequestId || task?.falRequestId;
 
-  if (!taskId) {
-    return res.status(400).json({ ok: false, error: 'Missing taskId' });
+  if (!taskId && !falRequestId) {
+    return res.status(400).json({ ok: false, error: 'Missing taskId or falRequestId' });
   }
 
   const FAL_KEY = process.env.FAL_KEY || process.env.FAL_API_KEY;
-  const task = global._neiroMusicTasks.get(taskId);
 
-  // If task has a Fal Request ID, query Fal.ai queue status for up to 120s
-  if (task && task.falRequestId && FAL_KEY) {
+  // If task has a Fal Request ID, query Fal.ai queue status directly
+  if (falRequestId && FAL_KEY) {
     try {
       const cleanFalKey = FAL_KEY.trim();
       const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
-      const baseEndpoint = task.falEndpoint || "https://queue.fal.run/fal-ai/minimax/music-3";
+      const baseEndpoint = task?.falEndpoint || "https://queue.fal.run/fal-ai/minimax/music-3";
 
-      const falStatusRes = await fetch(`${baseEndpoint}/requests/${task.falRequestId}/status`, {
+      const falStatusRes = await fetch(`${baseEndpoint}/requests/${falRequestId}/status`, {
         headers: { "Authorization": authHeader }
       });
 
       if (falStatusRes.ok) {
         const falStatus = await falStatusRes.json();
-        console.log(`Fal Status Poll for ${task.falRequestId}:`, falStatus.status);
+        console.log(`Fal Status Poll for ${falRequestId}:`, falStatus.status);
 
         if (falStatus.status === 'COMPLETED') {
-          const resultRes = await fetch(`${baseEndpoint}/requests/${task.falRequestId}`, {
+          const resultRes = await fetch(`${baseEndpoint}/requests/${falRequestId}`, {
             headers: { "Authorization": authHeader }
           });
           if (resultRes.ok) {
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
             }
           }
         } else if (falStatus.status === 'IN_PROGRESS' || falStatus.status === 'IN_QUEUE') {
-          const taskAge = Date.now() - (task.createdAt || Date.now());
+          const taskAge = task ? (Date.now() - task.createdAt) : 15000;
           const progressCalc = Math.min(Math.floor((taskAge / 45000) * 90) + 10, 95);
           return res.status(200).json({
             ok: true,

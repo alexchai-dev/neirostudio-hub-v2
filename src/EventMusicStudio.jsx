@@ -92,7 +92,7 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
           setActiveTaskId(savedTask.taskId);
           setIsGeneratingMusic(true);
           setActiveStep(4);
-          startPolling(savedTask.taskId);
+          startPolling(savedTask.taskId, savedTask.falRequestId);
         } else {
           localStorage.removeItem('neiro_active_music_task');
         }
@@ -106,7 +106,7 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
   }, []);
 
   // Polling Logic
-  const startPolling = (taskId) => {
+  const startPolling = (taskId, falRequestId) => {
     if (pollingIntervalRef.current) clearInterval(pollingIntervalRef.current);
     
     let progressVal = 15;
@@ -116,10 +116,14 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
     pollingIntervalRef.current = setInterval(async () => {
       pollCount++;
       try {
-        progressVal = Math.min(progressVal + 25, 95);
+        progressVal = Math.min(progressVal + 10, 95);
         setMusicProgress(progressVal);
 
-        const res = await fetch(`/api/music-status?taskId=${taskId}`);
+        const pollUrl = falRequestId
+          ? `/api/music-status?taskId=${taskId}&falRequestId=${falRequestId}`
+          : `/api/music-status?taskId=${taskId}`;
+
+        const res = await fetch(pollUrl);
         if (res.ok) {
           const data = await res.json();
           if (data.status === 'completed' && data.audioUrl) {
@@ -416,10 +420,11 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
           setActiveTaskId(data.taskId);
           localStorage.setItem('neiro_active_music_task', JSON.stringify({
             taskId: data.taskId,
+            falRequestId: data.falRequestId || null,
             timestamp: Date.now(),
             status: 'processing'
           }));
-          startPolling(data.taskId);
+          startPolling(data.taskId, data.falRequestId);
         } else {
           throw new Error('No task ID returned');
         }
