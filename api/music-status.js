@@ -66,8 +66,10 @@ export default async function handler(req, res) {
             }
           } else {
             const resultErr = await resultRes.text();
-            return res.status(200).json({ ok: true, status: 'result_fetch_failed', resultStatus: resultRes.status, resultErr });
+            return res.status(200).json({ ok: false, status: 'failed', error: `Помилка Fal.ai: ${resultErr}` });
           }
+        } else if (statusStr === 'FAILED' || statusStr === 'ERROR') {
+          return res.status(200).json({ ok: false, status: 'failed', error: 'Нейромережа не змогла згенерувати аудіо. Спробуйте ще раз.' });
         }
         
         // Return processing for all non-completed Fal queue states (IN_PROGRESS, IN_QUEUE, PENDING, QUEUED)

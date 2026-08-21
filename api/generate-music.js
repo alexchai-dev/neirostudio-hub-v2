@@ -69,6 +69,10 @@ export default async function handler(req, res) {
         "https://queue.fal.run/fal-ai/minimax/music-3"
       ];
 
+      const refAudio = (vocal === 'male') 
+        ? "https://neirostudio-hub-v2.vercel.app/audio/ua_male.mp3" 
+        : "https://neirostudio-hub-v2.vercel.app/audio/celebration_mixed.mp3";
+
       for (const endpoint of endpointsToTry) {
         try {
           const falRes = await fetch(endpoint, {
@@ -79,7 +83,8 @@ export default async function handler(req, res) {
             },
             body: JSON.stringify({
               prompt: stylePrompt,
-              lyrics: formattedLyrics
+              lyrics: formattedLyrics,
+              reference_audio_url: refAudio
             })
           });
 
