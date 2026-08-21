@@ -762,23 +762,38 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
               />
             </div>
 
-            {/* Generation Progress or Error */}
+            {/* Generation Progress with Audio Wave Visualizer */}
             {isGeneratingMusic && (
-              <div className="bg-slate-900/90 border border-cyan-500/40 rounded-2xl p-4 text-center flex flex-col items-center gap-3">
-                <div className="relative w-14 h-14 flex items-center justify-center">
+              <div className="bg-slate-900/90 border border-cyan-500/40 rounded-2xl p-5 text-center flex flex-col items-center gap-3.5 shadow-2xl backdrop-blur-md">
+                <div className="relative w-16 h-16 flex items-center justify-center">
                   <div className="absolute inset-0 border-4 border-cyan-500/20 border-t-cyan-400 rounded-full animate-spin" />
-                  <Music className="w-6 h-6 text-cyan-400 animate-bounce" />
+                  <Disc className="w-7 h-7 text-cyan-400 animate-spin" style={{ animationDuration: '3s' }} />
+                </div>
+
+                {/* Animated Soundwave Equalizer Bars */}
+                <div className="flex items-center justify-center gap-1 h-8 my-1">
+                  {[40, 75, 100, 60, 90, 50, 85, 95, 65, 45].map((height, idx) => (
+                    <div
+                      key={idx}
+                      className="w-1.5 bg-gradient-to-t from-cyan-500 to-purple-500 rounded-full animate-pulse"
+                      style={{
+                        height: `${height}%`,
+                        animationDelay: `${idx * 0.12}s`,
+                        animationDuration: '0.8s'
+                      }}
+                    />
+                  ))}
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-bold text-cyan-300">{curr.generatingSongText}</h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5">{curr.genNote}</p>
+                  <h4 className="text-sm font-extrabold text-cyan-300 tracking-wide">{curr.generatingSongText}</h4>
+                  <p className="text-[11px] text-slate-400 mt-1 max-w-xs leading-relaxed">{curr.genNote}</p>
                 </div>
 
-                {/* Progress bar */}
-                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                {/* Animated Progress Bar */}
+                <div className="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-700/50">
                   <div
-                    className="bg-gradient-to-r from-cyan-400 to-purple-500 h-full transition-all duration-500"
+                    className="bg-gradient-to-r from-cyan-400 via-teal-400 to-purple-500 h-full rounded-full transition-all duration-500 shadow-[0_0_12px_rgba(6,182,212,0.8)]"
                     style={{ width: `${musicProgress}%` }}
                   />
                 </div>

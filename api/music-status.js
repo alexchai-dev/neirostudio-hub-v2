@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     try {
       const cleanFalKey = FAL_KEY.trim();
       const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
-      const baseEndpoint = task.falEndpoint || "https://queue.fal.run/fal-ai/minimax-music";
+      const baseEndpoint = task.falEndpoint || "https://queue.fal.run/fal-ai/minimax/music-3";
 
       const falStatusRes = await fetch(`${baseEndpoint}/requests/${task.falRequestId}/status`, {
         headers: { "Authorization": authHeader }
@@ -44,6 +44,12 @@ export default async function handler(req, res) {
               return res.status(200).json({ ok: true, status: 'completed', audioUrl });
             }
           }
+        } else if (falStatus.status === 'IN_PROGRESS' || falStatus.status === 'IN_QUEUE') {
+          return res.status(200).json({
+            ok: true,
+            status: 'processing',
+            progress: falStatus.logs ? 50 : 30
+          });
         }
       }
     } catch (err) {

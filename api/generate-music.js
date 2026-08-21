@@ -31,11 +31,28 @@ export default async function handler(req, res) {
       formattedLyrics = `[Verse 1]\nС днем рождения поздравляем!\nСчастья, радости желаем!\n${topicText}\n\n[Chorus]\nПусть сбываются мечты,\nПраздник света и красоты!`;
     }
 
-    // Structured Prompt with Watermark Spoken Tag
-    const watermarkLyrics = `[Intro] (spoken intro: "NeiroStudio Audio")\n${formattedLyrics}`;
-    const stylePrompt = `${genre || 'Pop'} music, ${vocal || 'female'} vocal, ${event || 'party'} theme. Bright production, high quality, melodic.`;
+    // Dual-Prompt Engineering for MiniMax Music 3.0
+    // 1. Style Prompt: Genre, Vocal, Tempo, Instruments, Mood
+    const genreStyle = genre && genre !== 'custom' ? genre : 'Pop';
+    const vocalStyle = vocal && vocal !== 'ai' ? `${vocal} vocal` : 'female vocal';
+    const eventTheme = event || 'celebration';
+    const stylePrompt = `${genreStyle} music, ${vocalStyle}, ${eventTheme} theme, upbeat pop synth beat, bright production, energetic, joyful, 128 BPM, high fidelity studio recording.`;
 
-    // Save initial task state with lyrics and details
+    // 2. Lyrics Prompt: Structured Tags ([intro], [verse], [chorus], [outro])
+    let formattedLyrics = lyrics ? lyrics.trim() : '';
+    const hasStructuralTags = /\[(verse|chorus|intro|outro|bridge|pre-chorus)\]/i.test(formattedLyrics);
+
+    if (!hasStructuralTags) {
+      const topicContent = prompt || 'Свято та веселощі!';
+      formattedLyrics = `[intro]\n(bright synth beat intro)\n\n[verse]\n${formattedLyrics || topicContent}\n\n[chorus]\nЗ днем народження вітаємо!\nЩастя й радості бажаємо!\nХай збуваються всі мрії!\n\n[outro]\n(music fade out)`;
+    } else {
+      // Ensure intro tag exists for MiniMax 3.0 structure
+      if (!/\[intro\]/i.test(formattedLyrics)) {
+        formattedLyrics = `[intro]\n(upbeat intro)\n\n${formattedLyrics}`;
+      }
+    }
+
+    // Save initial task state with dual prompt details
     global._neiroMusicTasks.set(taskId, {
       id: taskId,
       status: 'processing',
@@ -48,14 +65,15 @@ export default async function handler(req, res) {
       falRequestId: null
     });
 
-    // If FAL_KEY is available, trigger Fal Audio API queue
+    // Submit request to Fal.ai Queue (MiniMax Music 3.0)
     if (FAL_KEY) {
       const cleanFalKey = FAL_KEY.trim();
       const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
 
       const endpointsToTry = [
-        "https://queue.fal.run/fal-ai/minimax-music",
-        "https://queue.fal.run/fal-ai/minimax/music"
+        "https://queue.fal.run/fal-ai/minimax/music-3",
+        "https://queue.fal.run/fal-ai/minimax-music-3",
+        "https://queue.fal.run/fal-ai/minimax-music"
       ];
 
       for (const endpoint of endpointsToTry) {
@@ -68,7 +86,7 @@ export default async function handler(req, res) {
             },
             body: JSON.stringify({
               prompt: stylePrompt,
-              lyrics: watermarkLyrics || prompt || "NeiroStudio celebration song"
+              lyrics: formattedLyrics
             })
           });
 
@@ -82,7 +100,7 @@ export default async function handler(req, res) {
                 falRequestId,
                 falEndpoint: endpoint
               });
-              console.log('Fal Music Queue successfully created:', falRequestId, endpoint);
+              console.log('Fal MiniMax 3.0 Queue successfully created:', falRequestId, endpoint);
               break;
             }
           } else {
