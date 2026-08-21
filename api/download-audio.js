@@ -14,9 +14,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    const audioRes = await fetch(audioUrl);
+    const audioRes = await fetch(audioUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'audio/mpeg, audio/*, */*'
+      }
+    });
+
     if (!audioRes.ok) {
-      return res.status(500).send('Failed to fetch audio stream');
+      console.log('download-audio fetch response not OK, redirecting to direct URL');
+      return res.redirect(302, audioUrl);
     }
 
     const arrayBuffer = await audioRes.arrayBuffer();
@@ -29,6 +36,6 @@ export default async function handler(req, res) {
     return res.status(200).send(buffer);
   } catch (err) {
     console.error('download-audio error:', err);
-    return res.status(500).send('Error downloading audio');
+    return res.redirect(302, audioUrl);
   }
 }

@@ -441,8 +441,22 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.play();
-      setIsPlaying(true);
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.log('Playback error:', err);
+            setIsPlaying(false);
+            if (generatedAudioUrl) {
+              window.open(generatedAudioUrl, '_blank');
+            }
+          });
+      } else {
+        setIsPlaying(true);
+      }
     }
   };
 
