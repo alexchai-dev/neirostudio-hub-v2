@@ -61,8 +61,8 @@ export default async function handler(req, res) {
 
     // Submit request to Fal.ai Queue (MiniMax Music 3.0)
     if (FAL_KEY) {
-      const cleanFalKey = FAL_KEY.trim();
-      const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
+      const cleanFalKey = FAL_KEY.trim().replace(/^["']|["']$/g, '');
+      const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : (cleanFalKey.startsWith("Bearer ") ? cleanFalKey : `Key ${cleanFalKey}`);
 
       const endpointsToTry = [
         "https://queue.fal.run/fal-ai/minimax-music",

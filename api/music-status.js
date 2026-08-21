@@ -24,8 +24,8 @@ export default async function handler(req, res) {
   // If task has a Fal Request ID, query Fal.ai queue status directly
   if (falRequestId && FAL_KEY) {
     try {
-      const cleanFalKey = FAL_KEY.trim();
-      const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
+      const cleanFalKey = FAL_KEY.trim().replace(/^["']|["']$/g, '');
+      const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : (cleanFalKey.startsWith("Bearer ") ? cleanFalKey : `Key ${cleanFalKey}`);
       const baseEndpoint = task?.falEndpoint || "https://queue.fal.run/fal-ai/minimax-music";
 
       const falStatusRes = await fetch(`${baseEndpoint}/requests/${falRequestId}/status`, {
@@ -56,6 +56,9 @@ export default async function handler(req, res) {
             progress: progressCalc
           });
         }
+      } else {
+        const statusErrText = await falStatusRes.text();
+        console.log(`Fal Status Poll Error (${falStatusRes.status}):`, statusErrText);
       }
     } catch (err) {
       console.log('Fal Status Polling Error:', err);
