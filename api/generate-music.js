@@ -32,11 +32,10 @@ export default async function handler(req, res) {
     }
 
     // Dual-Prompt Engineering for MiniMax Music 3.0
-    // 1. Style Prompt: Genre, Vocal, Tempo, Instruments, Mood, Vocal Triggers (Eurovision pop, powerful emotional singing, high notes)
+    // 1. Pure Musical Style Prompt (STRICTLY MUSICAL TERMS ONLY - NO USER TEXT!)
     const genreStyle = genre && genre !== 'custom' ? genre : 'Pop';
     const vocalStyle = vocal && vocal !== 'ai' ? `${vocal} lead vocal` : 'female lead vocal';
-    const eventTheme = event || 'celebration';
-    const stylePrompt = `${genreStyle} Eurovision pop, ${vocalStyle}, powerful emotional singing, clear melodic pitch, high notes, ${eventTheme} theme, upbeat pop synth beat, bright production, energetic, joyful, 128 BPM, high fidelity studio recording.`;
+    const stylePrompt = `${genreStyle} Eurovision pop music, ${vocalStyle}, powerful emotional singing, clear melodic pitch, high notes, upbeat pop synth beat, bright production, energetic, joyful, 128 BPM, high fidelity studio recording.`;
 
     // 2. Lyrics Prompt: Structured Tags ([Verse 1], [Chorus], [Verse 2], [Outro])
     const hasStructuralTags = /\[(verse|chorus|intro|outro|bridge|pre-chorus)\]/i.test(formattedLyrics);
