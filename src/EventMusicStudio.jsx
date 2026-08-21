@@ -424,7 +424,8 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
           throw new Error('No task ID returned');
         }
       } else {
-        throw new Error('Server error starting music generation');
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || 'Server error starting music generation');
       }
     } catch (err) {
       console.log('Error triggering music:', err);

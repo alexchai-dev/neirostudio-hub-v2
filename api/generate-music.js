@@ -39,7 +39,6 @@ export default async function handler(req, res) {
     const stylePrompt = `${genreStyle} music, ${vocalStyle}, ${eventTheme} theme, upbeat pop synth beat, bright production, energetic, joyful, 128 BPM, high fidelity studio recording.`;
 
     // 2. Lyrics Prompt: Structured Tags ([intro], [verse], [chorus], [outro])
-    let formattedLyrics = lyrics ? lyrics.trim() : '';
     const hasStructuralTags = /\[(verse|chorus|intro|outro|bridge|pre-chorus)\]/i.test(formattedLyrics);
 
     if (!hasStructuralTags) {
