@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     try {
       const cleanFalKey = FAL_KEY.trim();
       const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
-      const baseEndpoint = task?.falEndpoint || "https://queue.fal.run/fal-ai/minimax/music-3";
+      const baseEndpoint = task?.falEndpoint || "https://queue.fal.run/fal-ai/minimax-music";
 
       const falStatusRes = await fetch(`${baseEndpoint}/requests/${falRequestId}/status`, {
         headers: { "Authorization": authHeader }

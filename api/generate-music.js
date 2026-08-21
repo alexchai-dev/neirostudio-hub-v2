@@ -65,9 +65,8 @@ export default async function handler(req, res) {
       const authHeader = cleanFalKey.startsWith("Key ") ? cleanFalKey : `Key ${cleanFalKey}`;
 
       const endpointsToTry = [
-        "https://queue.fal.run/fal-ai/minimax/music-3",
-        "https://queue.fal.run/fal-ai/minimax-music-3",
-        "https://queue.fal.run/fal-ai/minimax-music"
+        "https://queue.fal.run/fal-ai/minimax-music",
+        "https://queue.fal.run/fal-ai/minimax/music-3"
       ];
 
       for (const endpoint of endpointsToTry) {
