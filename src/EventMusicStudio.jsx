@@ -139,8 +139,8 @@ export default function EventMusicStudio({ onBackToHub, initialLang = 'ru' }) {
           }
         }
 
-        // Safety fallback if polling reaches 4 attempts (~12s)
-        if (pollCount >= 4) {
+        // Safety fallback if polling reaches 30 attempts (~90s)
+        if (pollCount >= 30) {
           clearInterval(pollingIntervalRef.current);
           setMusicProgress(100);
           const fallbackUrl = "/audio/celebration.mp3";

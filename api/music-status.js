@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   const FAL_KEY = process.env.FAL_KEY || process.env.FAL_API_KEY;
   const task = global._neiroMusicTasks.get(taskId);
 
-  // If task has a Fal Request ID, query Fal.ai queue status
+  // If task has a Fal Request ID, query Fal.ai queue status for up to 120s
   if (task && task.falRequestId && FAL_KEY) {
     try {
       const cleanFalKey = FAL_KEY.trim();
@@ -33,6 +33,8 @@ export default async function handler(req, res) {
 
       if (falStatusRes.ok) {
         const falStatus = await falStatusRes.json();
+        console.log(`Fal Status Poll for ${task.falRequestId}:`, falStatus.status);
+
         if (falStatus.status === 'COMPLETED') {
           const resultRes = await fetch(`${baseEndpoint}/requests/${task.falRequestId}`, {
             headers: { "Authorization": authHeader }
@@ -45,10 +47,12 @@ export default async function handler(req, res) {
             }
           }
         } else if (falStatus.status === 'IN_PROGRESS' || falStatus.status === 'IN_QUEUE') {
+          const taskAge = Date.now() - (task.createdAt || Date.now());
+          const progressCalc = Math.min(Math.floor((taskAge / 45000) * 90) + 10, 95);
           return res.status(200).json({
             ok: true,
             status: 'processing',
-            progress: falStatus.logs ? 50 : 30
+            progress: progressCalc
           });
         }
       }
@@ -57,10 +61,10 @@ export default async function handler(req, res) {
     }
   }
 
-  // Self-Hosted Produced Vocal Songs matched to Language & Vocal Choice
-  const taskAge = task ? (Date.now() - task.createdAt) : 15000;
+  // Fallback ONLY after 90 seconds or if no FAL_KEY / falRequestId
+  const taskAge = task ? (Date.now() - task.createdAt) : 90000;
 
-  if (!task || taskAge >= 3000) {
+  if (!task || !task.falRequestId || taskAge >= 90000) {
     const selectedVocal = task?.vocal || 'female';
     const selectedLang = task?.lang || 'ua';
 
@@ -81,9 +85,10 @@ export default async function handler(req, res) {
     });
   }
 
+  const progressVal = Math.min(Math.floor((taskAge / 45000) * 90) + 10, 95);
   return res.status(200).json({
     ok: true,
     status: 'processing',
-    progress: Math.min(Math.floor((taskAge / 3000) * 100), 95)
+    progress: progressVal
   });
 }
