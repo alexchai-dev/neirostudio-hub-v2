@@ -107,12 +107,13 @@ export default async function handler(req, res) {
       }
     }
 
+    const taskData = global._neiroMusicTasks.get(taskId) || {};
     return res.status(200).json({
       ok: true,
       taskId,
       status: 'processing',
       falConfigured: Boolean(FAL_KEY),
-      falRequestId: task?.falRequestId || null,
+      falRequestId: taskData.falRequestId || null,
       message: FAL_KEY ? 'Music task queued to Fal.ai' : 'Music task started (using local fallback: FAL_KEY not detected in Vercel env)'
     });
   } catch (err) {
