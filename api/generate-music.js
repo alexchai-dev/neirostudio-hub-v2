@@ -111,7 +111,9 @@ export default async function handler(req, res) {
       ok: true,
       taskId,
       status: 'processing',
-      message: 'Music task initiated successfully'
+      falConfigured: Boolean(FAL_KEY),
+      falRequestId: task?.falRequestId || null,
+      message: FAL_KEY ? 'Music task queued to Fal.ai' : 'Music task started (using local fallback: FAL_KEY not detected in Vercel env)'
     });
   } catch (err) {
     console.error('generate-music error:', err);
